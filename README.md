@@ -6,3 +6,5 @@ This repro builds on the <a href="https://www.ttm-dj.com/" target="_blank">turnt
 2) It provides a comprehensive library of popular and possible scratches
 
 If you have questions or feedback, please pm me :)
+
+&copy; 2022 Arno Simons
