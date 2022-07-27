@@ -7,4 +7,4 @@ This repro builds on the <a href="https://www.ttm-dj.com/" target="_blank">turnt
 
 If you have questions or feedback, please pm me :)
 
-&copy; 2022 Arno Simons
+2022 Arno Simons
