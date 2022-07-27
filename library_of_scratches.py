@@ -177,6 +177,7 @@ formulas = [
 ]
 
 ### functions for table
+
 def soundsAndClicks(name):
     els = re.sub(r"[XDN]|_[RL][3,4]", "", name).split("_")
     return (
@@ -223,7 +224,6 @@ data_composites = [[
     expression,
     "",
 ] for name, expression in [f.split(" = ") for f in formulas]]
-#############################################################
 
 df = pd.DataFrame(
     data=data_elements + data_composites,
@@ -515,3 +515,6 @@ special_scratches = [
         "https://www.youtube.com/watch?v=6ZHYnUdPw3g&t=141s",
     ],
 ]
+
+df2 = pd.DataFrame(data=special_scratches, index=[i[0] for i in special_scratches],columns=columns)
+df = pd.concat([df, df2])
