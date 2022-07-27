@@ -225,10 +225,7 @@ data_composites = [[
     "",
 ] for name, expression in [f.split(" = ") for f in formulas]]
 
-df = pd.DataFrame(
-    data=data_elements + data_composites,
-    index=[i[0] for i in data_elements + data_composites],
-    columns=[
+columns=[
         "Name", 
         "Code Name",
         "#Counts",
@@ -238,7 +235,12 @@ df = pd.DataFrame(
         "Turning Points", 
         "Composition",
         "Tutorial",
-    ],
+    ]
+
+df = pd.DataFrame(
+    data=data_elements + data_composites,
+    index=[i[0] for i in data_elements + data_composites],
+    columns=columns,
 )
 
 ### add tutorials
