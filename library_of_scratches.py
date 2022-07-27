@@ -225,7 +225,7 @@ data_composites = [[
     "",
 ] for name, expression in [f.split(" = ") for f in formulas]]
 
-columns=[
+columns = [
         "Name", 
         "Code Name",
         "#Counts",
@@ -252,8 +252,6 @@ df.at["f1", "Tutorial"] = "https://www.youtube.com/watch?v=P33Obuj0zAI" # 1-clic
 df.at["f1_f1", "Tutorial"] = "https://www.youtube.com/watch?v=P33Obuj0zAI" # 1-click-flare orbit
 df.at["f2", "Tutorial"] = "https://www.youtube.com/watch?v=1yqMmsQhnHU&t=189s" # 2-click-flare
 df.at["f2_f2", "Tutorial"] = "https://www.youtube.com/watch?v=1yqMmsQhnHU&t=189s" # 2-click-flare orbit
-df.at["~bD_f1D_R3", "Tutorial"] = "https://www.youtube.com/watch?v=JRaUuXhw6Qk" # 1-click tazer
-df.at["~bD_f2D_R4", "Tutorial"] = "https://www.youtube.com/watch?v=JRaUuXhw6Qk" # 2-click tazer
 
 for name in df.index: # transformers and pure transformer orbits
     if ("_" in name and re.match(r"tr\d[XD]?_tr\d[XD]?", name)) or re.match(r"tr\d[XD]?$", name):
@@ -401,9 +399,6 @@ df.at["f2_f2_L4", "Code Name"] = "tcf_L4, f2_f2_L4"
 df.at["f2X_f2X_L4", "Code Name"] = "tcfX_L4, f2X_f2X_L4"
 df.at["f2D_f2D_L4", "Code Name"] = "tcfD_L4, f2D_f2D_L4"
 
-df.at["~bD_f1D_R3", "Code Name"] = "tazer1, lazer1, ~bD_f1D_R3"
-df.at["~bD_f2D_R4", "Code Name"] = "tazer2, lazer2, ~bD_f2D_R4"
-
 ### add special scratches
 
 special_scratches = [
@@ -513,8 +508,31 @@ special_scratches = [
         4, 
         2, 
         "Yes", 
-        "???", "(b + ~b + g + ~b + b + ~g) / 1", 
+        "???", 
+        "(b + ~b + g + ~b + b + ~g) / 1", 
         "https://www.youtube.com/watch?v=6ZHYnUdPw3g&t=141s",
+    ],
+    [
+        "1-Click Tazer", 
+        "tazer1, ta1, lazer1, la1",             
+        1, 
+        3, 
+        1, 
+        "Yes", 
+        "1/3", 
+        "~bD_f1D_R3", 
+        "https://www.youtube.com/watch?v=JRaUuXhw6Qk",
+    ],
+    [
+        "2-Click Tazer", 
+        "tazer2, ta2, lazer2, la2",             
+        1, 
+        4,
+        2, 
+        "Yes", 
+        "1/4", 
+        "~bD_f2D_R4", 
+        "https://www.youtube.com/watch?v=JRaUuXhw6Qk",
     ],
 ]
 
