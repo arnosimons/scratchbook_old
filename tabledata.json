@@ -1,7 +1,7 @@
 {
     "columns": [
-        { "data" : "DT_RowId", "title" : "Id" },
-        { "data" : "supplier", "title" : "supplier" },
+        { "data" : "DT_RowId", "title" : "Name" },
+        { "data" : "supplier", "title" : "Code Name" },
         { "data" : "color", "title" : "color" }
     ],
     "data": [
