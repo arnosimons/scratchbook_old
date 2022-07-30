@@ -1050,7 +1050,6 @@ df = pd.concat([df, df2])
 # most important
 
 for indx, name in enumerate([
-    "b_tr1",
     "b_b",
     "Scribble",
     "Drills",
@@ -1085,4 +1084,3 @@ for indx, name in enumerate([
     "ct2",
 ]):
     df.at[name, "MostImportant"] =  indx
-df = df.sort_values(by=['MostImportant'])
