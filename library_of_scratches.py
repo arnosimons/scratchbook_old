@@ -201,7 +201,7 @@ data_elements = [[
     isOrbit(name),
     " is element",
     "",
-    "999",
+    999,
 ] for name in elements]
 
 data_composites = [[
@@ -212,7 +212,7 @@ data_composites = [[
     isOrbit(name),
     expression,
     "",
-    "999",
+    999,
 ] for name, expression in [f.split(" = ") for f in formulas]]
 
 columns = [
@@ -618,63 +618,63 @@ extra_data = {
     },
     
     # Fakechirps
-    "b_tr1":{
+    "tr1_tr1":{
         "Name":"Fake-Chirp",
         "CodeName":"fakechirp, fc",
     },
-    "bEx_tr1Ex":{
+    "tr1Ex_tr1Ex":{
         "Name":"Fake-Chirp (Ex-Curve)",
         "CodeName":"fakechirpEx, fcEx",
     },
-    "bLog_tr1Log":{
+    "tr1Log_tr1Log":{
         "Name":"Fake-Chirp (Log-Curve)",
         "CodeName":"fakechirpLog, fcLog",
     },
-    "b_tr1_R4":{
+    "tr1_tr1_R4":{
         "Name":"Fake-Chirp (Right-Skewed at 1/4)",
         "CodeName":"fakechirp_R4, fc_R4",
     },
-    "bEx_tr1Ex_R4":{
+    "tr1Ex_tr1Ex_R4":{
         "Name":"Fake-Chirp (Ex-Curve, Right-Skewed at 1/4)",
         "CodeName":"fakechirpEx_R4, fcEx_R4",
     },
-    "bLog_tr1Log_R4":{
+    "tr1Log_tr1Log_R4":{
         "Name":"Fake-Chirp (Log-Curve, Right-Skewed at 1/4)",
         "CodeName":"fakechirpLog_R4, fcLog_R4",
     },
-    "b_tr1_R3":{
+    "tr1_tr1_R3":{
         "Name":"Fake-Chirp (Right-Skewed at 1/3)",
         "CodeName":"fakechirp_R3, fc_R3",
     },
-    "bEx_tr1Ex_R3":{
+    "tr1Ex_tr1Ex_R3":{
         "Name":"Fake-Chirp (Ex-Curve, Right-Skewed at 1/3)",
         "CodeName":"fakechirpEx_R3, fcEx_R3",
     },
-    "bLog_tr1Log_R3":{
+    "tr1Log_tr1Log_R3":{
         "Name":"Fake-Chirp (Log-Curve, Right-Skewed at 1/3)",
         "CodeName":"fakechirpLog_R3, fcLog_R3",
     },
-    "b_tr1_L3":{
+    "tr1_tr1_L3":{
         "Name":"Fake-Chirp (Left-Skewed at 1/3)",
         "CodeName":"fakechirp_L3, fc_L3",
     },
-    "bEx_tr1Ex_L3":{
+    "tr1Ex_tr1Ex_L3":{
         "Name":"Fake-Chirp (Ex-Curve, Left-Skewed at 1/3)",
         "CodeName":"fakechirpEx_L3, fcEx_L3",
     },
-    "bLog_tr1Log_L3":{
+    "tr1Log_tr1Log_L3":{
         "Name":"Fake-Chirp (Log-Curve, Left-Skewed at 1/3)",
         "CodeName":"fakechirpLog_L3, fcLog_L3",
     },
-    "b_tr1_L4":{
+    "tr1_tr1_L4":{
         "Name":"Fake-Chirp (Left-Skewed at 1/4)",
         "CodeName":"fakechirp_L4, fc_L4",
     },
-    "bEx_tr1Ex_L4":{
+    "tr1Ex_tr1Ex_L4":{
         "Name":"Fake-Chirp (Ex-Curve, Left-Skewed at 1/4)",
         "CodeName":"fakechirpEx_L4, fcEx_L4",
     },
-    "bLog_tr1Log_L4":{
+    "tr1Log_tr1Log_L4":{
         "Name":"Fake-Chirp (Log-Curve, Left-Skewed at 1/4)",
         "CodeName":"fakechirpLog_L4, fcLog_L4",
     },
@@ -915,7 +915,7 @@ special_scratches = [
         "Yes", 
         "b_b * 2 / 1", 
         "<a href='https://www.youtube.com/watch?v=rtqTmUVjsuY' target='_blank'>DJ Noumenon &#128279;</a>",
-        "999",
+        999,
     ],
     [
         "Drills", 
@@ -926,7 +926,7 @@ special_scratches = [
         "Yes", 
         "b_b * 4 / 1", 
         "",
-        "999",
+        999,
     ],
     [
         "Swingflare", 
@@ -937,7 +937,7 @@ special_scratches = [
         "Yes", 
         "(sl + c + ~c) / 1", 
         "<a href='https://www.youtube.com/watch?v=h3o5OTIy-kQ' target='_blank'>DJ Shiftee &#128279;</a>",
-        "999",
+        999,
     ],
     [
         "1-Click-Chirpflare", 
@@ -948,7 +948,7 @@ special_scratches = [
         "Yes", 
         "(c / (1/3) + f1_f1 / (2/3)) / 2", 
         "<a href='https://www.youtube.com/watch?v=DUaY6gMONmA' target='_blank'>DJ Excess &#128279;</a>",
-        "999",
+        999,
     ],
     [
         "2-Click-Chirpflare", 
@@ -959,7 +959,7 @@ special_scratches = [
         "Yes", 
         "c / (1/2) + f2_f2 / (3/2)", 
         "",
-        "999",
+        999,
     ],
     [
         "Prizm", 
@@ -970,7 +970,7 @@ special_scratches = [
         "Yes", 
         "(f1 + ~tr1 / (1/2) + tr1 / (1/2) + ~tr2) / 2", 
         "<a href='https://www.youtube.com/watch?v=B32m9Jqqrpo' target='_blank'>Dj Fast-M &#128279;</a>",
-        "999",
+        999,
     ],
     [
         "Slicecut", 
@@ -981,7 +981,7 @@ special_scratches = [
         "No",  
         "sl / (2/3) + tr1 / (1/3)", 
         "",
-        "999",
+        999,
     ],
     [
         "Boomerang", 
@@ -992,7 +992,7 @@ special_scratches = [
         "Yes", 
         "slc + ~slc", 
         "<a href='https://www.youtube.com/watch?v=c2IrbYGs0eU' target='_blank'>DJ Dirty Digits &#128279;</a>",
-        "999",
+        999,
     ],
     [
         "Autobahn", 
@@ -1003,7 +1003,7 @@ special_scratches = [
         "Yes", 
         "sl // (1/3) / (2/3) + ct1 // (2/3) / (2/3) + (~b // (1/3) / (1/3) + ct1 // (2/3) / (2/3)).yshift(1/3) + ~ct1 / (2/3)", 
         "<a href='https://www.youtube.com/watch?v=nqzwiWkKV_s' target='_blank'>DJ Dirty Digits &#128279;</a>",
-        "999",
+        999,
     ],
     [
         "Seesaw", 
@@ -1014,7 +1014,7 @@ special_scratches = [
         "Yes", 
         "(b + ~b + g + ~b + b + ~g) / 1", 
         "<a href='https://www.youtube.com/watch?v=6ZHYnUdPw3g&t=141s' target='_blank'>TTM Academy &#128279;</a>",
-        "999",
+        999,
     ],
     [
         "1-Click-Tazer", 
@@ -1025,7 +1025,7 @@ special_scratches = [
         "Yes", 
         "~bLog_f1Log_R3", 
         "<a href='https://www.youtube.com/watch?v=JRaUuXhw6Qk' target='_blank'>DJ ND  &#128279;</a>",
-        "999",
+        999,
     ],
     [
         "2-Click-Tazer", 
@@ -1036,7 +1036,7 @@ special_scratches = [
         "Yes", 
         "~bLog_f2Log_R4", 
         "<a href='https://www.youtube.com/watch?v=JRaUuXhw6Qk' target='_blank'>DJ ND  &#128279;</a>",
-        "999",
+        999,
     ],
 ]
 
@@ -1050,16 +1050,19 @@ df = pd.concat([df, df2])
 # most important
 
 for indx, name in enumerate([
+    "b_tr1",
     "b_b",
     "Scribble",
     "Drills",
     "b_g",
     "b_tr1",
+    "tr1_tr1",
     "f1_f1",
     "f2_f2",
     "1-Click-Chirpflare",
     "2-Click-Chirpflare",
     "Swingflare",
+    "Slicecut",
     "Boomerang",
     "Autobahn",
     "Prizm",
@@ -1081,4 +1084,5 @@ for indx, name in enumerate([
     "ct2",
     "ct2",
 ]):
-    df.at[name, "MostImportant"] = str(indx)
+    df.at[name, "MostImportant"] =  indx
+df = df.sort_values(by=['MostImportant'])
