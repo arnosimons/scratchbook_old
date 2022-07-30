@@ -16,35 +16,36 @@ _8s = steps(8)
 ### Curves
 #############################################################
 
+# https://math.stackexchange.com/questions/501598/define-y-value-from-the-equation-of-circle
 def _N(x):
     return (-np.cos(np.pi * x) + 1) / 2
-def _Nr(x):
+def _NR(x):
     return (np.cos(np.pi * x) + 1) / 2
-def _X(x):
+def _Ex(x):
     return 1 - np.sqrt(1 - (x ** 2))
-def _Xr(x):
+def _ExR(x):
     return np.sqrt(1 - ((x - 0) ** 2))
-def _D(x):
+def _Log(x):
     return np.sqrt(1 - ((x - 1) ** 2))
-def _Dr(x):
+def _LogR(x):
     return 1 - np.sqrt(1 - ((x - 1) ** 2))
 
 finv = {
-    _N:_Nr,
-    _Nr:_N,
-    _X:_Xr,
-    _Xr:_X,
-    _D:_Dr,
-    _Dr:_D,
+    _N:_NR,
+    _NR:_N,
+    _Ex:_ExR,
+    _ExR:_Ex,
+    _Log:_LogR,
+    _LogR:_Log,
 }
 
 fneg = {
-    _N:_Nr,
-    _Nr:_N,
-    _X:_Dr,
-    _Xr:_D,
-    _D:_Xr,
-    _Dr:_X,
+    _N:_NR,
+    _NR:_N,
+    _Ex:_LogR,
+    _ExR:_Log,
+    _Log:_ExR,
+    _LogR:_Ex,
 }
 
 ### Clicks
@@ -65,40 +66,40 @@ _9 = np.array((1/9, 2/9, 3/9, 4/9, 5/9, 6/9, 7/9, 8/9))
 #############################################################
 
 b = Scratch([[_1s[0], _N, "k", _]])
-bX = Scratch([[_1s[0], _X, "k", _]])
-bD = Scratch([[_1s[0], _D, "k", _]])
+bEx = Scratch([[_1s[0], _Ex, "k", _]])
+bLog = Scratch([[_1s[0], _Log, "k", _]])
 
 g = Scratch([[_1s[0], _N, "w", _]])
-gX = Scratch([[_1s[0], _X, "w", _]])
-gD = Scratch([[_1s[0], _D, "w", _]])
+gEx = Scratch([[_1s[0], _Ex, "w", _]])
+gLog = Scratch([[_1s[0], _Log, "w", _]])
 
 tr1 = Scratch([[_1s[0], _N, "k", _0]])
-tr1X = Scratch([[_1s[0], _X, "k", _0]])
-tr1D = Scratch([[_1s[0], _D, "k", _0]])
+tr1Ex = Scratch([[_1s[0], _Ex, "k", _0]])
+tr1Log = Scratch([[_1s[0], _Log, "k", _0]])
 
 tr2 = Scratch([[_1s[0], _N, "k", np.hstack((_0, _2))]])
-tr2X = Scratch([[_1s[0], _X, "k", np.hstack((_0, _2))]])
-tr2D = Scratch([[_1s[0], _D, "k", np.hstack((_0, _2))]])
+tr2Ex = Scratch([[_1s[0], _Ex, "k", np.hstack((_0, _2))]])
+tr2Log = Scratch([[_1s[0], _Log, "k", np.hstack((_0, _2))]])
 
 tr3 = Scratch([[_1s[0], _N, "k", np.hstack((_0, _3))]])
-tr3X = Scratch([[_1s[0], _X, "k", np.hstack((_0, _3))]])
-tr3D = Scratch([[_1s[0], _D, "k", np.hstack((_0, _3))]])
+tr3Ex = Scratch([[_1s[0], _Ex, "k", np.hstack((_0, _3))]])
+tr3Log = Scratch([[_1s[0], _Log, "k", np.hstack((_0, _3))]])
 
 tr4 = Scratch([[_1s[0], _N, "k", np.hstack((_0, _4))]])
-tr4X = Scratch([[_1s[0], _X, "k", np.hstack((_0, _4))]])
-tr4D = Scratch([[_1s[0], _D, "k", np.hstack((_0, _4))]])
+tr4Ex = Scratch([[_1s[0], _Ex, "k", np.hstack((_0, _4))]])
+tr4Log = Scratch([[_1s[0], _Log, "k", np.hstack((_0, _4))]])
 
 f1 = Scratch([[_1s[0], _N, "k", _2]])
-f1X = Scratch([[_1s[0], _X, "k", _2]])
-f1D = Scratch([[_1s[0], _D, "k", _2]])
+f1Ex = Scratch([[_1s[0], _Ex, "k", _2]])
+f1Log = Scratch([[_1s[0], _Log, "k", _2]])
 
 f2 = Scratch([[_1s[0], _N, "k", _3]])
-f2X = Scratch([[_1s[0], _X, "k", _3]])
-f2D = Scratch([[_1s[0], _D, "k", _3]])
+f2Ex = Scratch([[_1s[0], _Ex, "k", _3]])
+f2Log = Scratch([[_1s[0], _Log, "k", _3]])
 
 f3 = Scratch([[_1s[0], _N, "k", _4]])
-f3X = Scratch([[_1s[0], _X, "k", _4]])
-f3D = Scratch([[_1s[0], _D, "k", _4]])
+f3Ex = Scratch([[_1s[0], _Ex, "k", _4]])
+f3Log = Scratch([[_1s[0], _Log, "k", _4]])
 
 ### Tears
 #############################################################
@@ -107,25 +108,25 @@ t1N = t1 = Scratch([[_s, _N, "k", _] for _s in steps(2)])
 t2N = t2 = Scratch([[_s, _N, "k", _] for _s in steps(3)])
 t3N = t3 = Scratch([[_s, _N, "k", _] for _s in steps(4)])
 
-t1X = Scratch([[_s, _X, "k", _] for _s in steps(2)])
-t2X = Scratch([[_s, _X, "k", _] for _s in steps(3)])
-t3X = Scratch([[_s, _X, "k", _] for _s in steps(4)])
+t1Ex = Scratch([[_s, _Ex, "k", _] for _s in steps(2)])
+t2Ex = Scratch([[_s, _Ex, "k", _] for _s in steps(3)])
+t3Ex = Scratch([[_s, _Ex, "k", _] for _s in steps(4)])
 
-t1D = Scratch([[_s, _D, "k", _] for _s in steps(2)])
-t2D = Scratch([[_s, _D, "k", _] for _s in steps(3)])
-t3D = Scratch([[_s, _D, "k", _] for _s in steps(4)])
+t1Log = Scratch([[_s, _Log, "k", _] for _s in steps(2)])
+t2Log = Scratch([[_s, _Log, "k", _] for _s in steps(3)])
+t3Log = Scratch([[_s, _Log, "k", _] for _s in steps(4)])
 
 ct1N = ct1 = Scratch([[_s, _N, "k", _0] for _s in steps(2)])
 ct2N = ct2 = Scratch([[_s, _N, "k", _0] for _s in steps(3)])
 ct3N = ct3 = Scratch([[_s, _N, "k", _0] for _s in steps(4)])
 
-ct1X = Scratch([[_s, _X, "k", _0] for _s in steps(2)])
-ct2X = Scratch([[_s, _X, "k", _0] for _s in steps(3)])
-ct3X = Scratch([[_s, _X, "k", _0] for _s in steps(4)])
+ct1Ex = Scratch([[_s, _Ex, "k", _0] for _s in steps(2)])
+ct2Ex = Scratch([[_s, _Ex, "k", _0] for _s in steps(3)])
+ct3Ex = Scratch([[_s, _Ex, "k", _0] for _s in steps(4)])
 
-ct1D = Scratch([[_s, _D, "k", _0] for _s in steps(2)])
-ct2D = Scratch([[_s, _D, "k", _0] for _s in steps(3)])
-ct3D = Scratch([[_s, _D, "k", _0] for _s in steps(4)])
+ct1Log = Scratch([[_s, _Log, "k", _0] for _s in steps(2)])
+ct2Log = Scratch([[_s, _Log, "k", _0] for _s in steps(3)])
+ct3Log = Scratch([[_s, _Log, "k", _0] for _s in steps(4)])
 
 ### Orbits, Special Scratches, and DataFrame
 #############################################################
@@ -154,7 +155,7 @@ letters = {
     "ct2":(3, 2),
     "ct3":(4, 3),
 }
-curves = ["", "X", "D"]
+curves = ["", "Ex", "Log"]
 elements = [
     "".join([l, c]) 
     for l in letters.keys() 
@@ -179,7 +180,8 @@ formulas = [
 ### functions for table
 
 def soundsAndClicks(name):
-    els = re.sub(r"[XDN]|_[RL][3,4]", "", name).split("_")
+#     els = re.sub(r"[XDN]|_[RL][3,4]", "", name).split("_")
+    els = re.sub(r"(?:Ex|Log)|_[RL][3,4]", "", name).split("_")
     return (
         sum(letters[i][0] for i in els), 
         sum(letters[i][1] for i in els),
@@ -188,18 +190,6 @@ def soundsAndClicks(name):
 def isOrbit(name):
     return "Yes" if "_" in name else "No"
 
-def turning_point(name):
-    if not "_" in name:
-        return "None"
-    if "R4" in name:
-        return "1/4"
-    if "R3" in name:
-        return "1/3"
-    if "L3" in name:
-        return "2/3"
-    if "L4" in name:
-        return "3/4"
-    return "1/2"
 
 ### make table
 
@@ -209,9 +199,9 @@ data_elements = [[
     1,
     *soundsAndClicks(name),
     isOrbit(name),
-    turning_point(name),
-    "element",
+    " is element",
     "",
+    "999",
 ] for name in elements]
 
 data_composites = [[
@@ -220,21 +210,21 @@ data_composites = [[
     1,
     *soundsAndClicks(name),
     isOrbit(name),
-    turning_point(name),
     expression,
     "",
+    "999",
 ] for name, expression in [f.split(" = ") for f in formulas]]
 
 columns = [
         "Name", 
-        "Code Name",
+        "CodeName",
         "#Counts",
         "#Sounds", 
         "#Pauses",
         "Orbit", 
-        "Turning Points", 
         "Composition",
         "Tutorial",
+        "MostImportant"
     ]
 
 df = pd.DataFrame(
@@ -243,298 +233,852 @@ df = pd.DataFrame(
     columns=columns,
 )
 
-### add tutorials
 
-df.at["b", "Tutorial"] = "https://www.youtube.com/watch?v=rtqTmUVjsuY" # baby
-df.at["b_g", "Tutorial"] = "https://www.youtube.com/watch?v=Fl-JlMxQlxc" # stab
-df.at["b_tr1", "Tutorial"] = "https://www.youtube.com/watch?v=pKe3OUKaK2k" # chirp
-df.at["f1", "Tutorial"] = "https://www.youtube.com/watch?v=P33Obuj0zAI" # 1-click-flare
-df.at["f1_f1", "Tutorial"] = "https://www.youtube.com/watch?v=P33Obuj0zAI" # 1-click-flare orbit
-df.at["f2", "Tutorial"] = "https://www.youtube.com/watch?v=1yqMmsQhnHU&t=189s" # 2-click-flare
-df.at["f2_f2", "Tutorial"] = "https://www.youtube.com/watch?v=1yqMmsQhnHU&t=189s" # 2-click-flare orbit
 
+### extra_data
+
+extra_data = {
+    
+    # Baby
+    "b":{
+        "Name":"Baby",
+        "CodeName":"baby",
+    },
+    "bEx":{
+        "Name":"Baby (Ex-Curve)",
+        "CodeName":"babyX",
+    },
+    "bLog":{
+        "Name":"Baby (Log-Curve)",
+        "CodeName":"babyD",
+    },
+    
+    # Ghost
+    "g":{
+        "Name":"Ghost",
+        "CodeName":"ghost",
+    },
+    "gEx":{
+        "Name":"Ghost (Ex-Curve)",
+        "CodeName":"ghostEx",
+    },
+    "gLog":{
+        "Name":"Ghost (Log-Curve)",
+        "CodeName":"ghostLog",
+    },
+    
+    # Transformers
+    "tr1":{
+        "Name":"1-Click-Transformer",
+        "CodeName":"trans1",
+    },
+    "tr1Ex":{
+        "Name":"1-Click-Transformer (Ex-Curve)",
+        "CodeName":"trans1Ex",
+    },
+    "tr1Log":{
+        "Name":"1-Click-Transformer (Log-Curve)",
+        "CodeName":"trans1Log",
+    },
+    "tr2":{
+        "Name":"2-Click-Transformer",
+        "CodeName":"trans2",
+    },
+    "tr2Ex":{
+        "Name":"2-Click-Transformer (Ex-Curve)",
+        "CodeName":"trans2Ex",
+    },
+    "tr2Log":{
+        "Name":"2-Click-Transformer (Log-Curve)",
+        "CodeName":"trans2Log",
+    },
+    "tr3":{
+        "Name":"3-Click-Transformer",
+        "CodeName":"trans3",
+    },
+    "tr3Ex":{
+        "Name":"3-Click-Transformer (Ex-Curve)",
+        "CodeName":"trans3Ex",
+    },
+    "tr3Log":{
+        "Name":"3-Click-Transformer (Log-Curve)",
+        "CodeName":"trans3Log",
+    },
+    "tr4":{
+        "Name":"4-Click-Transformer",
+        "CodeName":"trans4",
+    },
+    "tr4Ex":{
+        "Name":"4-Click-Transformer (Ex-Curve)",
+        "CodeName":"trans4Ex",
+    },
+    "tr4Log":{
+        "Name":"4-Click-Transformer (Log-Curve)",
+        "CodeName":"trans4Log",
+    },
+    
+    # Flares
+    "f1":{
+        "Name":"1-Click-Flare",
+        "CodeName":"flare1",
+    },
+    "f1Ex":{
+        "Name":"1-Click-Flare (Ex-Curve)",
+        "CodeName":"flare1Ex",
+    },
+    "f1Log":{
+        "Name":"1-Click-Flare (Log-Curve)",
+        "CodeName":"flare1Log",
+    },
+    "f2":{
+        "Name":"2-Click-Flare",
+        "CodeName":"flare2",
+    },
+    "f2Ex":{
+        "Name":"2-Click-Flare (Ex-Curve)",
+        "CodeName":"flare2Ex",
+    },
+    "f2Log":{
+        "Name":"2-Click-Flare (Log-Curve)",
+        "CodeName":"flare2Log",
+    },
+    "f3":{
+        "Name":"3-Click-Flare",
+        "CodeName":"flare3",
+    },
+    "f3Ex":{
+        "Name":"3-Click-Flare (Ex-Curve)",
+        "CodeName":"flare3Ex",
+    },
+    "f3Log":{
+        "Name":"3-Click-Flare (Log-Curve)",
+        "CodeName":"flare3Log",
+    },
+    "t1":{
+        "Name":"1-Tear",
+        "CodeName":"tear1",
+    },
+    "t1Ex":{
+        "Name":"1-Tear (Ex-Curve)",
+        "CodeName":"tear1Ex",
+    },
+    
+    # Tears
+    "t1Log":{
+        "Name":"1-Tear (Log-Curve)",
+        "CodeName":"tear1Log",
+    },
+    "t2":{
+        "Name":"2-Tear",
+        "CodeName":"tear2",
+    },
+    "t2Ex":{
+        "Name":"2-Tear (Ex-Curve)",
+        "CodeName":"tear2Ex",
+    },
+    "t2Log":{
+        "Name":"2-Tear (Log-Curve)",
+        "CodeName":"tear2Log",
+    },
+    "t3":{
+        "Name":"3-Tear",
+        "CodeName":"tear3",
+    },
+    "t3Ex":{
+        "Name":"3-Tear (Ex-Curve)",
+        "CodeName":"tear3Ex",
+    },
+    "t3Log":{
+        "Name":"3-Tear (Log-Curve)",
+        "CodeName":"tear3Log",
+    },
+    
+    # Click Tears
+    "ct1":{
+        "Name":"1-Click-Tear",
+        "CodeName":"clicktear1",
+    },
+    "ct1Ex":{
+        "Name":"1-Click-Tear (Ex-Curve)",
+        "CodeName":"clicktear1Ex",
+    },
+    "ct1Log":{
+        "Name":"1-Click-Tear (Log-Curve)",
+        "CodeName":"clicktear1Log",
+    },
+    "ct2":{
+        "Name":"2-Click-Tear",
+        "CodeName":"clicktear2",
+    },
+    "ct2Ex":{
+        "Name":"2-Click-Tear (Ex-Curve)",
+        "CodeName":"clicktear2Ex",
+    },
+    "ct2Log":{
+        "Name":"2-Click-Tear (Log-Curve)",
+        "CodeName":"clicktear2Log",
+    },
+    "ct3":{
+        "Name":"3-Click-Tear",
+        "CodeName":"clicktear3",
+    },
+    "ct3Ex":{
+        "Name":"3-Click-Tear (Ex-Curve)",
+        "CodeName":"clicktear3Ex",
+    },
+    "ct3Log":{
+        "Name":"3-Click-Tear (Log-Curve)",
+        "CodeName":"clicktear3Log",
+    },
+    
+    # Baby-Orbits
+    "b_b":{
+        "Name":"Baby-Orbit",
+        "CodeName":"babyorbit, bo",
+    },
+    "bEx_bEx":{
+        "Name":"Baby-Orbit (Ex-Curve)",
+        "CodeName":"babyorbitEx, boEx",
+    },
+    "bLog_bLog":{
+        "Name":"Baby-Orbit (Log-Curve)",
+        "CodeName":"babyorbitLog, boLog",
+    },
+    "b_b_R4":{
+        "Name":"Baby-Orbit (Right-Skewed at 1/4)",
+        "CodeName":"babyorbit_R4, bo_R4",
+    },
+    "bEx_bEx_R4":{
+        "Name":"Baby-Orbit (Ex-Curve, Right-Skewed at 1/4)",
+        "CodeName":"babyorbitEx_R4, boEx_R4",
+    },
+    "bLog_bLog_R4":{
+        "Name":"Baby-Orbit (Log-Curve, Right-Skewed at 1/4)",
+        "CodeName":"babyorbitLog_R4, boLog_R4",
+    },
+    "b_b_R3":{
+        "Name":"Baby-Orbit (Right-Skewed at 1/3)",
+        "CodeName":"babyorbit_R3, bo_R3",
+    },
+    "bEx_bEx_R3":{
+        "Name":"Baby-Orbit (Ex-Curve, Right-Skewed at 1/3)",
+        "CodeName":"babyorbitEx_R3, boEx_R3",
+    },
+    "bLog_bLog_R3":{
+        "Name":"Baby-Orbit (Log-Curve, Right-Skewed at 1/3)",
+        "CodeName":"babyorbitLog_R3, boLog_R3",
+    },
+    "b_b_L3":{
+        "Name":"Baby-Orbit (Left-Skewed at 1/3)",
+        "CodeName":"babyorbit_L3, bo_L3",
+    },
+    "bEx_bEx_L3":{
+        "Name":"Baby-Orbit (Ex-Curve, Left-Skewed at 1/3)",
+        "CodeName":"babyorbitEx_L3, boEx_L3",
+    },
+    "bLog_bLog_L3":{
+        "Name":"Baby-Orbit (Log-Curve, Left-Skewed at 1/3)",
+        "CodeName":"babyorbitLog_L3, boLog_L3",
+    },
+    "b_b_L4":{
+        "Name":"Baby-Orbit (Left-Skewed at 1/4)",
+        "CodeName":"babyorbit_L4, bo_L4",
+    },
+    "bEx_bEx_L4":{
+        "Name":"Baby-Orbit (Ex-Curve, Left-Skewed at 1/4)",
+        "CodeName":"babyorbitEx_L4, boEx_L4",
+    },
+    "bLog_bLog_L4":{
+        "Name":"Baby-Orbit (Log-Curve, Left-Skewed at 1/4)",
+        "CodeName":"babyorbitLog_L4, boLog_L4",
+    },
+    
+    # Stabs
+    "b_g":{
+        "Name":"Stab",
+        "CodeName":"stab, st",
+    },
+    "bEx_gEx":{
+        "Name":"Stab (Ex-Curve)",
+        "CodeName":"stabEx, stEx",
+    },
+    "bLog_gLog":{
+        "Name":"Stab (Log-Curve)",
+        "CodeName":"stabLog, stLog",
+    },
+    "b_g_R4":{
+        "Name":"Stab (Right-Skewed at 1/4)",
+        "CodeName":"stab_R4, st_R4",
+    },
+    "bEx_gEx_R4":{
+        "Name":"Stab (Ex-Curve, Right-Skewed at 1/4)",
+        "CodeName":"stabEx_R4, stEx_R4",
+    },
+    "bLog_gLog_R4":{
+        "Name":"Stab (Log-Curve, Right-Skewed at 1/4)",
+        "CodeName":"stabLog_R4, stLog_R4",
+    },
+    "b_g_R3":{
+        "Name":"Stab (Right-Skewed at 1/3)",
+        "CodeName":"stab_R3, st_R3",
+    },
+    "bEx_gEx_R3":{
+        "Name":"Stab (Ex-Curve, Right-Skewed at 1/3)",
+        "CodeName":"stabEx_R3, stEx_R3",
+    },
+    "bLog_gLog_R3":{
+        "Name":"Stab (Log-Curve, Right-Skewed at 1/3)",
+        "CodeName":"stabLog_R3, stLog_R3",
+    },
+    "b_g_L3":{
+        "Name":"Stab (Left-Skewed at 1/3)",
+        "CodeName":"stab_L3, st_L3",
+    },
+    "bEx_gEx_L3":{
+        "Name":"Stab (Ex-Curve, Left-Skewed at 1/3)",
+        "CodeName":"stabEx_L3, stEx_L3",
+    },
+    "bLog_gLog_L3":{
+        "Name":"Stab (Log-Curve, Left-Skewed at 1/3)",
+        "CodeName":"stabLog_L3, stLog_L3",
+    },
+    "b_g_L4":{
+        "Name":"Stab (Left-Skewed at 1/4)",
+        "CodeName":"stab_L4, st_L4",
+    },
+    "bEx_gEx_L4":{
+        "Name":"Stab (Ex-Curve, Left-Skewed at 1/4)",
+        "CodeName":"stabEx_L4, stEx_L4",
+    },
+    "bLog_gLog_L4":{
+        "Name":"Stab (Log-Curve, Left-Skewed at 1/4)",
+        "CodeName":"stabLog_L4, stLog_L4",
+    },
+    
+    # Chirps
+    "b_tr1":{
+        "Name":"Chirp",
+        "CodeName":"chirp, c",
+    },
+    "bEx_tr1Ex":{
+        "Name":"Chirp (Ex-Curve)",
+        "CodeName":"chirpEx, cEx",
+    },
+    "bLog_tr1Log":{
+        "Name":"Chirp (Log-Curve)",
+        "CodeName":"chirpLog, cLog",
+    },
+    "b_tr1_R4":{
+        "Name":"Chirp (Right-Skewed at 1/4)",
+        "CodeName":"chirp_R4, c_R4",
+    },
+    "bEx_tr1Ex_R4":{
+        "Name":"Chirp (Ex-Curve, Right-Skewed at 1/4)",
+        "CodeName":"chirpEx_R4, cEx_R4",
+    },
+    "bLog_tr1Log_R4":{
+        "Name":"Chirp (Log-Curve, Right-Skewed at 1/4)",
+        "CodeName":"chirpLog_R4, cLog_R4",
+    },
+    "b_tr1_R3":{
+        "Name":"Chirp (Right-Skewed at 1/3)",
+        "CodeName":"chirp_R3, c_R3",
+    },
+    "bEx_tr1Ex_R3":{
+        "Name":"Chirp (Ex-Curve, Right-Skewed at 1/3)",
+        "CodeName":"chirpEx_R3, cEx_R3",
+    },
+    "bLog_tr1Log_R3":{
+        "Name":"Chirp (Log-Curve, Right-Skewed at 1/3)",
+        "CodeName":"chirpLog_R3, cLog_R3",
+    },
+    "b_tr1_L3":{
+        "Name":"Chirp (Left-Skewed at 1/3)",
+        "CodeName":"chirp_L3, c_L3",
+    },
+    "bEx_tr1Ex_L3":{
+        "Name":"Chirp (Ex-Curve, Left-Skewed at 1/3)",
+        "CodeName":"chirpEx_L3, cEx_L3",
+    },
+    "bLog_tr1Log_L3":{
+        "Name":"Chirp (Log-Curve, Left-Skewed at 1/3)",
+        "CodeName":"chirpLog_L3, cLog_L3",
+    },
+    "b_tr1_L4":{
+        "Name":"Chirp (Left-Skewed at 1/4)",
+        "CodeName":"chirp_L4, c_L4",
+    },
+    "bEx_tr1Ex_L4":{
+        "Name":"Chirp (Ex-Curve, Left-Skewed at 1/4)",
+        "CodeName":"chirpEx_L4, cEx_L4",
+    },
+    "bLog_tr1Log_L4":{
+        "Name":"Chirp (Log-Curve, Left-Skewed at 1/4)",
+        "CodeName":"chirpLog_L4, cLog_L4",
+    },
+    
+    # Fakechirps
+    "b_tr1":{
+        "Name":"Fake-Chirp",
+        "CodeName":"fakechirp, fc",
+    },
+    "bEx_tr1Ex":{
+        "Name":"Fake-Chirp (Ex-Curve)",
+        "CodeName":"fakechirpEx, fcEx",
+    },
+    "bLog_tr1Log":{
+        "Name":"Fake-Chirp (Log-Curve)",
+        "CodeName":"fakechirpLog, fcLog",
+    },
+    "b_tr1_R4":{
+        "Name":"Fake-Chirp (Right-Skewed at 1/4)",
+        "CodeName":"fakechirp_R4, fc_R4",
+    },
+    "bEx_tr1Ex_R4":{
+        "Name":"Fake-Chirp (Ex-Curve, Right-Skewed at 1/4)",
+        "CodeName":"fakechirpEx_R4, fcEx_R4",
+    },
+    "bLog_tr1Log_R4":{
+        "Name":"Fake-Chirp (Log-Curve, Right-Skewed at 1/4)",
+        "CodeName":"fakechirpLog_R4, fcLog_R4",
+    },
+    "b_tr1_R3":{
+        "Name":"Fake-Chirp (Right-Skewed at 1/3)",
+        "CodeName":"fakechirp_R3, fc_R3",
+    },
+    "bEx_tr1Ex_R3":{
+        "Name":"Fake-Chirp (Ex-Curve, Right-Skewed at 1/3)",
+        "CodeName":"fakechirpEx_R3, fcEx_R3",
+    },
+    "bLog_tr1Log_R3":{
+        "Name":"Fake-Chirp (Log-Curve, Right-Skewed at 1/3)",
+        "CodeName":"fakechirpLog_R3, fcLog_R3",
+    },
+    "b_tr1_L3":{
+        "Name":"Fake-Chirp (Left-Skewed at 1/3)",
+        "CodeName":"fakechirp_L3, fc_L3",
+    },
+    "bEx_tr1Ex_L3":{
+        "Name":"Fake-Chirp (Ex-Curve, Left-Skewed at 1/3)",
+        "CodeName":"fakechirpEx_L3, fcEx_L3",
+    },
+    "bLog_tr1Log_L3":{
+        "Name":"Fake-Chirp (Log-Curve, Left-Skewed at 1/3)",
+        "CodeName":"fakechirpLog_L3, fcLog_L3",
+    },
+    "b_tr1_L4":{
+        "Name":"Fake-Chirp (Left-Skewed at 1/4)",
+        "CodeName":"fakechirp_L4, fc_L4",
+    },
+    "bEx_tr1Ex_L4":{
+        "Name":"Fake-Chirp (Ex-Curve, Left-Skewed at 1/4)",
+        "CodeName":"fakechirpEx_L4, fcEx_L4",
+    },
+    "bLog_tr1Log_L4":{
+        "Name":"Fake-Chirp (Log-Curve, Left-Skewed at 1/4)",
+        "CodeName":"fakechirpLog_L4, fcLog_L4",
+    },
+    
+    # Slice
+    "tr1_b":{
+        "Name":"Slice",
+        "CodeName":"slice, sl",
+    },
+    "tr1Ex_bEx":{
+        "Name":"Slice (Ex-Curve)",
+        "CodeName":"sliceEx, slEx",
+    },
+    "tr1Log_bLog":{
+        "Name":"Slice (Log-Curve)",
+        "CodeName":"sliceLog, slLog",
+    },
+    "tr1_b_R4":{
+        "Name":"Slice (Right-Skewed at 1/4)",
+        "CodeName":"slice_R4, sl_R4",
+    },
+    "tr1Ex_bEx_R4":{
+        "Name":"Slice (Ex-Curve, Right-Skewed at 1/4)",
+        "CodeName":"sliceEx_R4, slEx_R4",
+    },
+    "tr1Log_bLog_R4":{
+        "Name":"Slice (Log-Curve, Right-Skewed at 1/4)",
+        "CodeName":"sliceLog_R4, slLog_R4",
+    },
+    "tr1_b_R3":{
+        "Name":"Slice (Right-Skewed at 1/3)",
+        "CodeName":"slice_R3, sl_R3",
+    },
+    "tr1Ex_bEx_R3":{
+        "Name":"Slice (Ex-Curve, Right-Skewed at 1/3)",
+        "CodeName":"sliceEx_R3, slEx_R3",
+    },
+    "tr1Log_bLog_R3":{
+        "Name":"Slice (Log-Curve, Right-Skewed at 1/3)",
+        "CodeName":"sliceLog_R3, slLog_R3",
+    },
+    "tr1_b_L3":{
+        "Name":"Slice (Left-Skewed at 1/3)",
+        "CodeName":"slice_L3, sl_L3",
+    },
+    "tr1Ex_bEx_L3":{
+        "Name":"Slice (Ex-Curve, Left-Skewed at 1/3)",
+        "CodeName":"sliceEx_L3, slEx_L3",
+    },
+    "tr1Log_bLog_L3":{
+        "Name":"Slice (Log-Curve, Left-Skewed at 1/3)",
+        "CodeName":"sliceLog_L3, slLog_L3",
+    },
+    "tr1_b_L4":{
+        "Name":"Slice (Left-Skewed at 1/4)",
+        "CodeName":"slice_L4, sl_L4",
+    },
+    "tr1Ex_bEx_L4":{
+        "Name":"Slice (Ex-Curve, Left-Skewed at 1/4)",
+        "CodeName":"sliceEx_L4, slEx_L4",
+    },
+    "tr1Log_bLog_L4":{
+        "Name":"Slice (Log-Curve, Left-Skewed at 1/4)",
+        "CodeName":"sliceLog_L4, slLog_L4",
+    },
+    
+    # 1-Click Flare Orbits
+    "f1_f1":{
+        "Name":"1-Click-Flare-Orbit",
+        "CodeName":"ocf",
+    },
+    "f1Ex_f1Ex":{
+        "Name":"1-Click-Flare-Orbit (Ex-Curve)",
+        "CodeName":"ocfEx",
+    },
+    "f1Log_f1Log":{
+        "Name":"1-Click-Flare-Orbit (Log-Curve)",
+        "CodeName":"ocfLog",
+    },
+    "f1_f1_R4":{
+        "Name":"1-Click-Flare-Orbit (Right-Skewed at 1/4)",
+        "CodeName":"ocf_R4",
+    },
+    "f1Ex_f1Ex_R4":{
+        "Name":"1-Click-Flare-Orbit (Ex-Curve, Right-Skewed at 1/4)",
+        "CodeName":"ocfEx_R4",
+    },
+    "f1Log_f1Log_R4":{
+        "Name":"1-Click-Flare-Orbit (Log-Curve, Right-Skewed at 1/4)",
+        "CodeName":"ocfLog_R4",
+    },
+    "f1_f1_R3":{
+        "Name":"1-Click-Flare-Orbit (Right-Skewed at 1/3)",
+        "CodeName":"ocf_R3",
+    },
+    "f1Ex_f1Ex_R3":{
+        "Name":"1-Click-Flare-Orbit (Ex-Curve, Right-Skewed at 1/3)",
+        "CodeName":"ocfEx_R3",
+    },
+    "f1Log_f1Log_R3":{
+        "Name":"1-Click-Flare-Orbit (Log-Curve, Right-Skewed at 1/3)",
+        "CodeName":"ocfLog_R3",
+    },
+    "f1_f1_L3":{
+        "Name":"1-Click-Flare-Orbit (Left-Skewed at 1/3)",
+        "CodeName":"ocf_L3",
+    },
+    "f1Ex_f1Ex_L3":{
+        "Name":"1-Click-Flare-Orbit (Ex-Curve, Left-Skewed at 1/3)",
+        "CodeName":"ocfEx_L3",
+    },
+    "f1Log_f1Log_L3":{
+        "Name":"1-Click-Flare-Orbit (Log-Curve, Left-Skewed at 1/3)",
+        "CodeName":"ocfLog_L3",
+    },
+    "f1_f1_L4":{
+        "Name":"1-Click-Flare-Orbit (Left-Skewed at 1/4)",
+        "CodeName":"ocf_L4",
+    },
+    "f1Ex_f1Ex_L4":{
+        "Name":"1-Click-Flare-Orbit (Ex-Curve, Left-Skewed at 1/4)",
+        "CodeName":"ocfEx_L4",
+    },
+    "f1Log_f1Log_L4":{
+        "Name":"1-Click-Flare-Orbit (Log-Curve, Left-Skewed at 1/4)",
+        "CodeName":"ocfLog_L4",
+    },
+    
+    # 2-Click Flare Orbits
+    "f2_f2":{
+        "Name":"2-Click-Flare-Orbit",
+        "CodeName":"tcf",
+    },
+    "f2Ex_f2Ex":{
+        "Name":"2-Click-Flare-Orbit (Ex-Curve)",
+        "CodeName":"tcfEx",
+    },
+    "f2Log_f2Log":{
+        "Name":"2-Click-Flare-Orbit (Log-Curve)",
+        "CodeName":"tcfLog",
+    },
+    "f2_f2_R4":{
+        "Name":"2-Click-Flare-Orbit (Right-Skewed at 1/4)",
+        "CodeName":"tcf_R4",
+    },
+    "f2Ex_f2Ex_R4":{
+        "Name":"2-Click-Flare-Orbit (Ex-Curve, Right-Skewed at 1/4)",
+        "CodeName":"tcfEx_R4",
+    },
+    "f2Log_f2Log_R4":{
+        "Name":"2-Click-Flare-Orbit (Log-Curve, Right-Skewed at 1/4)",
+        "CodeName":"tcfLog_R4",
+    },
+    "f2_f2_R3":{
+        "Name":"2-Click-Flare-Orbit (Right-Skewed at 1/3)",
+        "CodeName":"tcf_R3",
+    },
+    "f2Ex_f2Ex_R3":{
+        "Name":"2-Click-Flare-Orbit (Ex-Curve, Right-Skewed at 1/3)",
+        "CodeName":"tcfEx_R3",
+    },
+    "f2Log_f2Log_R3":{
+        "Name":"2-Click-Flare-Orbit (Log-Curve, Right-Skewed at 1/3)",
+        "CodeName":"tcfLog_R3",
+    },
+    "f2_f2_L3":{
+        "Name":"2-Click-Flare-Orbit (Left-Skewed at 1/3)",
+        "CodeName":"tcf_L3",
+    },
+    "f2Ex_f2Ex_L3":{
+        "Name":"2-Click-Flare-Orbit (Ex-Curve, Left-Skewed at 1/3)",
+        "CodeName":"tcfEx_L3",
+    },
+    "f2Log_f2Log_L3":{
+        "Name":"2-Click-Flare-Orbit (Log-Curve, Left-Skewed at 1/3)",
+        "CodeName":"tcfLog_L3",
+    },
+    "f2_f2_L4":{
+        "Name":"2-Click-Flare-Orbit (Left-Skewed at 1/4)",
+        "CodeName":"tcf_L4",
+    },
+    "f2Ex_f2Ex_L4":{
+        "Name":"2-Click-Flare-Orbit (Ex-Curve, Left-Skewed at 1/4)",
+        "CodeName":"tcfEx_L4",
+    },
+    "f2Log_f2Log_L4":{
+        "Name":"2-Click-Flare-Orbit (Log-Curve, Left-Skewed at 1/4)",
+        "CodeName":"tcfLog_L4",
+    },
+    
+}
+
+for name, data in extra_data.items():
+    if "Name" in data:
+        df.at[name, "Name"] = data["Name"]
+    if "CodeName" in data:
+        df.at[name, "CodeName"] = f'{data["CodeName"]}, {df.at[name, "CodeName"]}'
+    if "Tutorial" in data:
+        df.at[name, "Tutorial"] = data["Tutorial"]
+        
+
+
+# ### add tutorials
+
+for name in df.index: # Babies
+    if ("_" in name and re.match(r"b(?:Ex|Log)?_b(?:Ex|Log)?", name)) or re.match(r"b(?:Ex|Log)?$", name):
+        df.at[name, "Tutorial"] = "<a href='https://www.youtube.com/watch?v=rtqTmUVjsuY' target='_blank'>DJ Noumenon &#128279;</a>"
+for name in df.index: # 1-Click Flares
+    if ("_" in name and re.match(r"f1(?:Ex|Log)?_f1(?:Ex|Log)?", name)) or re.match(r"f1(?:Ex|Log)?$", name):
+        df.at[name, "Tutorial"] = "<a href='https://www.youtube.com/watch?v=P33Obuj0zAI' target='_blank'>DJ D-Styles & DJ Melo-D &#128279;</a>"
+for name in df.index: # 2-Click Flares
+    if ("_" in name and re.match(r"f2(?:Ex|Log)?_f2(?:Ex|Log)?", name)) or re.match(r"f2(?:Ex|Log)?$", name):
+        df.at[name, "Tutorial"] = "<a href='https://www.youtube.com/watch?v=1yqMmsQhnHU' target='_blank'>DJ D-Styles & DJ Babu &#128279;</a>"
 for name in df.index: # transformers and pure transformer orbits
-    if ("_" in name and re.match(r"tr\d[XD]?_tr\d[XD]?", name)) or re.match(r"tr\d[XD]?$", name):
-        df.at[name, "Tutorial"] = "https://www.youtube.com/watch?v=XdkNAePjM7o"
+    if ("_" in name and re.match(r"tr\d(?:Ex|Log)?_tr\d(?:Ex|Log)?", name)) or re.match(r"tr\d(?:Ex|Log)?$", name):
+        df.at[name, "Tutorial"] = "<a href='https://www.youtube.com/watch?v=XdkNAePjM7o' target='_blank'>DJ Immortal &#128279;</a>"
 for name in df.index: # tears and pure tear orbits
-    if ("_" in name and re.match(r"t\d[XD]?_t\d[XD]?", name)) or re.match(r"t\d[XD]?$", name):
-        df.at[name, "Tutorial"] = "https://www.youtube.com/watch?v=WN8ity9B35U"
+    if ("_" in name and re.match(r"t\d(?:Ex|Log)?_t\d(?:Ex|Log)?", name)) or re.match(r"t\d(?:Ex|Log)?$", name):
+        df.at[name, "Tutorial"] = "<a href='https://www.youtube.com/watch?v=WN8ity9B35U' target='_blank'>DJ Angelo &#128279;</a>"
+for name in df.index: # Stabs
+    if ("_" in name and re.match(r"b(?:Ex|Log)?_g(?:Ex|Log)?", name)):
+        df.at[name, "Tutorial"] = "<a href='https://www.youtube.com/watch?v=Fl-JlMxQlxc' target='_blank'>DJ Dirty Digits &#128279;</a>"
+for name in df.index: # chirps
+    if ("_" in name and re.match(r"b(?:Ex|Log)?_tr1(?:Ex|Log)?", name)):
+        df.at[name, "Tutorial"] = "<a href='https://www.youtube.com/watch?v=pKe3OUKaK2k' target='_blank'>DJ Dirty Digits &#128279;</a>"
 
-### add special names
 
-df.at["b", "Code Name"] = "baby, b"
-df.at["bX", "Code Name"] = "babyX, bX"
-df.at["bD", "Code Name"] = "babyD, bD"
-
-df.at["g", "Code Name"] = "ghost, g"
-df.at["gX", "Code Name"] = "ghostX, gX"
-df.at["gD", "Code Name"] = "ghostD, gD"
-
-df.at["tr1", "Code Name"] = "transformer1, trans1, tr1"
-df.at["tr1X", "Code Name"] = "transformer1X, trans1X, tr1X"
-df.at["tr1D", "Code Name"] = "transformer1D, trans1D, tr1D"
-df.at["tr2", "Code Name"] = "transformer2, trans2, tr2"
-df.at["tr2X", "Code Name"] = "transformer2X, trans2X, tr2X"
-df.at["tr2D", "Code Name"] = "transformer2D, trans2D, tr2D"
-df.at["tr3", "Code Name"] = "transformer3, trans3, tr3"
-df.at["tr3X", "Code Name"] = "transformer3X, trans3X, tr3X"
-df.at["tr3D", "Code Name"] = "transformer3D, trans3D, tr3D"
-df.at["tr4", "Code Name"] = "transformer4, trans4, tr4"
-df.at["tr4X", "Code Name"] = "transformer4X, trans4X, tr4X"
-df.at["tr4D", "Code Name"] = "transformer4D, trans4D, tr4D"
-
-df.at["f1", "Code Name"] = "flare1, f1"
-df.at["f1X", "Code Name"] = "flare1X, f1X"
-df.at["f1D", "Code Name"] = "flare1D, f1D"
-df.at["f2", "Code Name"] = "flare2, f2"
-df.at["f2X", "Code Name"] = "flare2X, f2X"
-df.at["f2D", "Code Name"] = "flare2D, f2D"
-df.at["f3", "Code Name"] = "flare3, f3"
-df.at["f3X", "Code Name"] = "flare3X, f3X"
-df.at["f3D", "Code Name"] = "flare3D, f3D"
-
-df.at["t1", "Code Name"] = "tear1, t1"
-df.at["t1X", "Code Name"] = "tear1X, t1X"
-df.at["t1D", "Code Name"] = "tear1D, t1D"
-df.at["t2", "Code Name"] = "tear2, t2"
-df.at["t2X", "Code Name"] = "tear2X, t2X"
-df.at["t2D", "Code Name"] = "tear2D, t2D"
-df.at["t3", "Code Name"] = "tear3, t3"
-df.at["t3X", "Code Name"] = "tear3X, t3X"
-df.at["t3D", "Code Name"] = "tear3D, t3D"
-
-df.at["b_g", "Code Name"] = "stab, st, b_g"
-df.at["bX_g", "Code Name"] = "stabX, stX, bX_g"
-df.at["bD_g", "Code Name"] = "stabD, stD, bD_g"
-df.at["b_g_R4", "Code Name"] = "stab_R4, st_R4, b_g_R4"
-df.at["bX_g_R4", "Code Name"] = "stabX_R4, stX_R4, bX_g_R4"
-df.at["bD_g_R4", "Code Name"] = "stabD_R4, stD_R4, bD_g_R4"
-df.at["b_g_R3", "Code Name"] = "stab_R3, st_R3, b_g_R3"
-df.at["bX_g_R3", "Code Name"] = "stabX_R3, stX_R3, bX_g_R3"
-df.at["bD_g_R3", "Code Name"] = "stabD_R3, stD_R3, bD_g_R3"
-df.at["b_g_L3", "Code Name"] = "stab_L3, st_L3, b_g_L3"
-df.at["bX_g_L3", "Code Name"] = "stabX_L3, stX_L3, bX_g_L3"
-df.at["bD_g_L3", "Code Name"] = "stabD_L3, stD_L3, bD_g_L3"
-df.at["b_g_L4", "Code Name"] = "stab_L4, st_L4, b_g_L4"
-df.at["bX_g_L4", "Code Name"] = "stabX_L4, stX_L4, bX_g_L4"
-df.at["bD_g_L4", "Code Name"] = "stabD_L4, stD_L4, bD_g_L4"
-
-df.at["b_tr1", "Code Name"] = "chirp, c, b_tr1"
-df.at["bX_tr1X", "Code Name"] = "chirpX, cX, bX_tr1X"
-df.at["bD_tr1D", "Code Name"] = "chirpD, cD, bD_tr1D"
-df.at["b_tr1_R4", "Code Name"] = "chirp_R4, c_R4, b_tr1_R4"
-df.at["bX_tr1X_R4", "Code Name"] = "chirpX_R4, cX_R4, bX_tr1X_R4"
-df.at["bD_tr1D_R4", "Code Name"] = "chirpD_R4, cD_R4, bD_tr1D_R4"
-df.at["b_tr1_R3", "Code Name"] = "chirp_R3, c_R3, b_tr1_R3"
-df.at["bX_tr1X_R3", "Code Name"] = "chirpX_R3, cX_R3, bX_tr1X_R3"
-df.at["bD_tr1D_R3", "Code Name"] = "chirpD_R3, cD_R3, bD_tr1D_R3"
-df.at["b_tr1_L3", "Code Name"] = "chirp_L3, c_L3, b_tr1_L3"
-df.at["bX_tr1X_L3", "Code Name"] = "chirpX_L3, cX_L3, bX_tr1X_L3"
-df.at["bD_tr1D_L3", "Code Name"] = "chirpD_L3, cD_L3, bD_tr1D_L3"
-df.at["b_tr1_L4", "Code Name"] = "chirp_L4, c_L4, b_tr1_L4"
-df.at["bX_tr1X_L4", "Code Name"] = "chirpX_L4, cX_L4, bX_tr1X_L4"
-df.at["bD_tr1D_L4", "Code Name"] = "chirpD_L4, cD_L4, bD_tr1D_L4"
-
-df.at["tr1_tr1", "Code Name"] = "fakechirp, fc, tr1_tr1"
-df.at["tr1X_tr1X", "Code Name"] = "fakechirpX, fcX, tr1X_tr1X"
-df.at["tr1D_tr1D", "Code Name"] = "fakechirpD, fcD, tr1D_tr1D"
-df.at["tr1_tr1_R4", "Code Name"] = "fakechirp_R4, fc_R4, tr1_tr1_R4"
-df.at["tr1X_tr1X_R4", "Code Name"] = "fakechirpX_R4, fcX_R4, tr1X_tr1X_R4"
-df.at["tr1D_tr1D_R4", "Code Name"] = "fakechirpD_R4, fcD_R4, tr1D_tr1D_R4"
-df.at["tr1_tr1_R3", "Code Name"] = "fakechirp_R3, fc_R3, tr1_tr1_R3"
-df.at["tr1X_tr1X_R3", "Code Name"] = "fakechirpX_R3, fcX_R3, tr1X_tr1X_R3"
-df.at["tr1D_tr1D_R3", "Code Name"] = "fakechirpD_R3, fcD_R3, tr1D_tr1D_R3"
-df.at["tr1_tr1_L3", "Code Name"] = "fakechirp_L3, fc_L3, tr1_tr1_L3"
-df.at["tr1X_tr1X_L3", "Code Name"] = "fakechirpX_L3, fcX_L3, tr1X_tr1X_L3"
-df.at["tr1D_tr1D_L3", "Code Name"] = "fakechirpD_L3, fcD_L3, tr1D_tr1D_L3"
-df.at["tr1_tr1_L4", "Code Name"] = "fakechirp_L4, fc_L4, tr1_tr1_L4"
-df.at["tr1X_tr1X_L4", "Code Name"] = "fakechirpX_L4, fcX_L4, tr1X_tr1X_L4"
-df.at["tr1D_tr1D_L4", "Code Name"] = "fakechirpD_L4, fcD_L4, tr1D_tr1D_L4"
-
-df.at["tr1_b", "Code Name"] = "slice, sl, tr1_b"
-df.at["tr1X_bX", "Code Name"] = "sliceX, slX, tr1X_bX"
-df.at["tr1D_bD", "Code Name"] = "sliceD, slD, tr1D_bD"
-df.at["tr1_b_R4", "Code Name"] = "slice_R4, sl_R4, tr1_b_R4"
-df.at["tr1X_bX_R4", "Code Name"] = "sliceX_R4, slX_R4, tr1X_bX_R4"
-df.at["tr1D_bD_R4", "Code Name"] = "sliceD_R4, slD_R4, tr1D_bD_R4"
-df.at["tr1_b_R3", "Code Name"] = "slice_R3, sl_R3, tr1_b_R3"
-df.at["tr1X_bX_R3", "Code Name"] = "sliceX_R3, slX_R3, tr1X_bX_R3"
-df.at["tr1D_bD_R3", "Code Name"] = "sliceD_R3, slD_R3, tr1D_bD_R3"
-df.at["tr1_b_L3", "Code Name"] = "slice_L3, sl_L3, tr1_b_L3"
-df.at["tr1X_bX_L3", "Code Name"] = "sliceX_L3, slX_L3, tr1X_bX_L3"
-df.at["tr1D_bD_L3", "Code Name"] = "sliceD_L3, slD_L3, tr1D_bD_L3"
-df.at["tr1_b_L4", "Code Name"] = "slice_L4, sl_L4, tr1_b_L4"
-df.at["tr1X_bX_L4", "Code Name"] = "sliceX_L4, slX_L4, tr1X_bX_L4"
-df.at["tr1D_bD_L4", "Code Name"] = "sliceD_L4, slD_L4, tr1D_bD_L4"
-
-df.at["f1_f1", "Code Name"] = "ocf, f1_f1"
-df.at["f1X_f1X", "Code Name"] = "ocfX, f1X_f1X"
-df.at["f1D_f1D", "Code Name"] = "ocfD, f1D_f1D"
-df.at["f1_f1_R4", "Code Name"] = "ocf_R4, f1_f1_R4"
-df.at["f1X_f1X_R4", "Code Name"] = "ocfX_R4, f1X_f1X_R4"
-df.at["f1D_f1D_R4", "Code Name"] = "ocfD_R4, f1D_f1D_R4"
-df.at["f1_f1_R3", "Code Name"] = "ocf_R3, f1_f1_R3"
-df.at["f1X_f1X_R3", "Code Name"] = "ocfX_R3, f1X_f1X_R3"
-df.at["f1D_f1D_R3", "Code Name"] = "ocfD_R3, f1D_f1D_R3"
-df.at["f1_f1_L3", "Code Name"] = "ocf_L3, f1_f1_L3"
-df.at["f1X_f1X_L3", "Code Name"] = "ocfX_L3, f1X_f1X_L3"
-df.at["f1D_f1D_L3", "Code Name"] = "ocfD_L3, f1D_f1D_L3"
-df.at["f1_f1_L4", "Code Name"] = "ocf_L4, f1_f1_L4"
-df.at["f1X_f1X_L4", "Code Name"] = "ocfX_L4, f1X_f1X_L4"
-df.at["f1D_f1D_L4", "Code Name"] = "ocfD_L4, f1D_f1D_L4"
-
-df.at["f2_f2", "Code Name"] = "tcf, f2_f2"
-df.at["f2X_f2X", "Code Name"] = "tcfX, f2X_f2X"
-df.at["f2D_f2D", "Code Name"] = "tcfD, f2D_f2D"
-df.at["f2_f2_R4", "Code Name"] = "tcf_R4, f2_f2_R4"
-df.at["f2X_f2X_R4", "Code Name"] = "tcfX_R4, f2X_f2X_R4"
-df.at["f2D_f2D_R4", "Code Name"] = "tcfD_R4, f2D_f2D_R4"
-df.at["f2_f2_R3", "Code Name"] = "tcf_R3, f2_f2_R3"
-df.at["f2X_f2X_R3", "Code Name"] = "tcfX_R3, f2X_f2X_R3"
-df.at["f2D_f2D_R3", "Code Name"] = "tcfD_R3, f2D_f2D_R3"
-df.at["f2_f2_L3", "Code Name"] = "tcf_L3, f2_f2_L3"
-df.at["f2X_f2X_L3", "Code Name"] = "tcfX_L3, f2X_f2X_L3"
-df.at["f2D_f2D_L3", "Code Name"] = "tcfD_L3, f2D_f2D_L3"
-df.at["f2_f2_L4", "Code Name"] = "tcf_L4, f2_f2_L4"
-df.at["f2X_f2X_L4", "Code Name"] = "tcfX_L4, f2X_f2X_L4"
-df.at["f2D_f2D_L4", "Code Name"] = "tcfD_L4, f2D_f2D_L4"
 
 ### add special scratches
 
 special_scratches = [
     [
-        "scribble", 
+        "Scribble", 
         "scribble, sc",         
         1, 
         4, 
         0, 
         "Yes", 
-        "1/2", 
         "b_b * 2 / 1", 
-        "https://www.youtube.com/watch?v=rtqTmUVjsuY",
+        "<a href='https://www.youtube.com/watch?v=rtqTmUVjsuY' target='_blank'>DJ Noumenon &#128279;</a>",
+        "999",
     ],
     [
-        "drills", 
+        "Drills", 
         "drills, dr",             
         1, 
         8, 
         0, 
         "Yes", 
-        "1/2", 
         "b_b * 4 / 1", 
-        ""
+        "",
+        "999",
     ],
     [
-        "swingflare", 
+        "Swingflare", 
         "sf",                 
         1, 
         4, 
         3, 
         "Yes", 
-        "???", 
         "(sl + c + ~c) / 1", 
-        "https://www.youtube.com/watch?v=h3o5OTIy-kQ",
+        "<a href='https://www.youtube.com/watch?v=h3o5OTIy-kQ' target='_blank'>DJ Shiftee &#128279;</a>",
+        "999",
     ],
     [
-        "chirpflare1", 
+        "1-Click-Chirpflare", 
         "chirpflare1, cf1",  
         1, 
         4, 
         2, 
         "Yes", 
-        "???", 
         "(c / (1/3) + f1_f1 / (2/3)) / 2", 
-        "https://www.youtube.com/watch?v=DUaY6gMONmA",
+        "<a href='https://www.youtube.com/watch?v=DUaY6gMONmA' target='_blank'>DJ Excess &#128279;</a>",
+        "999",
     ],
     [
-        "chirpflare2", 
+        "2-Click-Chirpflare", 
         "chirpflare2, cf2",  
         2, 
         6, 
         4, 
         "Yes", 
-        "???", 
         "c / (1/2) + f2_f2 / (3/2)", 
         "",
+        "999",
     ],
     [
-        "prizm", 
+        "Prizm", 
         "prizm, pr",               
         2, 
         6, 
         5, 
         "Yes", 
-        "???", 
         "(f1 + ~tr1 / (1/2) + tr1 / (1/2) + ~tr2) / 2", 
-        "https://www.youtube.com/watch?v=B32m9Jqqrpo",
-        ],
+        "<a href='https://www.youtube.com/watch?v=B32m9Jqqrpo' target='_blank'>Dj Fast-M &#128279;</a>",
+        "999",
+    ],
     [
-        "slicecut", 
+        "Slicecut", 
         "slicecut, slc",        
         1, 
         3, 
         2, 
         "No",  
-        "???", 
         "sl / (2/3) + tr1 / (1/3)", 
         "",
+        "999",
     ],
     [
-        "boomerang", 
-        "boomerang, boom, bo", 
+        "Boomerang", 
+        "boomerang, boom", 
         2, 
         6, 
         4, 
         "Yes", 
-        "???", 
         "slc + ~slc", 
-        "https://www.youtube.com/watch?v=c2IrbYGs0eU",
+        "<a href='https://www.youtube.com/watch?v=c2IrbYGs0eU' target='_blank'>DJ Dirty Digits &#128279;</a>",
+        "999",
     ],
     [
-        "autobahn", 
+        "Autobahn", 
         "autobahn, ab",         
         3, 
         9, 
         7, 
         "Yes", 
-        "???", 
         "sl // (1/3) / (2/3) + ct1 // (2/3) / (2/3) + (~b // (1/3) / (1/3) + ct1 // (2/3) / (2/3)).yshift(1/3) + ~ct1 / (2/3)", 
-        "https://www.youtube.com/watch?v=nqzwiWkKV_s",
+        "<a href='https://www.youtube.com/watch?v=nqzwiWkKV_s' target='_blank'>DJ Dirty Digits &#128279;</a>",
+        "999",
     ],
     [
-        "seesaw", 
+        "Seesaw", 
         "seesaw, ss",             
         1, 
         4, 
         2, 
         "Yes", 
-        "???", 
         "(b + ~b + g + ~b + b + ~g) / 1", 
-        "https://www.youtube.com/watch?v=6ZHYnUdPw3g&t=141s",
+        "<a href='https://www.youtube.com/watch?v=6ZHYnUdPw3g&t=141s' target='_blank'>TTM Academy &#128279;</a>",
+        "999",
     ],
     [
-        "1-Click Tazer", 
+        "1-Click-Tazer", 
         "tazer1, ta1, lazer1, la1",             
         1, 
         3, 
         1, 
         "Yes", 
-        "1/3", 
-        "~bD_f1D_R3", 
-        "https://www.youtube.com/watch?v=JRaUuXhw6Qk",
+        "~bLog_f1Log_R3", 
+        "<a href='https://www.youtube.com/watch?v=JRaUuXhw6Qk' target='_blank'>DJ ND  &#128279;</a>",
+        "999",
     ],
     [
-        "2-Click Tazer", 
+        "2-Click-Tazer", 
         "tazer2, ta2, lazer2, la2",             
         1, 
         4,
         2, 
         "Yes", 
-        "1/4", 
-        "~bD_f2D_R4", 
-        "https://www.youtube.com/watch?v=JRaUuXhw6Qk",
+        "~bLog_f2Log_R4", 
+        "<a href='https://www.youtube.com/watch?v=JRaUuXhw6Qk' target='_blank'>DJ ND  &#128279;</a>",
+        "999",
     ],
 ]
 
-df2 = pd.DataFrame(data=special_scratches, index=[i[0] for i in special_scratches],columns=columns)
+df2 = pd.DataFrame(
+    data=special_scratches, index=[i[0] for i in special_scratches], columns=columns,
+)
+
 df = pd.concat([df, df2])
+
+
+# most important
+
+for indx, name in enumerate([
+    "b_b",
+    "Scribble",
+    "Drills",
+    "b_g",
+    "b_tr1",
+    "f1_f1",
+    "f2_f2",
+    "1-Click-Chirpflare",
+    "2-Click-Chirpflare",
+    "Swingflare",
+    "Boomerang",
+    "Autobahn",
+    "Prizm",
+    "Seesaw",
+    "1-Click-Tazer",
+    "2-Click-Tazer",
+    "b",
+    "tr1",
+    "tr2",
+    "tr3",
+    "tr4",
+    "f1",
+    "f2",
+    "f3",
+    "t1",
+    "t2",
+    "t2",
+    "ct1",
+    "ct2",
+    "ct2",
+]):
+    df.at[name, "MostImportant"] = str(indx)
