@@ -2,10 +2,10 @@
     "columns": [
         { "data" : "DT_RowId", "title" : "Name" },
         { "data" : "supplier", "title" : "Code Name" },
-        { "data" : "color", "title" : "color" }
+        { "data" : "count", "title" : "COUNT" }
     ],
     "data": [
-        { "DT_RowId" : "row_3", "supplier" : "small", "color" : "red" },
+        { "DT_RowId" : "xxx", "supplier" : "small", "color" : "red" },
         { "DT_RowId" : "row_3", "supplier" : "medium", "color" : "blue" },
         { "DT_RowId" : "row_3", "supplier" : "medium", "color" : "blue" },
         { "DT_RowId" : "row_11", "supplier" : "large", "color" : "blue" }
