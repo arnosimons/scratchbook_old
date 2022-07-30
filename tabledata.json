@@ -5,9 +5,9 @@
         { "data" : "count", "title" : "COUNT" }
     ],
     "data": [
-        { "DT_RowId" : "xxx", "supplier" : "small", "color" : "red" },
-        { "DT_RowId" : "row_3", "supplier" : "medium", "color" : "blue" },
-        { "DT_RowId" : "row_3", "supplier" : "medium", "color" : "blue" },
-        { "DT_RowId" : "row_11", "supplier" : "large", "color" : "blue" }
+        { "DT_RowId" : "xxx", "supplier" : "small", "count" : "red" },
+        { "DT_RowId" : "row_3", "supplier" : "medium", "count" : "blue" },
+        { "DT_RowId" : "row_3", "supplier" : "medium", "count" : "blue" },
+        { "DT_RowId" : "row_11", "supplier" : "large", "count" : "blue" }
     ]
 }
