@@ -6,6 +6,7 @@ class MyLocator(matplotlib.ticker.AutoMinorLocator):
     def __init__(self, n=12):
         super().__init__(n=n)
 matplotlib.ticker.AutoMinorLocator = MyLocator
+slicetype = slice
 
 class Scratch:
     
@@ -18,7 +19,7 @@ class Scratch:
         ])] + i[1:] for i in slices]
     
     def __getitem__(self, so):
-        if isinstance(so, slice):
+        if isinstance(so, slicetype):
             slices = self.slices[so]
         elif isinstance(so, int):
             slices = [self.slices[so]]
