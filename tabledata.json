@@ -2,10 +2,10 @@
     "columns": [
         { "data" : "Name", "title" : "Name" },
         { "data" : "supplier", "title" : "Code Name" },
-        { "data" : "count", "title" : "COUNT" }
+        { "data" : "count", "title" : "CouNT" }
     ],
     "data": [
-        { "Name" : "xxx", "supplier" : "small", "count" : "red" },
+        { "Name" : "xxx", "supplier" : "small", "count" : "23" },
         { "Name" : "yyy", "supplier" : "medium", "count" : "blue" },
         { "Name" : "row_3", "supplier" : "medium", "count" : "blue" },
         { "Name" : "row_11", "supplier" : "large", "count" : "blue" }
