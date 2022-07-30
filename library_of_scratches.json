@@ -1,14 +1,1 @@
-{
-    "columns": [
-        { "data" : "Name", "title" : "Name" },
-        { "data" : "Code Name", "title" : "Code Name" },
-        { "data" : "#Counts", "title" : "#Counts" }
-    ],
-    "data": [
-        { "Name" : "autobahn", "Code Name" : "ab", "#Counts" : "2" },
-        { "Name" : "prizzm", "Code Name" : "pr", "#Counts" : "3" },
-        { "Name" : "baby", "Code Name" : "b", "#Counts" : "4" },
-        { "Name" : "chirp", "Code Name" : "c", "#Counts" : "5" }
-    ]
-    "order": [[ 0, "desc" ],[ 2, "desc" ]]
-}
+{"columns": [{"data": "Name", "title": "Name"}, {"data": "Code Name", "title": "Code Name"}, {"data": "#Counts", "title": "#Counts"}, {"data": "#Sounds", "title": "#Sounds"}, {"data": "#Pauses", "title": "#Pauses"}, {"data": "Orbit", "title": "Orbit"}, {"data": "Turning Points", "title": "Turning Points"}, {"data": "Composition", "title": "Composition"}, {"data": "Tutorial", "title": "Tutorial"}], "data": [{"Name": "b", "Code Name": "baby, b", "#Counts": "1", "#Sounds": "1", "#Pauses": "0", "Orbit": "No", "Turning Points": "None", "Composition": "element", "Tutorial": "https://www.youtube.com/watch?v=rtqTmUVjsuY"}, {"Name": "bX", "Code Name": "babyX, bX", "#Counts": "1", "#Sounds": "1", "#Pauses": "0", "Orbit": "No", "Turning Points": "None", "Composition": "element", "Tutorial": ""}, {"Name": "bD", "Code Name": "babyD, bD", "#Counts": "1", "#Sounds": "1", "#Pauses": "0", "Orbit": "No", "Turning Points": "None", "Composition": "element", "Tutorial": ""}], "order": [[0, "desc"], [2, "desc"]]}
