@@ -6,7 +6,7 @@
     ],
     "data": [
         { "Name" : "xxx", "supplier" : "small", "count" : "red" },
-        { "Name" : "row_3", "supplier" : "medium", "count" : "blue" },
+        { "Name" : "yyy", "supplier" : "medium", "count" : "blue" },
         { "Name" : "row_3", "supplier" : "medium", "count" : "blue" },
         { "Name" : "row_11", "supplier" : "large", "count" : "blue" }
     ]
