@@ -80,6 +80,7 @@ class Session:
         height = 2 / beatsfactor
         width = 15
         marginscalar = 0.05
+        plt.tight_layout()
         self.fig = plt.gcf()
         self.ax = plt.gca()
         self.ax.cla()
@@ -89,7 +90,7 @@ class Session:
         xticks_labels = [i+1 for i in range(len(xticks))][:-1] + [1]
         self.ax.set_xlim([-(height * marginscalar), beats + (height * marginscalar)])
         self.ax.set_ylim([-(height * marginscalar), 1 + (height * marginscalar)])
-        self.ax.set_xlabel('Count', fontsize=fontsize)
+        self.ax.set_xlabel('Count (in quarter notes)', fontsize=fontsize)
         self.ax.set_xticks(xticks, xticks_labels, fontsize=fontsize)
         self.ax.grid(which='major', color='#2e2d2d', linewidth=0.8)
         self.ax.grid(which='minor', color='#787878', linestyle=':', linewidth=0.5)

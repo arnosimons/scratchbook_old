@@ -80,26 +80,74 @@ tr1Log = Scratch([[_1s[0], _Log, "k", _0]])
 tr2 = Scratch([[_1s[0], _N, "k", np.hstack((_0, _2))]])
 tr2Ex = Scratch([[_1s[0], _Ex, "k", np.hstack((_0, _2))]])
 tr2Log = Scratch([[_1s[0], _Log, "k", np.hstack((_0, _2))]])
+tr2D = Scratch([[_1s[0], _N, "k", np.hstack((_0, _3[:1]))]])
+tr2DEx = Scratch([[_1s[0], _Ex, "k", np.hstack((_0, _3[:1]))]])
+tr2DLog = Scratch([[_1s[0], _Log, "k", np.hstack((_0, _3[:1]))]])
+tr2A = Scratch([[_1s[0], _N, "k", np.hstack((_0, _3[1:]))]])
+tr2AEx = Scratch([[_1s[0], _Ex, "k", np.hstack((_0, _3[1:]))]])
+tr2ALog = Scratch([[_1s[0], _Log, "k", np.hstack((_0, _3[1:]))]])
 
 tr3 = Scratch([[_1s[0], _N, "k", np.hstack((_0, _3))]])
 tr3Ex = Scratch([[_1s[0], _Ex, "k", np.hstack((_0, _3))]])
 tr3Log = Scratch([[_1s[0], _Log, "k", np.hstack((_0, _3))]])
+tr3D = Scratch([[_1s[0], _N, "k", np.hstack((_0, _4[:2]))]])
+tr3DEx = Scratch([[_1s[0], _Ex, "k", np.hstack((_0, _4[:2]))]])
+tr3DLog = Scratch([[_1s[0], _Log, "k", np.hstack((_0, _4[:2]))]])
+tr3A = Scratch([[_1s[0], _N, "k", np.hstack((_0, _4[1:]))]])
+tr3AEx = Scratch([[_1s[0], _Ex, "k", np.hstack((_0, _4[1:]))]])
+tr3ALog = Scratch([[_1s[0], _Log, "k", np.hstack((_0, _4[1:]))]])
+tr3S = Scratch([[_1s[0], _N, "k", np.hstack((_0, _4[0], _4[2]))]])
+tr3SEx = Scratch([[_1s[0], _Ex, "k", np.hstack((_0, _4[0], _4[2]))]])
+tr3SLog = Scratch([[_1s[0], _Log, "k", np.hstack((_0, _4[0], _4[2]))]])
 
 tr4 = Scratch([[_1s[0], _N, "k", np.hstack((_0, _4))]])
 tr4Ex = Scratch([[_1s[0], _Ex, "k", np.hstack((_0, _4))]])
 tr4Log = Scratch([[_1s[0], _Log, "k", np.hstack((_0, _4))]])
+tr4D = Scratch([[_1s[0], _N, "k", np.hstack((_0, _5[:3]))]])
+tr4DEx = Scratch([[_1s[0], _Ex, "k", np.hstack((_0, _5[:3]))]])
+tr4DLog = Scratch([[_1s[0], _Log, "k", np.hstack((_0, _5[:3]))]])
+tr4A = Scratch([[_1s[0], _N, "k", np.hstack((_0, _5[1:]))]])
+tr4AEx = Scratch([[_1s[0], _Ex, "k", np.hstack((_0, _5[1:]))]])
+tr4ALog = Scratch([[_1s[0], _Log, "k", np.hstack((_0, _5[1:]))]])
+tr4S = Scratch([[_1s[0], _N, "k", np.hstack((_0, 1/2, _5[0], _5[3]))]])
+tr4SEx = Scratch([[_1s[0], _Ex, "k", np.hstack((_0, 1/2, _5[0], _5[3]))]])
+tr4SLog = Scratch([[_1s[0], _Log, "k", np.hstack((_0, 1/2, _5[0], _5[3]))]])
 
 f1 = Scratch([[_1s[0], _N, "k", _2]])
 f1Ex = Scratch([[_1s[0], _Ex, "k", _2]])
 f1Log = Scratch([[_1s[0], _Log, "k", _2]])
+f1D = Scratch([[_1s[0], _N, "k", _3[:1]]])
+f1DEx = Scratch([[_1s[0], _Ex, "k", _3[:1]]])
+f1DLog = Scratch([[_1s[0], _Log, "k", _3[:1]]])
+f1A = Scratch([[_1s[0], _N, "k", _3[1:]]])
+f1AEx = Scratch([[_1s[0], _Ex, "k", _3[1:]]])
+f1ALog = Scratch([[_1s[0], _Log, "k", _3[1:]]])
 
 f2 = Scratch([[_1s[0], _N, "k", _3]])
 f2Ex = Scratch([[_1s[0], _Ex, "k", _3]])
 f2Log = Scratch([[_1s[0], _Log, "k", _3]])
+f2D = Scratch([[_1s[0], _N, "k", _4[:2]]])
+f2DEx = Scratch([[_1s[0], _Ex, "k", _4[:2]]])
+f2DLog = Scratch([[_1s[0], _Log, "k", _4[:2]]])
+f2A = Scratch([[_1s[0], _N, "k", _4[1:]]])
+f2AEx = Scratch([[_1s[0], _Ex, "k", _4[1:]]])
+f2ALog = Scratch([[_1s[0], _Log, "k", _4[1:]]])
+f2S = Scratch([[_1s[0], _N, "k", np.hstack((_4[0], _4[2]))]])
+f2SEx = Scratch([[_1s[0], _Ex, "k", np.hstack((_4[0], _4[2]))]])
+f2SLog = Scratch([[_1s[0], _Log, "k", np.hstack((_4[0], _4[2]))]])
 
 f3 = Scratch([[_1s[0], _N, "k", _4]])
 f3Ex = Scratch([[_1s[0], _Ex, "k", _4]])
 f3Log = Scratch([[_1s[0], _Log, "k", _4]])
+f3D = Scratch([[_1s[0], _N, "k", _5[:3]]])
+f3DEx = Scratch([[_1s[0], _Ex, "k", _5[:3]]])
+f3DLog = Scratch([[_1s[0], _Log, "k", _5[:3]]])
+f3A = Scratch([[_1s[0], _N, "k", _5[1:]]])
+f3AEx = Scratch([[_1s[0], _Ex, "k", _5[1:]]])
+f3ALog = Scratch([[_1s[0], _Log, "k", _5[1:]]])
+f3S = Scratch([[_1s[0], _N, "k", np.hstack((1/2, _5[0], _5[3]))]])
+f3SEx = Scratch([[_1s[0], _Ex, "k", np.hstack((1/2, _5[0], _5[3]))]])
+f3SLog = Scratch([[_1s[0], _Log, "k", np.hstack((1/2, _5[0], _5[3]))]])
 
 ### Tears
 #############################################################
@@ -139,21 +187,37 @@ import pandas as pd
 ### make elements and formulas
 
 letters = {
-    "b":  (1, 0),
-    "g":  (0, 0),
-    "tr1":(1, 1),
-    "tr2":(2, 2),
-    "tr3":(3, 3),
-    "tr4":(4, 4),
-    "f1": (2, 1),
-    "f2": (3, 2),
-    "f3": (4, 3),
-    "t1": (2, 0),
-    "t2": (3, 0),
-    "t3": (4, 0),
-    "ct1":(2, 1),
-    "ct2":(3, 2),
-    "ct3":(4, 3),
+    "b":   (1, 0),
+    "g":   (0, 0),
+    "tr1": (1, 1),
+    "tr2": (2, 2),
+    "tr2D":(2, 2),
+    "tr2A":(2, 2),
+    "tr3": (3, 3),
+    "tr3D":(3, 3),
+    "tr3A":(3, 3),
+    "tr3S":(3, 3),
+    "tr4": (4, 4),
+    "tr4D":(4, 4),
+    "tr4A":(4, 4),
+    "tr4S":(4, 4),
+    "f1":  (2, 1),
+    "f1D": (2, 1),
+    "f1A": (2, 1),
+    "f2":  (3, 2),
+    "f2D": (3, 2),
+    "f2A": (3, 2),
+    "f2S": (3, 2),
+    "f3":  (4, 3),
+    "f3D": (4, 3),
+    "f3A": (4, 3),
+    "f3S": (4, 3),
+    "t1":  (2, 0),
+    "t2":  (3, 0),
+    "t3":  (4, 0),
+    "ct1": (2, 1),
+    "ct2": (3, 2),
+    "ct3": (4, 3),
 }
 curves = ["", "Ex", "Log"]
 elements = [
@@ -292,6 +356,30 @@ extra_data = {
         "Name":"2-Click-Transformer (Log-Curve)",
         "CodeName":"trans2Log",
     },
+    "tr2D":{
+        "Name":"2-Click-Transformer (Diminished)",
+        "CodeName":"trans2D",
+    },
+    "tr2DEx":{
+        "Name":"2-Click-Transformer (Diminished, Ex-Curve)",
+        "CodeName":"trans2DEx",
+    },
+    "tr2DLog":{
+        "Name":"2-Click-Transformer (Diminished, Log-Curve)",
+        "CodeName":"trans2DLog",
+    },
+    "tr2A":{
+        "Name":"2-Click-Transformer (Augmented)",
+        "CodeName":"trans2A",
+    },
+    "tr2AEx":{
+        "Name":"2-Click-Transformer (Augmented, Ex-Curve)",
+        "CodeName":"trans2AEx",
+    },
+    "tr2ALog":{
+        "Name":"2-Click-Transformer (Augmented, Log-Curve)",
+        "CodeName":"trans2ALog",
+    },
     "tr3":{
         "Name":"3-Click-Transformer",
         "CodeName":"trans3",
@@ -304,6 +392,42 @@ extra_data = {
         "Name":"3-Click-Transformer (Log-Curve)",
         "CodeName":"trans3Log",
     },
+    "tr3D":{
+        "Name":"3-Click-Transformer (Diminished)",
+        "CodeName":"trans3D",
+    },
+    "tr3DEx":{
+        "Name":"3-Click-Transformer (Diminished, Ex-Curve)",
+        "CodeName":"trans3DEx",
+    },
+    "tr3DLog":{
+        "Name":"3-Click-Transformer (Diminished, Log-Curve)",
+        "CodeName":"trans3DLog",
+    },
+    "tr3A":{
+        "Name":"3-Click-Transformer (Augmented)",
+        "CodeName":"trans3A",
+    },
+    "tr3AEx":{
+        "Name":"3-Click-Transformer (Augmented, Ex-Curve)",
+        "CodeName":"trans3AEx",
+    },
+    "tr3ALog":{
+        "Name":"3-Click-Transformer (Augmented, Log-Curve)",
+        "CodeName":"trans3ALog",
+    },
+    "tr3S":{
+        "Name":"3-Click-Transformer (Stretched)",
+        "CodeName":"trans3S",
+    },
+    "tr3SEx":{
+        "Name":"3-Click-Transformer (Stretched, Ex-Curve)",
+        "CodeName":"trans3SEx",
+    },
+    "tr3SLog":{
+        "Name":"3-Click-Transformer (Stretched, Log-Curve)",
+        "CodeName":"trans3SLog",
+    },
     "tr4":{
         "Name":"4-Click-Transformer",
         "CodeName":"trans4",
@@ -315,6 +439,42 @@ extra_data = {
     "tr4Log":{
         "Name":"4-Click-Transformer (Log-Curve)",
         "CodeName":"trans4Log",
+    },
+    "tr4D":{
+        "Name":"4-Click-Transformer (Diminished)",
+        "CodeName":"trans4D",
+    },
+    "tr4DEx":{
+        "Name":"4-Click-Transformer (Diminished, Ex-Curve)",
+        "CodeName":"trans4DEx",
+    },
+    "tr4DLog":{
+        "Name":"4-Click-Transformer (Diminished, Log-Curve)",
+        "CodeName":"trans4DLog",
+    },
+    "tr4A":{
+        "Name":"4-Click-Transformer (Augmented)",
+        "CodeName":"trans4A",
+    },
+    "tr4AEx":{
+        "Name":"4-Click-Transformer (Augmented, Ex-Curve)",
+        "CodeName":"trans4AEx",
+    },
+    "tr4ALog":{
+        "Name":"4-Click-Transformer (Augmented, Log-Curve)",
+        "CodeName":"trans4ALog",
+    },
+    "tr4S":{
+        "Name":"4-Click-Transformer (Stretched)",
+        "CodeName":"trans4S",
+    },
+    "tr4SEx":{
+        "Name":"4-Click-Transformer (Stretched, Ex-Curve)",
+        "CodeName":"trans4SEx",
+    },
+    "tr4SLog":{
+        "Name":"4-Click-Transformer (Stretched, Log-Curve)",
+        "CodeName":"trans4SLog",
     },
     
     # Flares
@@ -330,6 +490,30 @@ extra_data = {
         "Name":"1-Click-Flare (Log-Curve)",
         "CodeName":"flare1Log",
     },
+    "f1D":{
+        "Name":"1-Click-Flare (Diminished)",
+        "CodeName":"flare1D",
+    },
+    "f1DEx":{
+        "Name":"1-Click-Flare (Diminished, Ex-Curve)",
+        "CodeName":"flare1DEx",
+    },
+    "f1DLog":{
+        "Name":"1-Click-Flare (Diminished, Log-Curve)",
+        "CodeName":"flare1DLog",
+    },
+    "f1A":{
+        "Name":"1-Click-Flare (Augmented)",
+        "CodeName":"flare1A",
+    },
+    "f1AEx":{
+        "Name":"1-Click-Flare (Augmented, Ex-Curve)",
+        "CodeName":"flare1AEx",
+    },
+    "f1ALog":{
+        "Name":"1-Click-Flare (Augmented, Log-Curve)",
+        "CodeName":"flare1ALog",
+    },
     "f2":{
         "Name":"2-Click-Flare",
         "CodeName":"flare2",
@@ -341,6 +525,42 @@ extra_data = {
     "f2Log":{
         "Name":"2-Click-Flare (Log-Curve)",
         "CodeName":"flare2Log",
+    },
+    "f2D":{
+        "Name":"2-Click-Flare (Diminished)",
+        "CodeName":"flare2D",
+    },
+    "f2DEx":{
+        "Name":"2-Click-Flare (Diminished, Ex-Curve)",
+        "CodeName":"flare2DEx",
+    },
+    "f2DLog":{
+        "Name":"2-Click-Flare (Diminished, Log-Curve)",
+        "CodeName":"flare2DLog",
+    },
+    "f2A":{
+        "Name":"2-Click-Flare (Augmented)",
+        "CodeName":"flare2A",
+    },
+    "f2AEx":{
+        "Name":"2-Click-Flare (Augmented, Ex-Curve)",
+        "CodeName":"flare2AEx",
+    },
+    "f2ALog":{
+        "Name":"2-Click-Flare (Augmented, Log-Curve)",
+        "CodeName":"flare2ALog",
+    },
+    "f2S":{
+        "Name":"2-Click-Flare (Stretched)",
+        "CodeName":"flare2S",
+    },
+    "f2SEx":{
+        "Name":"2-Click-Flare (Stretched, Ex-Curve)",
+        "CodeName":"flare2SEx",
+    },
+    "f2SLog":{
+        "Name":"2-Click-Flare (Stretched, Log-Curve)",
+        "CodeName":"flare2SLog",
     },
     "f3":{
         "Name":"3-Click-Flare",
@@ -354,6 +574,45 @@ extra_data = {
         "Name":"3-Click-Flare (Log-Curve)",
         "CodeName":"flare3Log",
     },
+    "f3D":{
+        "Name":"3-Click-Flare (Diminished)",
+        "CodeName":"flare3D",
+    },
+    "f3DEx":{
+        "Name":"3-Click-Flare (Diminished, Ex-Curve)",
+        "CodeName":"flare3DEx",
+    },
+    "f3DLog":{
+        "Name":"3-Click-Flare (Diminished, Log-Curve)",
+        "CodeName":"flare3DLog",
+    },
+    "f3A":{
+        "Name":"3-Click-Flare (Augmented)",
+        "CodeName":"flare3A",
+    },
+    "f3AEx":{
+        "Name":"3-Click-Flare (Augmented, Ex-Curve)",
+        "CodeName":"flare3AEx",
+    },
+    "f3ALog":{
+        "Name":"3-Click-Flare (Augmented, Log-Curve)",
+        "CodeName":"flare3ALog",
+    },
+    "f3S":{
+        "Name":"3-Click-Flare (Stretched)",
+        "CodeName":"flare3S",
+    },
+    "f3SEx":{
+        "Name":"3-Click-Flare (Stretched, Ex-Curve)",
+        "CodeName":"flare3SEx",
+    },
+    "f3SLog":{
+        "Name":"3-Click-Flare (Stretched, Log-Curve)",
+        "CodeName":"flare3SLog",
+    },
+    
+    
+    # Tears
     "t1":{
         "Name":"1-Tear",
         "CodeName":"tear1",
@@ -362,8 +621,6 @@ extra_data = {
         "Name":"1-Tear (Ex-Curve)",
         "CodeName":"tear1Ex",
     },
-    
-    # Tears
     "t1Log":{
         "Name":"1-Tear (Log-Curve)",
         "CodeName":"tear1Log",
@@ -883,13 +1140,13 @@ for name in df.index: # Babies
     if ("_" in name and re.match(r"b(?:Ex|Log)?_b(?:Ex|Log)?", name)) or re.match(r"b(?:Ex|Log)?$", name):
         df.at[name, "Tutorial"] = "<a href='https://www.youtube.com/watch?v=rtqTmUVjsuY' target='_blank'>DJ Noumenon &#128279;</a>"
 for name in df.index: # 1-Click Flares
-    if ("_" in name and re.match(r"f1(?:Ex|Log)?_f1(?:Ex|Log)?", name)) or re.match(r"f1(?:Ex|Log)?$", name):
+    if ("_" in name and re.match(r"f1[DAS]?(?:Ex|Log)?_f1(?:Ex|Log)?", name)) or re.match(r"f1[DAS]?(?:Ex|Log)?$", name):
         df.at[name, "Tutorial"] = "<a href='https://www.youtube.com/watch?v=P33Obuj0zAI' target='_blank'>DJ D-Styles & DJ Melo-D &#128279;</a>"
 for name in df.index: # 2-Click Flares
-    if ("_" in name and re.match(r"f2(?:Ex|Log)?_f2(?:Ex|Log)?", name)) or re.match(r"f2(?:Ex|Log)?$", name):
+    if ("_" in name and re.match(r"f2[DAS]?(?:Ex|Log)?_f2(?:Ex|Log)?", name)) or re.match(r"f2[DAS]?(?:Ex|Log)?$", name):
         df.at[name, "Tutorial"] = "<a href='https://www.youtube.com/watch?v=1yqMmsQhnHU' target='_blank'>DJ D-Styles & DJ Babu &#128279;</a>"
 for name in df.index: # transformers and pure transformer orbits
-    if ("_" in name and re.match(r"tr\d(?:Ex|Log)?_tr\d(?:Ex|Log)?", name)) or re.match(r"tr\d(?:Ex|Log)?$", name):
+    if ("_" in name and re.match(r"tr\d[DAS]?(?:Ex|Log)?_tr\d[DAS]?(?:Ex|Log)?", name)) or re.match(r"tr\d[DAS]?(?:Ex|Log)?$", name):
         df.at[name, "Tutorial"] = "<a href='https://www.youtube.com/watch?v=XdkNAePjM7o' target='_blank'>DJ Immortal &#128279;</a>"
 for name in df.index: # tears and pure tear orbits
     if ("_" in name and re.match(r"t\d(?:Ex|Log)?_t\d(?:Ex|Log)?", name)) or re.match(r"t\d(?:Ex|Log)?$", name):
@@ -1055,6 +1312,7 @@ for indx, name in enumerate([
     "Drills",
     "b_g",
     "b_tr1",
+    "tr1_b",
     "tr1_tr1",
     "f1_f1",
     "f2_f2",
@@ -1071,16 +1329,32 @@ for indx, name in enumerate([
     "b",
     "tr1",
     "tr2",
+    "tr2D",
+    "tr2A",
     "tr3",
+    "tr3D",
+    "tr3A",
+    "tr3S",
     "tr4",
+    "tr4D",
+    "tr4A",
+    "tr4S",
     "f1",
+    "f1D",
+    "f1A",
     "f2",
+    "f2D",
+    "f2A",
+    "f2S",
     "f3",
+    "f3D",
+    "f3A",
+    "f3S",
     "t1",
     "t2",
-    "t2",
+    "t3",
     "ct1",
     "ct2",
-    "ct2",
+    "ct3",
 ]):
-    df.at[name, "MostImportant"] =  indx
+    df.at[name, "MostImportant"] =  indx + 1
