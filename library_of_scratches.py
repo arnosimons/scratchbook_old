@@ -149,32 +149,53 @@ f3S = Scratch([[_1s[0], _N, "k", np.hstack((1/2, _5[0], _5[3]))]])
 f3SEx = Scratch([[_1s[0], _Ex, "k", np.hstack((1/2, _5[0], _5[3]))]])
 f3SLog = Scratch([[_1s[0], _Log, "k", np.hstack((1/2, _5[0], _5[3]))]])
 
+f4 = Scratch([[_1s[0], _N, "k", _5]])
+f4Ex = Scratch([[_1s[0], _Ex, "k", _5]])
+f4Log = Scratch([[_1s[0], _Log, "k", _5]])
+f4D = Scratch([[_1s[0], _N, "k", _6[:4]]])
+f4DEx = Scratch([[_1s[0], _Ex, "k", _6[:4]]])
+f4DLog = Scratch([[_1s[0], _Log, "k", _6[:4]]])
+f4A = Scratch([[_1s[0], _N, "k", _6[1:]]])
+f4AEx = Scratch([[_1s[0], _Ex, "k", _6[1:]]])
+f4ALog = Scratch([[_1s[0], _Log, "k", _6[1:]]])
+f4S = Scratch([[_1s[0], _N, "k", np.hstack((1/2, _6[0], _6[3]))]])
+f4SEx = Scratch([[_1s[0], _Ex, "k", np.hstack((1/2, _6[0], _6[3]))]])
+f4SLog = Scratch([[_1s[0], _Log, "k", np.hstack((1/2, _6[0], _6[3]))]])
+
 ### Tears
 #############################################################
 
 t1N = t1 = Scratch([[_s, _N, "k", _] for _s in steps(2)])
-t2N = t2 = Scratch([[_s, _N, "k", _] for _s in steps(3)])
-t3N = t3 = Scratch([[_s, _N, "k", _] for _s in steps(4)])
-
 t1Ex = Scratch([[_s, _Ex, "k", _] for _s in steps(2)])
-t2Ex = Scratch([[_s, _Ex, "k", _] for _s in steps(3)])
-t3Ex = Scratch([[_s, _Ex, "k", _] for _s in steps(4)])
-
 t1Log = Scratch([[_s, _Log, "k", _] for _s in steps(2)])
+
+t2N = t2 = Scratch([[_s, _N, "k", _] for _s in steps(3)])
+t2Ex = Scratch([[_s, _Ex, "k", _] for _s in steps(3)])
 t2Log = Scratch([[_s, _Log, "k", _] for _s in steps(3)])
+
+t3N = t3 = Scratch([[_s, _N, "k", _] for _s in steps(4)])
+t3Ex = Scratch([[_s, _Ex, "k", _] for _s in steps(4)])
 t3Log = Scratch([[_s, _Log, "k", _] for _s in steps(4)])
 
+t4N = t4 = Scratch([[_s, _N, "k", _] for _s in steps(5)])
+t4Ex = Scratch([[_s, _Ex, "k", _] for _s in steps(5)])
+t4Log = Scratch([[_s, _Log, "k", _] for _s in steps(5)])
+
 ct1N = ct1 = Scratch([[_s, _N, "k", _0] for _s in steps(2)])
-ct2N = ct2 = Scratch([[_s, _N, "k", _0] for _s in steps(3)])
-ct3N = ct3 = Scratch([[_s, _N, "k", _0] for _s in steps(4)])
-
 ct1Ex = Scratch([[_s, _Ex, "k", _0] for _s in steps(2)])
-ct2Ex = Scratch([[_s, _Ex, "k", _0] for _s in steps(3)])
-ct3Ex = Scratch([[_s, _Ex, "k", _0] for _s in steps(4)])
-
 ct1Log = Scratch([[_s, _Log, "k", _0] for _s in steps(2)])
+
+ct2N = ct2 = Scratch([[_s, _N, "k", _0] for _s in steps(3)])
+ct2Ex = Scratch([[_s, _Ex, "k", _0] for _s in steps(3)])
 ct2Log = Scratch([[_s, _Log, "k", _0] for _s in steps(3)])
+
+ct3N = ct3 = Scratch([[_s, _N, "k", _0] for _s in steps(4)])
+ct3Ex = Scratch([[_s, _Ex, "k", _0] for _s in steps(4)])
 ct3Log = Scratch([[_s, _Log, "k", _0] for _s in steps(4)])
+
+ct4N = ct4 = Scratch([[_s, _N, "k", _0] for _s in steps(5)])
+ct4Ex = Scratch([[_s, _Ex, "k", _0] for _s in steps(5)])
+ct4Log = Scratch([[_s, _Log, "k", _0] for _s in steps(5)])
 
 ### Orbits, Special Scratches, and DataFrame
 #############################################################
@@ -212,12 +233,18 @@ letters = {
     "f3D": (4, 3),
     "f3A": (4, 3),
     "f3S": (4, 3),
+    "f4":  (5, 4),
+    "f4D": (5, 4),
+    "f4A": (5, 4),
+    "f4S": (5, 4),
     "t1":  (2, 0),
     "t2":  (3, 0),
     "t3":  (4, 0),
+    "t4":  (5, 0),
     "ct1": (2, 1),
     "ct2": (3, 2),
     "ct3": (4, 3),
+    "ct4": (5, 4),
 }
 curves = ["", "Ex", "Log"]
 elements = [
@@ -610,6 +637,54 @@ extra_data = {
         "Name":"3-Click-Flare (Stretched, Log-Curve)",
         "CodeName":"flare3SLog",
     },
+    "f4":{
+        "Name":"4-Click-Flare",
+        "CodeName":"flare4",
+    },
+    "f4Ex":{
+        "Name":"4-Click-Flare (Ex-Curve)",
+        "CodeName":"flare4Ex",
+    },
+    "f4Log":{
+        "Name":"4-Click-Flare (Log-Curve)",
+        "CodeName":"flare4Log",
+    },
+    "f4D":{
+        "Name":"4-Click-Flare (Diminished)",
+        "CodeName":"flare4D",
+    },
+    "f4DEx":{
+        "Name":"4-Click-Flare (Diminished, Ex-Curve)",
+        "CodeName":"flare4DEx",
+    },
+    "f4DLog":{
+        "Name":"4-Click-Flare (Diminished, Log-Curve)",
+        "CodeName":"flare4DLog",
+    },
+    "f4A":{
+        "Name":"4-Click-Flare (Augmented)",
+        "CodeName":"flare4A",
+    },
+    "f4AEx":{
+        "Name":"4-Click-Flare (Augmented, Ex-Curve)",
+        "CodeName":"flare4AEx",
+    },
+    "f4ALog":{
+        "Name":"4-Click-Flare (Augmented, Log-Curve)",
+        "CodeName":"flare4ALog",
+    },
+    "f4S":{
+        "Name":"4-Click-Flare (Stretched)",
+        "CodeName":"flare4S",
+    },
+    "f4SEx":{
+        "Name":"4-Click-Flare (Stretched, Ex-Curve)",
+        "CodeName":"flare4SEx",
+    },
+    "f4SLog":{
+        "Name":"4-Click-Flare (Stretched, Log-Curve)",
+        "CodeName":"flare4SLog",
+    },
     
     
     # Tears
@@ -649,6 +724,18 @@ extra_data = {
         "Name":"3-Tear (Log-Curve)",
         "CodeName":"tear3Log",
     },
+    "t4":{
+        "Name":"4-Tear",
+        "CodeName":"tear4",
+    },
+    "t4Ex":{
+        "Name":"4-Tear (Ex-Curve)",
+        "CodeName":"tear4Ex",
+    },
+    "t4Log":{
+        "Name":"4-Tear (Log-Curve)",
+        "CodeName":"tear4Log",
+    },
     
     # Click Tears
     "ct1":{
@@ -686,6 +773,18 @@ extra_data = {
     "ct3Log":{
         "Name":"3-Click-Tear (Log-Curve)",
         "CodeName":"clicktear3Log",
+    },
+     "ct4":{
+        "Name":"4-Click-Tear",
+        "CodeName":"clicktear4",
+    },
+    "ct4Ex":{
+        "Name":"4-Click-Tear (Ex-Curve)",
+        "CodeName":"clicktear4Ex",
+    },
+    "ct4Log":{
+        "Name":"4-Click-Tear (Log-Curve)",
+        "CodeName":"clicktear4Log",
     },
     
     # Baby-Orbits
@@ -1312,8 +1411,8 @@ for indx, name in enumerate([
     "Drills",
     "b_g",
     "b_tr1",
-    "tr1_b",
     "tr1_tr1",
+    "tr1_b",
     "f1_f1",
     "f2_f2",
     "1-Click-Chirpflare",
@@ -1350,11 +1449,17 @@ for indx, name in enumerate([
     "f3D",
     "f3A",
     "f3S",
+    "f4",
+    "f4D",
+    "f4A",
+    "f4S",
     "t1",
     "t2",
     "t3",
+    "t4",
     "ct1",
     "ct2",
     "ct3",
+    "ct4",
 ]):
     df.at[name, "MostImportant"] =  indx + 1
