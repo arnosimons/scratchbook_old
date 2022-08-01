@@ -75,7 +75,7 @@ class Scratch:
     
 class Session:
     
-    def __init__(self, scratch, bars=2, linewidth=4, markersize=8, fontsize=12, pad=0, rect=None):
+    def __init__(self, scratch, bars=2, linewidth=4, markersize=8, fontsize=12, pad=0, h_pad=0, w_pad=0, rect=None):
         required_len = round(scratch.length / 4) if scratch.length / 4 <= round(scratch.length / 4) else round(scratch.length / 4) + 1
         bars = required_len if required_len >= 2 else 2
         beats = (bars * 4) 
@@ -130,7 +130,7 @@ class Session:
             for click in fader:
                 self.ax.plot(*click, marker="o", markersize=markersize, markeredgecolor="black", markerfacecolor="white")
             xshift += scalars[0]
-        self.fig.tight_layout(pad=pad, rect=rect)
+        self.fig.tight_layout(pad=pad, h_pad=h_pad, w_pad=w_pad, rect=rect)
 
 ### scalars
 
