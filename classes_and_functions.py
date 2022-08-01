@@ -88,12 +88,13 @@ class Session:
         height = 2 / beatsfactor
         width = 15
         marginscalar = 0.05
+
         self.fig = plt.gcf()
+        self.fig.tight_layout()
         self.ax = plt.gca()
         self.ax.cla()
         self.fig.set_figheight(height)
         self.fig.set_figwidth(width)
-        self.fig.tight_layout()
         xticks = np.linspace(0, beats, beats + 1)
         xticks_labels = [f"{i+1}" if not i % 4 == 0 else f"({i+1})" for i in range(len(xticks))][:-1] + [1]
         self.ax.set_xlim([-(height * marginscalar), beats + (height * marginscalar)])
