@@ -106,7 +106,7 @@ class Session:
         self.ax.minorticks_on() 
         self.ax.set_ylabel('Sample', fontsize=fontsize)
         self.ax.set_yticks([0.0, 1.0], ['Start (0)','End (1)'], fontsize=fontsize)
-        self.fig.tight_layout()
+        self.fig.tight_layout(pad=1.5)
         for i in range(beats):
             if i % 4 == 0:
                 self.ax.axvline(x=i, color='black', label='axvline - % of full height')
