@@ -75,7 +75,7 @@ class Scratch:
     
 class Session:
     
-    def __init__(self, scratch, bars=2, linewidth=4, markersize=8, fontsize=12):
+    def __init__(self, scratch, bars=2, linewidth=4, markersize=8, fontsize=12, pad=1.3):
         required_len = round(scratch.length / 4) if scratch.length / 4 <= round(scratch.length / 4) else round(scratch.length / 4) + 1
         bars = required_len if required_len >= 2 else 2
         beats = (bars * 4) 
@@ -88,12 +88,12 @@ class Session:
         height = 2 / beatsfactor
         width = 15
         marginscalar = 0.05
-
         self.fig = plt.gcf()
         self.ax = plt.gca()
         self.ax.cla()
         self.fig.set_figheight(height)
         self.fig.set_figwidth(width)
+        self.fig.tight_layout(pad=pad)
         xticks = np.linspace(0, beats, beats + 1)
         xticks_labels = [f"{i+1}" if not i % 4 == 0 else f"({i+1})" for i in range(len(xticks))][:-1] + [1]
         self.ax.set_xlim([-(height * marginscalar), beats + (height * marginscalar)])
@@ -106,7 +106,6 @@ class Session:
         self.ax.minorticks_on() 
         self.ax.set_ylabel('Sample', fontsize=fontsize)
         self.ax.set_yticks([0.0, 1.0], ['Start (0)','End (1)'], fontsize=fontsize)
-        self.fig.tight_layout(pad=1.3)
         for i in range(beats):
             if i % 4 == 0:
                 self.ax.axvline(x=i, color='black', label='axvline - % of full height')
