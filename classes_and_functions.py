@@ -75,7 +75,7 @@ class Scratch:
     
 class Session:
     
-    def __init__(self, scratch, bars=2, linewidth=4, markersize=8, fontsize=12, pad=1.3):
+    def __init__(self, scratch, bars=2, linewidth=4, markersize=8, fontsize=12, pad=0, rect=(0,0,1,1)):
         required_len = round(scratch.length / 4) if scratch.length / 4 <= round(scratch.length / 4) else round(scratch.length / 4) + 1
         bars = required_len if required_len >= 2 else 2
         beats = (bars * 4) 
@@ -93,7 +93,7 @@ class Session:
         self.ax.cla()
         self.fig.set_figheight(height)
         self.fig.set_figwidth(width)
-        self.fig.tight_layout(pad=pad)
+        self.fig.tight_layout(pad=pad, rect=rect)
         xticks = np.linspace(0, beats, beats + 1)
         xticks_labels = [f"{i+1}" if not i % 4 == 0 else f"({i+1})" for i in range(len(xticks))][:-1] + [1]
         self.ax.set_xlim([-(height * marginscalar), beats + (height * marginscalar)])
