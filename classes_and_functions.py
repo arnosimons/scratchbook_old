@@ -93,7 +93,6 @@ class Session:
         self.ax.cla()
         self.fig.set_figheight(height)
         self.fig.set_figwidth(width)
-        self.fig.tight_layout(pad=pad, rect=rect)
         xticks = np.linspace(0, beats, beats + 1)
         xticks_labels = [f"{i+1}" if not i % 4 == 0 else f"({i+1})" for i in range(len(xticks))][:-1] + [1]
         self.ax.set_xlim([-(height * marginscalar), beats + (height * marginscalar)])
@@ -131,6 +130,7 @@ class Session:
             for click in fader:
                 self.ax.plot(*click, marker="o", markersize=markersize, markeredgecolor="black", markerfacecolor="white")
             xshift += scalars[0]
+        self.fig.tight_layout(pad=pad, rect=rect)
 
 ### scalars
 
