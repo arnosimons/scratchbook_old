@@ -82,6 +82,7 @@ class Session:
         beatsfactor = beats / 8
         linewidth = linewidth / beatsfactor
         markersize = markersize / beatsfactor
+        fontsize = fontsize / beatsfactor
         markeredgecolor="black", 
         markerfacecolor="white"
         height = 2 / beatsfactor
