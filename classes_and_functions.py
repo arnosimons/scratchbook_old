@@ -6,18 +6,22 @@ import matplotlib.ticker
 class MyLocator(matplotlib.ticker.AutoMinorLocator):
     def __init__(self, n=12):
         super().__init__(n=n)
+        
 matplotlib.ticker.AutoMinorLocator = MyLocator
 slicetype = slice
 
 class Scratch:
     
     def __init__(self, slices, length=None, yscale=1, yshift=0):
-        length = length or sum(i[0][0] for i in slices)
+        self.length = length or sum(i[0][0] for i in slices)
         self.slices = [[np.array([
-            i[0][0] / sum(i[0][0] for i in slices) * length, # xscale
+            i[0][0] / sum(i[0][0] for i in slices) * self.length, # xscale
             i[0][1] * yscale, # yscale
             i[0][2] * yscale + yshift, # yshift
         ])] + i[1:] for i in slices]
+    
+    def __len__(self):
+        return self.length
     
     def __getitem__(self, so):
         if isinstance(so, slicetype):
@@ -72,7 +76,10 @@ class Scratch:
 class Session:
     
     def __init__(self, scratch, bars=2, linewidth=5, markersize=10, fontsize=12):
-        beats = (bars * 4) if bars else x
+        required_len = round(scratch.length / 4) if scratch.length / 4 <= round(scratch.length / 4) else round(scratch.length / 4) + 1
+        bars = required_len if required_len >= 2 else 2
+        beats = (bars * 4) 
+        print("beats", beats)
         beatsfactor = beats / 8
         linewidth = linewidth
         markersize = markersize
@@ -88,10 +95,10 @@ class Session:
         self.fig.set_figheight(height)
         self.fig.set_figwidth(width)
         xticks = np.linspace(0, beats, beats + 1)
-        xticks_labels = [i+1 for i in range(len(xticks))][:-1] + [1]
+        xticks_labels = [f"{i+1}" if not i % 4 == 0 else f"({i+1})" for i in range(len(xticks))][:-1] + [1]
         self.ax.set_xlim([-(height * marginscalar), beats + (height * marginscalar)])
         self.ax.set_ylim([-(height * marginscalar), 1 + (height * marginscalar)])
-        self.ax.set_xlabel('Count (in quarter notes)', fontsize=fontsize)
+        self.ax.set_xlabel('Counts (in quarter notes)', fontsize=fontsize)
         self.ax.set_xticks(xticks, xticks_labels, fontsize=fontsize)
         self.ax.grid(which='major', color='#2e2d2d', linewidth=0.8)
         self.ax.grid(which='minor', color='#787878', linestyle=':', linewidth=0.5)
@@ -100,6 +107,8 @@ class Session:
         self.ax.set_ylabel('Sample', fontsize=fontsize)
         self.ax.set_yticks([0.0, 1.0], ['Start (0)','End (1)'], fontsize=fontsize)
         for i in range(beats):
+            if i % 4 == 0:
+                self.ax.axvline(x=i, color='black', label='axvline - % of full height')
             if not i % 2 == 0:
                 self.ax.axvspan(i, 1 + i, facecolor='#e6e6e6', alpha=0.5, ymin=1 - marginscalar * 1.5, ymax=marginscalar * 1.5)
             else:
@@ -123,6 +132,8 @@ class Session:
                 self.ax.plot(*click, marker="o", markersize=markersize, markeredgecolor="black", markerfacecolor="white")
             xshift += scalars[0]
 
+### scalars
+
 def steps(steps):
     return [[1/steps, 1/steps, i/steps] for i in range(steps)]
 
@@ -132,6 +143,9 @@ _3s = steps(3)
 _4s = steps(4)
 _6s = steps(6)
 _8s = steps(8)
+
+
+### curves
 
 def _N(x):
     return (-np.cos(np.pi * x) + 1) / 2
@@ -169,6 +183,8 @@ fneg = {
     _LogR:_Ex,
 }
 
+### clicks
+
 _ = np.array(())
 _0 = np.array((0,))
 _2 = np.array((1/2,))
@@ -179,5 +195,3 @@ _6 = np.array((1/6, 2/6, 3/6, 4/6, 5/6))
 _7 = np.array((1/7, 2/7, 3/7, 4/7, 5/7, 6/7))
 _8 = np.array((1/8, 2/8, 3/8, 4/8, 5/8, 6/8, 7/8))
 _9 = np.array((1/9, 2/9, 3/9, 4/9, 5/9, 6/9, 7/9, 8/9))
-
-ct3Log = Scratch([[_s, _Log, 'k', _0] for _s in steps(4)])
