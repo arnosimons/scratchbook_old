@@ -75,7 +75,7 @@ class Scratch:
     
 class Session:
     
-    def __init__(self, scratch, bars=2, linewidth=4, markersize=8, fontsize=12, pad=0, rect=(0,0,1,1)):
+    def __init__(self, scratch, bars=2, linewidth=4, markersize=8, fontsize=12, pad=0, rect=None):
         required_len = round(scratch.length / 4) if scratch.length / 4 <= round(scratch.length / 4) else round(scratch.length / 4) + 1
         bars = required_len if required_len >= 2 else 2
         beats = (bars * 4) 
