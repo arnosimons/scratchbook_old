@@ -72,7 +72,7 @@ class Scratch:
     
     def yshift(self, n):
         return Scratch([[[i[0][0], i[0][1], i[0][2] + n], i[1], i[2], i[3]] for i in self.slices])
-
+    
     ys = yshift
     
 class Session:
@@ -148,6 +148,9 @@ _8s = steps(8)
 
 
 ### curves
+
+def _L(x):
+    return np.zeros(len(x))
 
 def _N(x):
     return (-np.cos(np.pi * x) + 1) / 2
