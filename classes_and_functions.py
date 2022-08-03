@@ -8,7 +8,7 @@ class MyLocator(matplotlib.ticker.AutoMinorLocator):
         super().__init__(n=n)
         
 matplotlib.ticker.AutoMinorLocator = MyLocator
-# slicetype = slice
+slicetype = slice
 
 class Scratch:
     
