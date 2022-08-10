@@ -20,9 +20,6 @@ class Scratch:
             i[0][2] * yscale + yshift, # yshift
         ])] + i[1:] for i in slices]
     
-    def __len__(self):
-        return self.length
-    
     def __getitem__(self, so):
         if isinstance(so, slicetype):
             slices = self.slices[so]
@@ -49,35 +46,36 @@ class Scratch:
             scratch += self
         return scratch
     
-    def __truediv__(self, length):
+    def __truediv__(self, length): # length
         return Scratch(self.slices, length=length)
     
-    def __floordiv__(self, yscale):
+    def __floordiv__(self, yscale): # yscale
         return Scratch(self.slices, yscale=yscale)
     
-    def __invert__(self):
+    def __invert__(self): # invert on y-axis
         maxheight = max(i[0][1] + i[0][2] for i in self.slices)
         yshift = min(i[0][2] for i in self.slices)
         return Scratch([[[i[0][0], i[0][1], yshift + (maxheight - (i[0][1] + i[0][2]))], finv[i[1]], i[2], i[3]] for i in self.slices])
     
-    def __neg__(self):
+    def __neg__(self): # invert on x-axis
         return Scratch([[i[0], fneg[i[1]], i[2], np.flip([1 - i for i in i[3]])] for i in self.slices][::-1])
     
-    def __mod__(self, n):
+    def __mod__(self, n): # phase shift the scratch
         if not isinstance(n, int) or (isinstance(n, int) and n > len(self.slices)):
             message = "Phase shifting requires an integer smaller or equal to the number of slices. Here:" + str(len(self.slices))
             pyscript.write("session-output", message)
             raise ValueError(message)
         return self[n:] + self[:n]
     
-    def yshift(self, n):
-        return Scratch([[[i[0][0], i[0][1], i[0][2] + n], i[1], i[2], i[3]] for i in self.slices])
-    
-    ys = yshift
-
     def __pow__(self, n): # yshift
         return Scratch([[[i[0][0], i[0][1], i[0][2] + n], i[1], i[2], i[3]] for i in self.slices])
-    
+
+def join(scratches):
+    result = scratches[0]
+    for scratch in scratches[1:]:
+        result += scratch
+    return result    
+
 class Session:
     
     def __init__(self, scratch, bars=2, linewidth=4, markersize=8, fontsize=12, pad=0, h_pad=0, w_pad=0, rect=None):
@@ -139,17 +137,41 @@ class Session:
 
 ### scalars
 
-def steps(steps):
-    return [[1/steps, 1/steps, i/steps] for i in range(steps)]
-
-_1s = steps(1)
-_2s = steps(2)
-_3s = steps(3)
-_4s = steps(4)
-_6s = steps(6)
-_8s = steps(8)
-
-
+fractions = [
+    "0/1",
+    "1/8", 
+#     "1/7", 
+    "1/6", 
+#     "1/5", 
+    "1/4", 
+    "1/3", 
+    "3/8", 
+#     "2/5", 
+    "1/2", 
+#     "3/5", 
+    "5/8", 
+    "2/3", 
+    "3/4", 
+#     "4/5", 
+    "5/6", 
+#     "6/7", 
+    "7/8", 
+    "1/1",
+]
+scalars_not_yscaled = [
+    f"[{l}, {h}, 0/1]"
+    for l in fractions[1:]
+    for h in fractions[1:]
+]
+scalars_yscaled = [
+    f"[{l}, {h}, {y}]"
+    for l in fractions[1:]
+    for h in fractions[1:-1]
+    for y in fractions[:-1]
+    if int(y[0]) / int(y[2]) <= 1 - int(h[0]) / int(h[2]) # ensure that scratch never exeeds hight 1
+]
+scalars = scalars_not_yscaled + scalars_yscaled
+        
 ### curves
 
 def _L(x):
@@ -180,6 +202,7 @@ finv = {
     _ExR:_Ex,
     _Log:_LogR,
     _LogR:_Log,
+    _L:_L,
 }
 
 fneg = {
@@ -189,17 +212,37 @@ fneg = {
     _ExR:_Log,
     _Log:_ExR,
     _LogR:_Ex,
+    _L:_L,
 }
 
 ### clicks
 
 _ = np.array(())
 _0 = np.array((0,))
+_1 = np.array((1,)) # Never use click on 1 to allow for the next scratch to define fader start position!
 _2 = np.array((1/2,))
 _3 = np.array((1/3, 2/3))
 _4 = np.array((1/4, 2/4, 3/4))
 _5 = np.array((1/5, 2/5, 3/5, 4/5))
 _6 = np.array((1/6, 2/6, 3/6, 4/6, 5/6))
 _7 = np.array((1/7, 2/7, 3/7, 4/7, 5/7, 6/7))
-_8 = np.array((1/8, 2/8, 3/8, 4/8, 5/8, 6/8, 7/8))
-_9 = np.array((1/9, 2/9, 3/9, 4/9, 5/9, 6/9, 7/9, 8/9))
+
+_D = _
+_A = _
+_S = _
+_2D = _3[:1]
+_2A = _3[1:]
+_2S = _2
+_2Q = _2
+_3D = _4[:2]
+_3A = _4[1:]
+_3S = np.hstack((_4[0], _4[2]))
+_3Q = np.hstack((_5[1], _5[2]))
+_4D = _5[:3]
+_4A = _5[1:]
+_4S = np.hstack((1/2, _5[0], _5[3]))
+_4Q = np.hstack((_6[2], _6[3]))
+_5D = _6[:4]
+_5A = _6[1:]
+_5S = np.hstack((1/2, _6[0], _6[4]))
+_5Q = np.hstack((_7[3], _7[4]))
