@@ -12,40 +12,13 @@ slicetype = slice
 
 class Scratch:
     
-    def __init__(self, slices):
-        self.slices = slices
-        self.length = sum(i[0][0] for i in slices)
-        self.height = max(i[0][1] + i[0][2] for i in self.slices)
-            
-    def __truediv__(self, n): # length
-        return Scratch([
-            [[
-                i[0][0] / self.length * n, # xscale
-                i[0][1], # yscale
-                i[0][2], # yshift
-            ]] + i[1:] 
-            for i in self.slices
-        ])
-    
-    def __floordiv__(self, n): # yscale
-        return Scratch([
-            [[
-                i[0][0], # xscale
-                i[0][1] / self.height * n, # yscale
-                i[0][2] / self.height * n, # yshift
-            ]] + i[1:] 
-            for i in self.slices
-        ])
-    
-    def __pow__(self, n): # yshift
-        return Scratch([
-            [[
-                i[0][0], # xscale
-                i[0][1], # yscale
-                i[0][2] + n, # yshift
-            ]] + i[1:] 
-            for i in self.slices
-        ])
+    def __init__(self, slices, length=None, yscale=1, yshift=0):
+        self.length = length or sum(i[0][0] for i in slices)
+        self.slices = [[np.array([
+            i[0][0] / sum(i[0][0] for i in slices) * self.length, # xscale
+            i[0][1] * yscale, # yscale
+            i[0][2] * yscale + yshift, # yshift
+        ])] + i[1:] for i in slices]
     
     def __getitem__(self, so):
         if isinstance(so, slicetype):
@@ -53,10 +26,8 @@ class Scratch:
         elif isinstance(so, int):
             slices = [self.slices[so]]
         else:
-            message = f'Indexing must be of the form "[n]" or "[n:m]", where n and m are integers. See the Operator section for help.'
-            pyscript.write("session-output", message)
-            raise TypeError(message)
-        return Scratch(slices)
+            raise TypeError("Indexing requires slice or int, not", type(so))
+        return Scratch(slices, length=sum(i[0][0] for i in slices))
     
     def __add__(self, other):
         if not isinstance(other, Scratch):
@@ -75,6 +46,20 @@ class Scratch:
             scratch += self
         return scratch
     
+    def __truediv__(self, length): # length
+        return Scratch(self.slices, length=length)
+    
+    def __floordiv__(self, yscale): # yscale
+        return Scratch(self.slices, yscale=yscale)
+    
+    def __invert__(self): # invert on y-axis
+        maxheight = max(i[0][1] + i[0][2] for i in self.slices)
+        yshift = min(i[0][2] for i in self.slices)
+        return Scratch([[[i[0][0], i[0][1], yshift + (maxheight - (i[0][1] + i[0][2]))], finv[i[1]], i[2], i[3]] for i in self.slices])
+    
+    def __neg__(self): # invert on x-axis
+        return Scratch([[i[0], fneg[i[1]], i[2], np.flip([1 - i for i in i[3]])] for i in self.slices][::-1])
+    
     def __mod__(self, n): # phase shift the scratch
         if not isinstance(n, int) or (isinstance(n, int) and n > len(self.slices)):
             message = "Phase shifting requires an integer smaller or equal to the number of slices. Here:" + str(len(self.slices))
@@ -82,13 +67,14 @@ class Scratch:
             raise ValueError(message)
         return self[n:] + self[:n]
     
-    def __invert__(self): # invert on y-axis
-        maxy = max(i[0][1] + i[0][2] for i in self.slices)
-        yshift = min(i[0][2] for i in self.slices)
-        return Scratch([[[i[0][0], i[0][1], yshift + (maxy - (i[0][1] + i[0][2]))], finv[i[1]], i[2], i[3]] for i in self.slices])
-    
-    def __neg__(self): # invert on x-axis
-        return Scratch([[i[0], fneg[i[1]], i[2], np.flip([1 - i for i in i[3]])] for i in self.slices][::-1])
+    def __pow__(self, n): # yshift
+        return Scratch([[[i[0][0], i[0][1], i[0][2] + n], i[1], i[2], i[3]] for i in self.slices])
+
+def join(scratches):
+    result = scratches[0]
+    for scratch in scratches[1:]:
+        result += scratch
+    return result    
 
 class Session:
     
@@ -149,6 +135,43 @@ class Session:
             xshift += scalars[0]
         self.fig.tight_layout(pad=pad, h_pad=h_pad, w_pad=w_pad, rect=rect)
 
+### scalars
+
+fractions = [
+    "0/1",
+    "1/8", 
+#     "1/7", 
+    "1/6", 
+#     "1/5", 
+    "1/4", 
+    "1/3", 
+    "3/8", 
+#     "2/5", 
+    "1/2", 
+#     "3/5", 
+    "5/8", 
+    "2/3", 
+    "3/4", 
+#     "4/5", 
+    "5/6", 
+#     "6/7", 
+    "7/8", 
+    "1/1",
+]
+scalars_not_yscaled = [
+    f"[{l}, {h}, 0/1]"
+    for l in fractions[1:]
+    for h in fractions[1:]
+]
+scalars_yscaled = [
+    f"[{l}, {h}, {y}]"
+    for l in fractions[1:]
+    for h in fractions[1:-1]
+    for y in fractions[:-1]
+    if int(y[0]) / int(y[2]) <= 1 - int(h[0]) / int(h[2]) # ensure that scratch never exeeds hight 1
+]
+scalars = scalars_not_yscaled + scalars_yscaled
+        
 ### curves
 
 def _L(x):
@@ -217,9 +240,9 @@ _3S = np.hstack((_4[0], _4[2]))
 _3Q = np.hstack((_5[1], _5[2]))
 _4D = _5[:3]
 _4A = _5[1:]
-_4S = np.hstack((_5[0], _2, _5[3]))
-_4Q = np.hstack((_6[1], _2, _6[3]))
+_4S = np.hstack((1/2, _5[0], _5[3]))
+_4Q = np.hstack((_6[2], _6[3]))
 _5D = _6[:4]
 _5A = _6[1:]
-_5S = np.hstack((_6[0], _6[1], _6[3], _6[4]))
-_5Q = np.hstack((_7[1], _7[2], _7[3], _7[4]))
+_5S = np.hstack((1/2, _6[0], _6[4]))
+_5Q = np.hstack((_7[3], _7[4]))
