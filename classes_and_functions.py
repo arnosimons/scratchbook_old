@@ -61,30 +61,28 @@ class Scratch:
             slices = [self.slices[so]]
         else:
             message = f'Indexing must be of the form "[n]" or "[n:m]", where n and m are integers. See the Operator section for help.'
-            pyscript.write("session_warnings", message)
             raise TypeError(message)
         return Scratch(slices)
     
     def __add__(self, other):
         if not isinstance(other, Scratch):
             message = "A scratch can only be added to another scratch"
-            pyscript.write("session_warnings", message)
+            raise TypeError(message)
             raise ValueError(message)
         if (self.oclick == True and other.iclick == False):
             message = "IMPLAUSIBLE LINK: A scratch that ends fader closed is followed by a scratch that begins fader open."
-            pyscript.write("session_warnings", message)
+            raise ValueError(message)
         if (self.oclick == False and other.iclick == True):
             message = "IMPLAUSIBLE LINK: A scratch that ends fader open is followed by a scratch that begins fader closed."
-            pyscript.write("session_warnings", message)
+            raise ValueError(message)
         if (self.lasty != other.firsty):
             message = f"IMPLAUSIBLE LINK: A scratch that ends {self.lasty} into the sample is followed by a scratch that begins {other.firsty} into the sample."
-            pyscript.write("session_warnings", message)
+            raise ValueError(message)
         return Scratch(self.slices + other.slices)
     
     def __mul__(self, n):
         if not isinstance(n, int) or (isinstance(n, int) and n < 1):
             message = "A scratch can only be multiplied by an integer > 0"
-            pyscript.write("session_warnings", message)
             raise ValueError(message)
         scratch = self
         for i in range(n-1):
@@ -94,7 +92,6 @@ class Scratch:
     def __mod__(self, n): # phase shift the scratch
         if not isinstance(n, int) or (isinstance(n, int) and n > len(self.slices)):
             message = "Phase shifting requires an integer smaller or equal to the number of slices. Here:" + str(len(self.slices))
-            pyscript.write("session_warnings", message)
             raise ValueError(message)
         return self[n:] + self[:n]
     
