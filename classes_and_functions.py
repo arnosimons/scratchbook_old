@@ -70,13 +70,13 @@ class Scratch:
             raise TypeError(message)
         if (self.oclick == True and other.iclick == False):
             message = "IMPLAUSIBLE LINK: A scratch that ends fader closed is followed by a scratch that begins fader open."
-            raise ValueError(message)
+            # raise ValueError(message)
         if (self.oclick == False and other.iclick == True):
             message = "IMPLAUSIBLE LINK: A scratch that ends fader open is followed by a scratch that begins fader closed."
-            raise ValueError(message)
+            # raise ValueError(message)
         if (self.lasty != other.firsty):
             message = f"IMPLAUSIBLE LINK: A scratch that ends {self.lasty} into the sample is followed by a scratch that begins {other.firsty} into the sample."
-            raise ValueError(message)
+            # raise ValueError(message)
         return Scratch(self.slices + other.slices)
     
     def __mul__(self, n):
