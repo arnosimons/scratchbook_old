@@ -206,7 +206,7 @@ fneg = {
 
 ### clicks
 
-_ = np.array((,))
+_ = np.array(())
 _0 = np.array((0,))
 _1 = np.array((1,)) # Never use click on 1 to allow for the next scratch to define fader start position!
 _2 = np.array((1/2,))
