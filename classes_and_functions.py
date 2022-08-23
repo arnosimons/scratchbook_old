@@ -18,8 +18,8 @@ class Scratch:
         self.iclick = True if self.slices[0][-1][0] == 0 else False
         self.oclick = True if self.slices[-1][-1][-1] == 1 else False
 
-        self.firsty = self.slices[-1][0][2] if     self.slices[-1][1] in [_NR, _ExR, _LogR, _L] else self.slices[-1][0][1] + self.slices[-1][0][2]
-        self.lasty =  self.slices[0][0][2]  if not self.slices[0][1]  in [_NR, _ExR, _LogR, _L] else self.slices[0][0][1]  + self.slices[0][0][2]
+        # self.firsty = self.slices[-1][0][2] if     self.slices[-1][1] in [_NR, _ExR, _LogR, _L] else self.slices[-1][0][1] + self.slices[-1][0][2]
+        # self.lasty =  self.slices[0][0][2]  if not self.slices[0][1]  in [_NR, _ExR, _LogR, _L] else self.slices[0][0][1]  + self.slices[0][0][2]
         
         self.length = sum(i[0][0] for i in slices)
         self.height = max(i[0][1] + i[0][2] for i in self.slices)
