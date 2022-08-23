@@ -14,6 +14,13 @@ class Scratch:
     
     def __init__(self, slices):
         self.slices = slices
+        
+        self.iclick = True if self.slices[0][-1][0] == 0 else False
+        self.oclick = True if self.slices[-1][-1][-1] == 1 else False
+
+        self.firsty = self.slices[-1][0][2] if     self.slices[-1][1] in [_NR, _ExR, _LogR, _L] else self.slices[-1][0][1] + self.slices[-1][0][2]
+        self.lasty =  self.slices[0][0][2]  if not self.slices[0][1]  in [_NR, _ExR, _LogR, _L] else self.slices[0][0][1]  + self.slices[0][0][2]
+        
         self.length = sum(i[0][0] for i in slices)
         self.height = max(i[0][1] + i[0][2] for i in self.slices)
             
@@ -63,6 +70,15 @@ class Scratch:
             message = "A scratch can only be added to another scratch"
             pyscript.write("session-output", message)
             raise ValueError(message)
+        if (self.oclick == True and other.iclick == False):
+            message = "IMPLAUSIBLE LINK: A scratch that ends fader closed is followed by a scratch that begins fader open."
+            pyscript.write("session-output", message)
+        if (self.oclick == False and other.iclick == True):
+            message = "IMPLAUSIBLE LINK: A scratch that ends fader open is followed by a scratch that begins fader closed."
+            pyscript.write("session-output", message)
+        if (self.lasty != other.firsty):
+            message = f"IMPLAUSIBLE LINK: A scratch that ends {self.lasty} into the sample is followed by a scratch that begins {other.firsty} into the sample."
+            pyscript.write("session-output", message)
         return Scratch(self.slices + other.slices)
     
     def __mul__(self, n):
