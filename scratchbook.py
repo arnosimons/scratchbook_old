@@ -101,7 +101,10 @@ def getStats(scratch):
         "Ex":False,
         "Log":False,
     }
-    for k in [
+    for k in [ # "Name(s)", "Formula", "Tutorial" will only be added in the codebook: 
+        "Hold",
+        "Ghost-Hold",
+        "Ghost",
         "Baby", 
         "In", 
         "Out", 
@@ -109,22 +112,32 @@ def getStats(scratch):
         "Flare", 
         "iFlare", 
         "oFlare", 
-        "Transf.",
+        "Transformer",
+        # "Tear", #    <------- add !!!
+        "Baby-Orbit",
         "Chirp",
         "Slice",
+        "Dice-Orbit",
+        "Stab",
+        "Orbit",
         "OCF",
         "TCF",
-        "D",
-        "A",
-        "S",
-        "Q",
+        "OGF",
+        "Hippo",
+        "Phantazm",
+        "Ex-Phantazm",
+        "Tazer",
+        "Ex-Tazer",
     ]:
             stats[k] = 0
+    for k in "DASQ":
+        stats[k] = False
     lastel = None
     lastcrv = None
     lastfclicks = None
     # fill dic with data
-    for s in scratch.slices:
+    for indx, s in enumerate(scratch.slices):
+        print("New Slice:", indx)
         iclick = 1 if 0 in s[3] else 0 
         oclick = 1 if 1 in s[3] else 0 
         fclicks_list = [i for i in s[3] if not i in [0, 1]]
@@ -136,9 +149,12 @@ def getStats(scratch):
         stats["#PO"] += int(bool(not iclick))
         stats["#PC"] += int(bool(not oclick))
         for style in "DASQ":
-            if (fclicks_list != [1/2] 
+            if (fclicks_list not in [[], [0], [1/2], [1]] 
             and fclicks_list == makeFclicks(fclicks, style) 
             and not stats[style]):
+                print(indx)
+                print(s)
+                print(style)
                 stats[style] = True
         if s[1] in [_Ex, _ExR] and not stats["Ex"]:
             stats["Ex"] = True
@@ -148,6 +164,8 @@ def getStats(scratch):
             stats["In"] += 1
             if lastel == "Out" and s[1] != _L and (lastcrv in ocrvs[s[1]]):
                 stats["Chirp"] += 1
+            elif lastel == "oFlare":  # OCF
+                stats["OGF"] += 1
             lastel = "In"
         elif oclick and not any([iclick, fclicks]): # Out
             stats["Out"] += 1
@@ -155,7 +173,11 @@ def getStats(scratch):
                 stats["Slice"] += 1
             lastel = "Out"
         elif all([iclick, oclick]) and not fclicks: # Dice
-            stats["Dice"] += 1 
+            stats["Dice"] += 1
+            if lastel == "Ghost" and s[1] != _L and (lastcrv in ocrvs[s[1]]):
+                stats["Stab"] += 1
+            elif lastel == "Dice" and s[1] != _L and (lastcrv in ocrvs[s[1]]):
+                stats["Dice-Orbit"] += 1
             lastel = "Dice"
         elif fclicks and not any([iclick, oclick]): # Flare
             stats["Flare"] += 1
@@ -164,6 +186,8 @@ def getStats(scratch):
                     stats["OCF"] += 1
                 elif lastfclicks == fclicks == 2: # TCF
                     stats["TCF"] += 1
+                elif lastfclicks == 1 and fclicks == 2: # Hippo
+                    stats["Hippo"] += 1
             lastel = "Flare"
         elif all([fclicks, iclick]) and not oclick: # iFlare
             stats["iFlare"] += 1
@@ -174,9 +198,24 @@ def getStats(scratch):
         elif all([fclicks, iclick, oclick]): # Transformer
             stats["Transformer"] += 1
             lastel = "Transformer"
-        elif not any([fclicks, iclick, oclick]): # Baby
-            stats["Baby"] += 1
-            lastel = "Baby"
+        elif not any([fclicks, iclick, oclick]): # Baby, Ghost, Hold, Ghost-Hold
+            if s[1] == _L:
+                if s[2] == "k":
+                    stats["Hold"] += 1
+                    lastel = "Hold"
+                elif s[2] == "w":
+                    stats["Ghost-Hold"] += 1
+                    lastel = "Ghost-Hold"
+            elif s[2] == "k":
+                stats["Baby"] += 1
+                if lastel == "Baby" and s[1] != _L and (lastcrv in ocrvs[s[1]]):
+                    stats["Baby-Orbit"] += 1
+                lastel = "Baby"
+            elif s[2] == "w":
+                stats["Ghost"] += 1
+                if lastel == "Dice" and s[1] != _L and (lastcrv in ocrvs[s[1]]):
+                    stats["Stab"] += 1
+                lastel = "Ghost"
         lastcrv = s[1]
         lastfclicks = fclicks
     return stats
@@ -188,7 +227,7 @@ class Scratch:
     
     def __init__(self, slices):
         self.slices = slices
-        self.stats = getStats(self)        
+        # self.stats = getStats(self)        
         self.length = sum(i[0][0] for i in slices)
         self.height = max(i[0][1] + i[0][2] for i in self.slices)
             
@@ -574,11 +613,12 @@ if __name__ == "__main__":
         "c":"(i + ~o) //.5 / 1",
         "ocf":"(f1 + ~f1) / 1",
     }
-    formula = "ocf + (c * 2)/1 + i/.25 + ~f2SLog_f3Q_14/.75"
+    formula = "h + ~dLog + g + ocf + (c * 2)/1 + i/.25 + ~f2ALog_f3Q_14/.75"
     myscratch = makeScratch(formula)
     fig = Session(myscratch, fontsize=11, w_pad=2).fig
+    stats = getStats(myscratch)
     print(f'Formula: "{formula}"')
     print("Stats:")
-    pprint(myscratch.stats)
+    pprint(stats)
     fig.show()
 # %%
