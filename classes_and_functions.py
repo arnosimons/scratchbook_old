@@ -104,8 +104,12 @@ class Scratch:
 
 class Session:
     
-    def __init__(self, scratch, bars=2, linewidth=4, markersize=8, fontsize=12, pad=0, h_pad=0, w_pad=0, rect=None):
-        required_len = round(scratch.length / 4) if scratch.length / 4 <= round(scratch.length / 4) else round(scratch.length / 4) + 1
+    def __init__(self, scratch, bars=2, linewidth=4, markersize=8, 
+                 fontsize=12, pad=0, h_pad=0, w_pad=0, rect=None):
+        if scratch.length / 4 <= round(scratch.length / 4):
+            required_len = round(scratch.length / 4)
+        else:
+            required_len = round(scratch.length / 4) + 1        
         bars = required_len if required_len >= 2 else 2
         beats = (bars * 4) 
         beatsfactor = beats / 8
@@ -123,26 +127,39 @@ class Session:
         self.fig.set_figheight(height)
         self.fig.set_figwidth(width)
         xticks = np.linspace(0, beats, beats + 1)
-        xticks_labels = [f"{i+1}" if not i % 4 == 0 else f"({i+1})" for i in range(len(xticks))][:-1] + [1]
-        self.ax.set_xlim([-(height * marginscalar), beats + (height * marginscalar)])
-        self.ax.set_ylim([-(height * marginscalar), 1 + (height * marginscalar)])
+        xticks_labels = [
+            f"{i+1}" if not i % 4 == 0 
+            else f"({i+1})" for i in range(len(xticks))][:-1] + [1]
+        self.ax.set_xlim(
+            [-(height * marginscalar), beats + (height * marginscalar)])
+        self.ax.set_ylim(
+            [-(height * marginscalar), 1 + (height * marginscalar)])
         self.ax.set_xlabel('Counts (in quarter notes)', fontsize=fontsize)
         self.ax.set_xticks(xticks, xticks_labels, fontsize=fontsize)
         self.ax.grid(which='major', color='#2e2d2d', linewidth=0.8)
-        self.ax.grid(which='minor', color='#787878', linestyle=':', linewidth=0.5)
+        self.ax.grid(which='minor', color='#787878', linestyle=':', 
+                     linewidth=0.5)
         self.ax.xaxis.set_major_locator(plt.MaxNLocator(10 * beatsfactor))
         self.ax.minorticks_on() 
         self.ax.set_ylabel('Sample', fontsize=fontsize)
-        self.ax.set_yticks([0.0, 1.0], ['Start (0)','End (1)'], fontsize=fontsize)
+        self.ax.set_yticks([0.0, 1.0], ['Start (0)','End (1)'], 
+                           fontsize=fontsize)
         for i in range(beats):
             if i % 4 == 0:
-                self.ax.axvline(x=i, color='black', label='axvline - % of full height')
+                self.ax.axvline(x=i, color='black', 
+                                label='axvline - % of full height')
             if not i % 2 == 0:
-                self.ax.axvspan(i, 1 + i, facecolor='#e6e6e6', alpha=0.5, ymin=1 - marginscalar * 1.5, ymax=marginscalar * 1.5)
+                self.ax.axvspan(i, 1 + i, facecolor='#e6e6e6', alpha=0.5, 
+                                ymin=1 - marginscalar * 1.5, 
+                                ymax=marginscalar * 1.5)
             else:
-                self.ax.axvspan(i, 1 + i, facecolor='#cccccc', alpha=0.5, ymin=1 - marginscalar * 1.5, ymax=marginscalar * 1.5)    
+                self.ax.axvspan(i, 1 + i, facecolor='#cccccc', alpha=0.5, 
+                                ymin=1 - marginscalar * 1.5, 
+                                ymax=marginscalar * 1.5)    
         xshift = 0
         resolution = 500
+        vinyl_track =[]
+        fader_track = []
         for scalars, f, color, clicks  in scratch.slices:
             xscale, yscale, yshift = scalars
             x = np.linspace(0.0, 1.0, round(resolution * xscale))
@@ -150,15 +167,21 @@ class Session:
                 x * xscale + xshift, 
                 f(x) * yscale + yshift,
             ))
+            vinyl_track.append([vinyl, color, linewidth])
             clicks = clicks * xscale + xshift
             fader = np.vstack((
                 clicks, 
                 np.array([np.interp(i, *vinyl) for i in clicks]),
             )).T
-            self.ax.plot(*vinyl, color=color, linewidth=linewidth, solid_capstyle='round')
-            for click in fader:
-                self.ax.plot(*click, marker="o", markersize=markersize, markeredgecolor="black", markerfacecolor="white")
+            fader_track.append([fader, markersize])
             xshift += scalars[0]
+        for vinyl, color, linewidth in vinyl_track:
+            self.ax.plot(*vinyl, color=color, linewidth=linewidth, 
+                solid_capstyle='round')
+        for fader, markersize in fader_track:
+            for click in fader:
+                self.ax.plot(*click, marker="o", markersize=markersize, 
+                    markeredgecolor="black", markeredgewidth=.5, markerfacecolor="white")
         self.fig.tight_layout(pad=pad, h_pad=h_pad, w_pad=w_pad, rect=rect)
 
 ### curves
