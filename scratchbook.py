@@ -19,22 +19,22 @@ slicetype = slice # to avoid name collision with "slice" scratch
 def _L(x): # for holds
     return np.zeros(len(x))
 
-def _N(x):
+def _N(x): # S up
     return (-np.cos(np.pi * x) + 1) / 2
 
-def _NR(x):
+def _NR(x): # S down
     return (np.cos(np.pi * x) + 1) / 2
 
-def _Ex(x):
+def _Ex(x): # 4th quadrant of circle
     return 1 - np.sqrt(1 - (x ** 2))
 
-def _ExR(x):
+def _ExR(x): # 1st quadrant of circle
     return np.sqrt(1 - ((x - 0) ** 2))
 
-def _Log(x):
+def _Log(x): # 2nd quadrant of circle
     return np.sqrt(1 - ((x - 1) ** 2))
 
-def _LogR(x):
+def _LogR(x): # 3rd quadrant of circle
     return 1 - np.sqrt(1 - ((x - 1) ** 2))
 
 finv = { # for "~" operator
@@ -57,7 +57,7 @@ fneg = { # for "-" operator
     _L:_L,
 }
 
-ocrvs = { # for orbit stats
+ocrvs = { # for orbit info
     _NR:[_N, _Ex, _Log],
     _N:[_NR, _ExR, _LogR],
     _ExR:[_Ex, _N, _Log],
@@ -67,7 +67,7 @@ ocrvs = { # for orbit stats
 }
 
 
-### STATS ####################################################################
+### INFO #####################################################################
 
 def makeFclicks(n, dasq):
     if not dasq:
@@ -89,9 +89,9 @@ def makeFclicks(n, dasq):
     if dasq == "Q":
         return  [(i+1) / (n+3) for i in range(1, n+1)]
     
-def getStats(scratch):
+def getInfo(scratch):
     # initialize dic
-    stats = {
+    info = {
         "#Els":0,
         "#Sounds":0,
         "#FO":0,
@@ -119,106 +119,123 @@ def getStats(scratch):
         "Slice",
         "Dice-Orbit",
         "Stab",
-        "Orbit",
+        "Orbit", #    <------- add ???
         "OCF",
         "TCF",
         "OGF",
         "Hippo",
-        "Phantazm",
-        "Ex-Phantazm",
+        "S-Orbit",
         "Tazer",
+        "Phantazm",
         "Ex-Tazer",
+        "Ex-Phantazm",
+        
     ]:
-            stats[k] = 0
+            info[k] = 0
     for k in "DASQ":
-        stats[k] = False
+        info[k] = False
     lastel = None
     lastcrv = None
     lastfclicks = None
     # fill dic with data
     for indx, s in enumerate(scratch.slices):
-        print("New Slice:", indx)
         iclick = 1 if 0 in s[3] else 0 
         oclick = 1 if 1 in s[3] else 0 
         fclicks_list = [i for i in s[3] if not i in [0, 1]]
         fclicks = len(fclicks_list)
-        stats["#Els"] += 1
-        stats["#Sounds"] += (1 + fclicks)
-        stats["#FO"] += iclick + fclicks
-        stats["#FC"] += oclick + fclicks
-        stats["#PO"] += int(bool(not iclick))
-        stats["#PC"] += int(bool(not oclick))
+        info["#Els"] += 1
+        # info["#Sounds"] += (1 + fclicks)
+        info["#FO"] += iclick + fclicks
+        info["#FC"] += oclick + fclicks
+        info["#PO"] += int(bool(not iclick))
+        info["#PC"] += int(bool(not oclick))
         for style in "DASQ":
             if (fclicks_list not in [[], [0], [1/2], [1]] 
             and fclicks_list == makeFclicks(fclicks, style) 
-            and not stats[style]):
-                print(indx)
-                print(s)
-                print(style)
-                stats[style] = True
-        if s[1] in [_Ex, _ExR] and not stats["Ex"]:
-            stats["Ex"] = True
-        elif s[1] in [_Log, _LogR] and not stats["Log"]:
-            stats["Log"] = True
-        if iclick and not any([oclick, fclicks]): # In
-            stats["In"] += 1
-            if lastel == "Out" and s[1] != _L and (lastcrv in ocrvs[s[1]]):
-                stats["Chirp"] += 1
-            elif lastel == "oFlare":  # OCF
-                stats["OGF"] += 1
-            lastel = "In"
-        elif oclick and not any([iclick, fclicks]): # Out
-            stats["Out"] += 1
-            if lastel == "In" and s[1] != _L and (lastcrv in ocrvs[s[1]]):
-                stats["Slice"] += 1
-            lastel = "Out"
-        elif all([iclick, oclick]) and not fclicks: # Dice
-            stats["Dice"] += 1
-            if lastel == "Ghost" and s[1] != _L and (lastcrv in ocrvs[s[1]]):
-                stats["Stab"] += 1
-            elif lastel == "Dice" and s[1] != _L and (lastcrv in ocrvs[s[1]]):
-                stats["Dice-Orbit"] += 1
-            lastel = "Dice"
-        elif fclicks and not any([iclick, oclick]): # Flare
-            stats["Flare"] += 1
-            if lastel == "Flare" and s[1] != _L and (lastcrv in ocrvs[s[1]]):
-                if lastfclicks == fclicks == 1:  # OCF
-                    stats["OCF"] += 1
-                elif lastfclicks == fclicks == 2: # TCF
-                    stats["TCF"] += 1
-                elif lastfclicks == 1 and fclicks == 2: # Hippo
-                    stats["Hippo"] += 1
-            lastel = "Flare"
-        elif all([fclicks, iclick]) and not oclick: # iFlare
-            stats["iFlare"] += 1
-            lastel = "iFlare"
-        elif all([fclicks, oclick]) and not iclick: # # oFlare
-            stats["oFlare"] += 1
-            lastel = "oFlare"
-        elif all([fclicks, iclick, oclick]): # Transformer
-            stats["Transformer"] += 1
-            lastel = "Transformer"
-        elif not any([fclicks, iclick, oclick]): # Baby, Ghost, Hold, Ghost-Hold
+            and not info[style]):
+                info[style] = True
+        if s[1] in [_Ex, _ExR] and not info["Ex"]:
+            info["Ex"] = True
+        elif s[1] in [_Log, _LogR] and not info["Log"]:
+            info["Log"] = True
+        # Holds, Ghost and Baby first. Only the latter makes #Sounds
+        if not any([fclicks, iclick, oclick]): 
             if s[1] == _L:
                 if s[2] == "k":
-                    stats["Hold"] += 1
+                    info["Hold"] += 1
                     lastel = "Hold"
                 elif s[2] == "w":
-                    stats["Ghost-Hold"] += 1
+                    info["Ghost-Hold"] += 1
                     lastel = "Ghost-Hold"
-            elif s[2] == "k":
-                stats["Baby"] += 1
-                if lastel == "Baby" and s[1] != _L and (lastcrv in ocrvs[s[1]]):
-                    stats["Baby-Orbit"] += 1
-                lastel = "Baby"
             elif s[2] == "w":
-                stats["Ghost"] += 1
-                if lastel == "Dice" and s[1] != _L and (lastcrv in ocrvs[s[1]]):
-                    stats["Stab"] += 1
+                info["Ghost"] += 1
+                if lastel == "Dice" and s[1] != _L and (lastcrv in ocrvs[s[1]]) and s[0][1:] == lastscale[1:]:
+                    info["Stab"] += 1
                 lastel = "Ghost"
+            elif s[2] == "k":
+                info["#Sounds"] += 1
+                info["Baby"] += 1
+                if lastel == "Baby" and s[1] != _L and (lastcrv in ocrvs[s[1]]) and s[0][1:] == lastscale[1:]:
+                    info["Baby-Orbit"] += 1
+                lastel = "Baby"  
+        # all others now (they all make #Sounds)
+        else:
+            info["#Sounds"] += (1 + fclicks)
+            if iclick and not any([oclick, fclicks]): # In
+                info["In"] += 1
+                if lastel == "Out" and s[1] != _L and (lastcrv in ocrvs[s[1]]) and s[0][1:] == lastscale[1:]:
+                    info["Chirp"] += 1
+                elif lastel == "oFlare":  # OCF
+                    info["OGF"] += 1
+                lastel = "In"
+            elif oclick and not any([iclick, fclicks]): # Out
+                info["Out"] += 1
+                if lastel == "In" and s[1] != _L and (lastcrv in ocrvs[s[1]]) and s[0][1:] == lastscale[1:]:
+                    info["Slice"] += 1
+                lastel = "Out"
+            elif all([iclick, oclick]) and not fclicks: # Dice
+                info["Dice"] += 1
+                if lastel == "Ghost" and s[1] != _L and (lastcrv in ocrvs[s[1]]) and s[0][1:] == lastscale[1:]:
+                    info["Stab"] += 1
+                elif lastel == "Dice" and s[1] != _L and (lastcrv in ocrvs[s[1]]) and s[0][1:] == lastscale[1:]:
+                    info["Dice-Orbit"] += 1
+                lastel = "Dice"
+            elif fclicks and not any([iclick, oclick]): # Flare
+                info["Flare"] += 1
+                if lastel == "Flare" and s[1] != _L and (lastcrv in ocrvs[s[1]]) and s[0][1:] == lastscale[1:]:
+                    if lastfclicks == fclicks == 1:  # OCF
+                        info["OCF"] += 1
+                    elif lastfclicks == fclicks == 2: # TCF
+                        info["TCF"] += 1
+                    elif lastfclicks == 1 and fclicks == 2: # Hippo
+                        info["Hippo"] += 1
+                lastel = "Flare"
+            elif all([fclicks, iclick]) and not oclick: # iFlare
+                info["iFlare"] += 1
+                lastel = "iFlare"
+            elif all([fclicks, oclick]) and not iclick: # # oFlare
+                info["oFlare"] += 1
+                lastel = "oFlare"
+            elif all([fclicks, iclick, oclick]): # Transformer
+                info["Transformer"] += 1
+                lastel = "Transformer"
+        if s[1] != _L and (lastcrv in ocrvs[s[1]]) and s[0][1:] == lastscale[1:]:
+            info["Orbit"] += 1
+            if (s[1] == _NR and lastcrv == _N) or (s[1] == _N and lastcrv == _NR):
+                info["S-Orbit"] += 1
+            elif (s[1] == _LogR and lastcrv == _Log) or (s[1] == _Log and lastcrv == _LogR):
+                info["Tazer"] += 1
+            elif (s[1] == _ExR and lastcrv == _Log) or (s[1] == _Log and lastcrv == _ExR):
+                info["Phantazm"] += 1
+            elif (s[1] == _ExR and lastcrv == _Ex) or (s[1] == _Ex and lastcrv == _ExR):
+                info["Ex-Tazer"] += 1
+            elif (s[1] == _LogR and lastcrv == _Ex) or (s[1] == _Ex and lastcrv == _LogR):
+                info["Ex-Phantazm"] += 1
+            
         lastcrv = s[1]
         lastfclicks = fclicks
-    return stats
+        lastscale = s[0]
+    return info
 
 
 ### SCRATCH ##################################################################
@@ -227,7 +244,7 @@ class Scratch:
     
     def __init__(self, slices):
         self.slices = slices
-        # self.stats = getStats(self)        
+        # self.info = getInfo(self)        
         self.length = sum(i[0][0] for i in slices)
         self.height = max(i[0][1] + i[0][2] for i in self.slices)
             
@@ -390,7 +407,7 @@ class Session:
                     markerfacecolor="white")
         self.fig.tight_layout(pad=pad, h_pad=h_pad, w_pad=w_pad, rect=rect)
         
-        ### ELEMENTS #################################################################
+### ELEMENTS #################################################################
 
 def fcl(n, dasq):
     if not dasq:
@@ -436,8 +453,6 @@ def element(name):
         raise ValueError(f'unintelligible name: "{name}"')
     dic = m.groupdict()
     dic = {k:True if v else False for k,v in dic.items()}
-    dic["Name(s)"] = name
-    dic["#Els"] = 1
     l, h, ys = 1, 1, 0 # default
     crv, crvc = "N", "k" # default
     cl = [] # default
@@ -448,16 +463,21 @@ def element(name):
         crvc = "w"
     elif dic["g"]:
         crvc = "w"
-    if dic["i"] or dic["d"] or dic["if"] or dic["tr"]:
-        cl.append("0")
-    m = re.match(r"(?:[io]?f(?P<fN>\d)|tr(?P<trN>\d))(?P<DASQ>[DASQ])?", name)
-    if m:
-        md = m.groupdict()
-        n = int(md["fN"]) if md["fN"] else int(md["trN"]) - 1
-        cl += fcl(int(n), md['DASQ'])
-    if dic["o"] or dic["d"] or dic["of"] or dic["tr"]:
-        cl.append("1")
-    cl = f'[{", ".join(cl)}]'
+    else:
+        if dic["Log"]:
+            crv = "Log"
+        elif dic["Ex"]:
+            crv = "Ex"
+        if dic["i"] or dic["d"] or dic["if"] or dic["tr"]:
+            cl.append("0")
+        m = re.match(r"(?:[io]?f(?P<fN>\d)|tr(?P<trN>\d))(?P<DASQ>[DASQ])?", name)
+        if m:
+            md = m.groupdict()
+            n = int(md["fN"]) if md["fN"] else int(md["trN"]) - 1
+            cl += fcl(int(n), md['DASQ'])
+        if dic["o"] or dic["d"] or dic["of"] or dic["tr"]:
+            cl.append("1")
+        cl = f'[{", ".join(cl)}]'
     scratch = f"Scratch([[[1,1,0], _{crv}, '{crvc}', np.array({cl})]])"
     return scratch
         
@@ -479,14 +499,14 @@ def tear(name):
     _crv = "(?P<crv>Ex|Log)"
     TRS = re.compile(fr"{_iod}?{_t}{_crv}?(?:__(?P<el>[bd]|(?:f\d|tr\d)[DASQ]?))?$")
     m = TRS.match(name)
-    if not m:
+    if not m or name.startswith("dft"):
         raise ValueError(f'unintelligible name: "{name}"')
     dic = m.groupdict()
     if dic["el"]:
         dic["el"] = f'{dic["el"]}{dic["crv"] or ""}'
     else:
         if dic["trt"]:
-            dic["el"] = "d"
+            dic["el"] = f'd{dic["crv"] or ""}' 
         else:
             dic["el"] = f'b{dic["crv"] or ""}'    
     parts = tearParts(int(dic['tN']), dic['el'])
@@ -558,11 +578,11 @@ def orbit(name):
         formula = f"({dic['L']} + ~{dic['R']}) / 1"
     return formula
 
-### PROCESS ##################################################################
+### MAKE SCRATCH #############################################################
 
-def new(text):
-    text = re.sub(r"[-+*/%~\[\]\(\).:]|\b\d*\b", " ", text)
-    for name in set(text.split()):
+def new(formula):
+    formula = re.sub(r"[-+*/%~\[\]\(\).:]|\b\d*\b", " ", formula)
+    for name in set(formula.split()):
         try:
             exec(name)
         except NameError:
@@ -582,9 +602,9 @@ def new(text):
                         for name in new(codebook[name]):
                             yield name
                             
-def makeScratch(text):
+def makeScratch(formula):
     just_defined = set()
-    for n in list(new(text))[::-1]:
+    for n in list(new(formula))[::-1]:
         if n in just_defined:
             continue
         try:
@@ -601,24 +621,112 @@ def makeScratch(text):
                 except:
                     exec(f"{n} = {codebook[n]}")
                     just_defined.add(n)
-    return eval(text)
-    # myscratch = eval(text)
-    # stats = myscratch.stats
-    # return Session(myscratch).fig, stats
+    return eval(formula)
 
-### TESTS ####################################################################
+
+### LIBRARY ##################################################################
+
+def makeLib(f, names):
+    table = []
+    for name in names:
+        formula = f(name) if not f == element else name
+        row = getInfo(makeScratch(formula))
+        row["Name(s)"] = name
+        row["Formula"] = formula
+        table.append(row)
+    return table
+
+
+### ELEMENTS
+
+fN, trN = 3, 3
+fs = [f"{io}f{n}{dasq}" for n in range(1, fN + 1) for io in ["", "i", "o"] 
+    for dasq in ["", "D", "A", "S", "Q"] if not f"{io}f{n}{dasq}" in [
+     "f1S", "f1Q", "if1S", "if1Q", "of1S", "of1Q",]]
+trs = [f"tr{n}{dasq}" for n in range(2, trN + 1) 
+    for dasq in ["", "D", "A", "S", "Q"] if not f"tr{n}{dasq}" in [
+    "tr2S", "tr2Q",]]
+names = ["h", "gh", "g"] + [f"{base}{crv}" 
+    for base in ["b", "i", "o", "d"] + fs + trs for crv in [
+    "", "Ex", "Log"]]
+ELEMENTS = makeLib(element, names)
+
+
+### TEARS
+
+tN = 3
+names = [f"{base}t{n}{crv}" for n in range(2, tN + 1) 
+        for base in ["", "i", "o", "d", "if", "of", "tr"]
+        for crv in ["", "Ex", "Log"] ]
+TEARS = makeLib(tear, names)
+
+
+### ORBITS
+base_names = ["g_d", "b_b", "i_o", "o_i", "d_d", "d_g"]
+f_names = [
+    f'b_f{n}_1{n+1}'
+    for pair in ["b_f", "i_of", "o_if"]
+    for n in range(1, fN + 1)
+    ] + [
+    f'{l}{n}_{r}_{n+1}1' 
+    for l,r in [["f","b"], ["if","o"], ["of","i"]]
+    for n in range(1, fN + 1)
+    ] + [
+    f'{l}{n}_{r}{m}{f"_{n+1}{m+1}" if not n == m else ""}' 
+    for n in range(1, fN + 1)
+    for m in range(1, fN + 1)
+    for l, r in [["f","f"], ["if","of"], ["of","if"]]
+    ] 
+tr_names = [
+    f"{el}_tr{n}_1{n}" 
+    for el in "gb"
+    for n in range(2, trN + 1)
+    ] + [
+    f'tr{n}_{el}_{n}1'
+    for el in "gb"
+    for n in range(2, trN + 1)
+    ] + [
+    f'tr{n}_tr{m}{f"_{n}{m}" if not n == m else ""}' 
+    for n in range(2, trN + 1)
+    for m in range(2, trN + 1)
+    ]
+names = base_names + f_names + tr_names
+# print("Orbits without ExLog", len(names))
+names += [
+    f'{p.split("_")[0]}{l}_{p.split("_")[1]}{r}{"_" + p.split("_")[2] if p.split("_")[2:] else ""}'
+    for p in names
+    for l in ["", "Ex", "Log"] for r in ["", "Ex", "Log"]
+    if not l == r == ""
+]
+# print("Orbits with ExLog", len(names))
+ORBITS = makeLib(orbit, names)
+
+
+### TESTS & STATS  ###########################################################
 if __name__ == "__main__":
     from pprint import pprint
+
     codebook = {
-        "c":"(i + ~o) //.5 / 1",
-        "ocf":"(f1 + ~f1) / 1",
+        "stab":"d + ~g",
+        "tazer1":"~bLog_f1Log_12",
     }
-    formula = "h + ~dLog + g + ocf + (c * 2)/1 + i/.25 + ~f2ALog_f3Q_14/.75"
-    myscratch = makeScratch(formula)
+    myscratch = makeScratch("stab + i + (f2Ex//1)**.2 + ~(f2Log//1)**.2 + tazer1")
+    info = getInfo(myscratch)
     fig = Session(myscratch, fontsize=11, w_pad=2).fig
-    stats = getStats(myscratch)
-    print(f'Formula: "{formula}"')
-    print("Stats:")
-    pprint(stats)
-    fig.show()
+    # fig.show()
+    # pprint(info)
+    assert info["#Sounds"] == 11
+    assert info["Orbit"] == 4
+    assert info["Ex-Phantazm"] == 1
+    assert info["Tazer"] == 1
+
+    print(len(ELEMENTS), "ELEMENTS")
+    # pprint(ELEMENTS[45])
+
+    print(len(TEARS), "TEARS")
+    # pprint(TEARS[23])
+
+    print(len(ORBITS), "ORBITS")
+    # pprint(ORBITS[134])
+
 # %%
