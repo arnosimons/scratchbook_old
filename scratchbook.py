@@ -91,16 +91,28 @@ def makeFclicks(n, dasq):
 def getInfo(scratch):
     # initialize dic
     info = {
-        "#Els":0,
-        "#Sounds":0,
-        "#FO":0,
-        "#FC":0,
-        "#PO":0,
-        "#PC":0,
-        "Ex":False,
-        "Log":False,
+        # "#Els":0,
+        # "#Sounds":0,
+        # "#FO":0,
+        # "#FC":0,
+        # "#PO":0,
+        # "#PC":0,
+        # "Ex":0,
+        # "Log":0,
     }
     for k in [ # "Name(s)", "Formula", "Tutorial" will only be added in the codebook: 
+        "#Sounds",
+        "#FO",
+        "#FC",
+        "#PO",
+        "#PC",
+        "Ex",
+        "Log",
+        "D",
+        "A",
+        "S",
+        "Q",
+        "#Els",
         "Hold",
         "Ghost-Hold",
         "Ghost",
@@ -128,11 +140,10 @@ def getInfo(scratch):
         "Phantazm",
         "Ex-Tazer",
         "Ex-Phantazm",
-        
     ]:
             info[k] = 0
-    for k in "DASQ":
-        info[k] = False
+    # for k in "DASQ":
+    #     info[k] = 0
     lastel = None
     lastcrv = None
     lastfclicks = None
@@ -152,11 +163,11 @@ def getInfo(scratch):
             if (fclicks_list not in [[], [0], [1/2], [1]] 
             and fclicks_list == makeFclicks(fclicks, style) 
             and not info[style]):
-                info[style] = True
+                info[style] = 1
         if s[1] in [_Ex, _ExR] and not info["Ex"]:
-            info["Ex"] = True
+            info["Ex"] = 1
         elif s[1] in [_Log, _LogR] and not info["Log"]:
-            info["Log"] = True
+            info["Log"] = 1
         # Holds, Ghost and Baby first. Only the latter makes #Sounds
         if not any([fclicks, iclick, oclick]): 
             if s[1] == _L:
