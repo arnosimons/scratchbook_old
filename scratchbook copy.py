@@ -108,10 +108,10 @@ def getInfo(scratch):
         "#PC",
         "Ex",
         "Log",
-        "Diminished",
-        "Augmented",
-        "Stretched",
-        "Squeezed",
+        "D",
+        "A",
+        "S",
+        "Q",
         "#Els",
         "Hold",
         "Ghost-Hold",
@@ -159,20 +159,15 @@ def getInfo(scratch):
         info["#FC"] += oclick + fclicks
         info["#PO"] += int(bool(not iclick))
         info["#PC"] += int(bool(not oclick))
-        for style, abbrev in [
-            ["Diminished", "D"], 
-            ["Augmented", "A"], 
-            ["Stretched", "S"], 
-            ["Squeezed", "Q"],
-        ]:
+        for style in "DASQ":
             if (fclicks_list not in [[], [0], [1/2], [1]] 
-            and fclicks_list == makeFclicks(fclicks, abbrev) 
+            and fclicks_list == makeFclicks(fclicks, style) 
             and not info[style]):
-                info[style] += 1
+                info[style] = 1
         if s[1] in [_Ex, _ExR] and not info["Ex"]:
-            info["Ex"] += 1
+            info["Ex"] = 1
         elif s[1] in [_Log, _LogR] and not info["Log"]:
-            info["Log"] += 1
+            info["Log"] = 1
         # Holds, Ghost and Baby first. Only the latter makes #Sounds
         if not any([fclicks, iclick, oclick]): 
             if s[1] == _L:
