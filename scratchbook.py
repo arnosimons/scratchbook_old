@@ -579,7 +579,9 @@ def orbit(name):
 
 ### MAKE SCRATCH #############################################################
 
-def new(formula, codebook=None):
+codebook = {} # Dummy...
+
+def new(formula):
     formula = re.sub(r"[-+*/%~\[\]\(\).:]|\b\d*\b", " ", formula)
     for name in set(formula.split()):
         try:
@@ -601,9 +603,9 @@ def new(formula, codebook=None):
                         for name in new(codebook[name]):
                             yield name
                             
-def makeScratch(formula, codebook=None):
+def makeScratch(formula):
     just_defined = set()
-    for n in list(new(formula, codebook))[::-1]:
+    for n in list(new(formula))[::-1]:
         if n in just_defined:
             continue
         try:
