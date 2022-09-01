@@ -573,9 +573,9 @@ def orbit(name):
     if dic['S']:
         num1, num2 = dic['S'][0], dic['S'][1]
         den = int(num1) + int(num2)
-        formula = f"({dic['L']}/({num1}/{den}) + ~{dic['R']}/({num2}/{den})) / 1{' //.5' if any(i.startswith(j) for i in [dic['L'], dic['R']] for j in ['f', 'if', 'of', 'tr']) else ''}"
+        formula = f"({dic['L']}/({num1}/{den}) + ~{dic['R']}/({num2}/{den})) / 1{' // 0.5' if not any(i.startswith(j) for i in [dic['L'], dic['R']] for j in ['f', 'if', 'of', 'tr']) else ''}"
     else:
-        formula = f"({dic['L']} + ~{dic['R']}) / 1{' //.5' if any(i.startswith(j) for i in [dic['L'], dic['R']] for j in ['f', 'if', 'of', 'tr']) else ''}"
+        formula = f"({dic['L']} + ~{dic['R']}) / 1{' // 0.5' if not any(i.startswith(j) for i in [dic['L'], dic['R']] for j in ['f', 'if', 'of', 'tr']) else ''}"
     return formula
 
 ### MAKE SCRATCH #############################################################
