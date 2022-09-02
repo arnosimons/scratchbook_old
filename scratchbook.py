@@ -437,7 +437,7 @@ def element(name):
     _i = "(?P<i>i)"
     _o = "(?P<o>o)"
     _d = "(?P<d>d)"
-    _f = "(?P<f>[^io]?f\d)"
+    _f = "(?P<f>f\d)"
     _if = "(?P<if>if\d)"
     _of = "(?P<of>of\d)"
     _tr = "(?P<tr>tr\d)"
@@ -624,47 +624,3 @@ def makeScratch(formula, codebook=codebook):
                     exec(f"{n} = {codebook[n]}")
                     just_defined.add(n)
     return eval(formula)
-
-
-# def new(formula):
-#     formula = re.sub(r"[-+*/%~\[\]\(\).:]|\b\d*\b", " ", formula)
-#     for name in set(formula.split()):
-#         try:
-#             exec(name)
-#         except NameError:
-#             try:
-#                 exec(element(name))
-#                 yield name
-#             except:
-#                 yield name
-#                 try:
-#                     for name in new(tear(name)):
-#                         yield name
-#                 except:
-#                     try:
-#                         for name in new(orbit(name)):
-#                             yield name
-#                     except:
-#                         for name in new(codebook[name]):
-#                             yield name
-                            
-# def makeScratch(formula):
-#     just_defined = set()
-#     for n in list(new(formula))[::-1]:
-#         if n in just_defined:
-#             continue
-#         try:
-#             exec(f"{n} = {element(n)}")
-#             just_defined.add(n)
-#         except:
-#             try:
-#                 exec(f"{n} = {tear(n)}")
-#                 just_defined.add(n)
-#             except:
-#                 try:
-#                     exec(f"{n} = {orbit(n)}")
-#                     just_defined.add(n)
-#                 except:
-#                     exec(f"{n} = {codebook[n]}")
-#                     just_defined.add(n)
-#     return eval(formula)

@@ -441,7 +441,7 @@ with open(f'codebook_new.json', 'w') as f:
 
 ### TESTS #####################
 
-pprint(ORBITS["f3_f3"])
+pprint(COMBOS["cf2"])
 
 
 # myscratch = makeScratch(
