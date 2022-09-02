@@ -199,7 +199,7 @@ codebook = {
     "boomerang":"boom",
     "boom_roll":"(boom/(1.5)) * 2",
     "boomerang_roll":"boom_roll",
-    
+
     "cboom":"c/.5 + (boom%4)/1.5",
     "chirpboom":"cboom",
     "chirpboomerang":"cboom",
@@ -377,7 +377,7 @@ COMBOS["hp_roll"]["Tutorial"] = {
 COMBOS["cboom"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=5mB80n1sZmo", 
       "credit":"DJ chile"}
-COMBOS["int"]["Tutorial"] = {
+COMBOS["internet"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=_mxSbVy6y8Y", 
       "credit":"DJ chile"}
 COMBOS["brbhp"]["Tutorial"] = {
