@@ -118,14 +118,17 @@ codebook = {
     "f1o":"f1_f1",
     "ocf":"f1_f1",
     "_1cf":"f1_f1",
+    "oneclickflare":"f1_f1",
 
     "f2o":"f2_f2",
     "tcf":"f2_f2",
     "_2cf":"f2_f2",
+    "twoclickflare":"f2_f2",
 
     "f3o":"f3_f3",
     "thcf":"f3_f3",
     "_3cf":"f3_f3",
+    "threeclickflare":"f3_f3",
 
     "ogflare":"of1_i_21",
     "ogf":"of1_i_21",
