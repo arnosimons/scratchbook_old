@@ -116,7 +116,7 @@ def getInfo(scratch):
             "iFlares", 
             "oFlares", 
             "Transformers",
-            # "Tear", #    <------- add !!!
+            "Tears", #    <------- Make this work !!!
             "Baby-Orbits",
             "Chirps",
             "Slices",
@@ -582,7 +582,7 @@ def orbit(name):
 
 codebook = {} # Dummy to avoid error messages in html...
 
-def new(formula):
+def new(formula, codebook=codebook):
     formula = re.sub(r"[-+*/%~\[\]\(\).:]|\b\d*\b", " ", formula)
     for name in set(formula.split()):
         try:
@@ -594,19 +594,19 @@ def new(formula):
             except:
                 yield name
                 try:
-                    for name in new(tear(name)):
+                    for name in new(tear(name), codebook):
                         yield name
                 except:
                     try:
-                        for name in new(orbit(name)):
+                        for name in new(orbit(name), codebook):
                             yield name
                     except:
-                        for name in new(codebook[name]):
+                        for name in new(codebook[name], codebook):
                             yield name
                             
-def makeScratch(formula):
+def makeScratch(formula, codebook=codebook):
     just_defined = set()
-    for n in list(new(formula))[::-1]:
+    for n in list(new(formula, codebook))[::-1]:
         if n in just_defined:
             continue
         try:
@@ -624,3 +624,47 @@ def makeScratch(formula):
                     exec(f"{n} = {codebook[n]}")
                     just_defined.add(n)
     return eval(formula)
+
+
+# def new(formula):
+#     formula = re.sub(r"[-+*/%~\[\]\(\).:]|\b\d*\b", " ", formula)
+#     for name in set(formula.split()):
+#         try:
+#             exec(name)
+#         except NameError:
+#             try:
+#                 exec(element(name))
+#                 yield name
+#             except:
+#                 yield name
+#                 try:
+#                     for name in new(tear(name)):
+#                         yield name
+#                 except:
+#                     try:
+#                         for name in new(orbit(name)):
+#                             yield name
+#                     except:
+#                         for name in new(codebook[name]):
+#                             yield name
+                            
+# def makeScratch(formula):
+#     just_defined = set()
+#     for n in list(new(formula))[::-1]:
+#         if n in just_defined:
+#             continue
+#         try:
+#             exec(f"{n} = {element(n)}")
+#             just_defined.add(n)
+#         except:
+#             try:
+#                 exec(f"{n} = {tear(n)}")
+#                 just_defined.add(n)
+#             except:
+#                 try:
+#                     exec(f"{n} = {orbit(n)}")
+#                     just_defined.add(n)
+#                 except:
+#                     exec(f"{n} = {codebook[n]}")
+#                     just_defined.add(n)
+#     return eval(formula)

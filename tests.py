@@ -25,5 +25,5 @@ print(len(TEARS), "TEARS")
 # pprint(TEARS[23])
 
 print(len(ORBITS), "ORBITS")
-pprint(ORBITS[34:])
+# pprint(ORBITS[34:])
 # %%
