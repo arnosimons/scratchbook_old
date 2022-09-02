@@ -4,21 +4,6 @@ import re
 import json
 from pprint import pprint
 
-# def makeLib(f, names):
-#     table = []
-#     for name in names:
-#         formula = f(name) if not f == element else name
-#         row = getInfo(makeScratch(formula))
-#         row["Name(s)"] = name
-#         row["Formula"] = formula
-#         table.append(row)
-#     return table
-
-# def exportJSON(lib, filename):
-#     print(f'Exporting "{filename}" lib with {len(lib)} rows')
-#     with open(f'{filename}.json', 'w') as f:
-#         json.dump(lib, f)
-
 def makeLib(f, names):
     lib = {}
     for name in names:
@@ -28,12 +13,6 @@ def makeLib(f, names):
         row["Formula"] = formula
         lib[name] = row
     return lib
-
-def exportJSON(lib, filename):
-    lib = list(lib.values())
-    print(f'Exporting "{filename}" lib with {len(lib)} rows')
-    with open(f'{filename}.json', 'w') as f:
-        json.dump(lib, f)
 
 
 ### ELEMENTS
@@ -48,7 +27,7 @@ trs = [f"tr{n}{dasq}" for n in range(2, trN + 1)
 names = ["h", "gh", "g"] + [f"{base}{crv}" 
     for base in ["b", "i", "o", "d"] + fs + trs for crv in [
     "", "Ex", "Log"]]
-elements = makeLib(element, names)
+ELEMENTS = makeLib(element, names)
 
 
 ### TEARS
@@ -57,7 +36,7 @@ tN = 3
 names = [f"{base}t{n}{crv}" for n in range(2, tN + 1) 
         for base in ["", "i", "o", "d", "if", "of", "tr"]
         for crv in ["", "Ex", "Log"] ]
-tears = makeLib(tear, names)
+TEARS = makeLib(tear, names)
 
 
 ### ORBITS
@@ -99,7 +78,7 @@ names += [
     if not l == r == ""
 ]
 # print("Orbits with ExLog", len(names))
-orbits = makeLib(orbit, names)
+ORBITS = makeLib(orbit, names)
 
 
 ### CODEBOOK
@@ -166,9 +145,9 @@ codebook = {
     "rawogf":"of1_i",
     "rawogflare":"of1_i",
 
-    "hp":"f1_f2",
-    "hippo":"f1_f2",
-    "hippopotamus":"f1_f2",    
+    "hp":"f1_f2_23",
+    "hippo":"f1_f2_23",
+    "hippopotamus":"f1_f2_23",    
     
     "hp_roll":"hp * 4",
     "hippopotamus_roll":"hp_roll",
@@ -256,19 +235,19 @@ codebook = {
 
 ### COMBOS
 
-combos = {}
+COMBOS = {}
 for k, v in codebook.items():
   if any(i in v for i in "+*~"):
     row = getInfo(makeScratch(v, codebook))
     row["Name(s)"] = k
     row["Formula"] = v
-    combos[k] = row
+    COMBOS[k] = row
 
 
 ### UPDATE NAMES FOR ALL LIBS GIVEN CODEBOOK ENTRIES
 
 for k, v in codebook.items():
-    for lib in [elements, tears, orbits, combos]:
+    for lib in [ELEMENTS, TEARS, ORBITS, COMBOS]:
         if v in lib:
             lib[v]["Name(s)"] = f"{k}, " + lib[v]["Name(s)"]
 
@@ -295,7 +274,7 @@ def addTutorials(lib):
             v["Tutorial"] = {"url":"https://www.youtube.com/watch?v=x-GqD3eH36g", "credit":"DJ Rafik"} # 3-Click Flares
         elif basek in ["tr_tr", "tr"]:
             v["Tutorial"] = {"url":"https://www.youtube.com/watch?v=XdkNAePjM7o", "credit":"DJ Immortal"} # Transformers
-        elif baseNk == "odt2_i":
+        elif baseNk == "of1_i_21":
             v["Tutorial"] = {"url":"https://www.youtube.com/watch?v=V1owPZNNMPI", "credit":"DJ Throdown"} # OG Flare
         elif basek == "d_g":
             v["Tutorial"] = {"url":"https://www.youtube.com/watch?v=Fl-JlMxQlxc", "credit":"DJ Dirty Digits"} # Stabs
@@ -304,109 +283,153 @@ def addTutorials(lib):
         elif basek == "t" or basek == "t_t":
             v["Tutorial"] = {"url":"https://www.youtube.com/watch?v=WN8ity9B35U", "credit":"DJ Angelo"} # Faderless Tears
 
-for lib in [elements, tears, orbits]:
+for lib in [ELEMENTS, TEARS, ORBITS]:
     addTutorials(lib)
 
 
 ### SPECIFIC TUTORIALS
-combos["sc"]["Tutorial"] = {
+COMBOS["sc"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=rtqTmUVjsuY", 
       "credit":"DJ Noumenon"}
-combos["dr"]["Tutorial"] = {
+COMBOS["dr"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=rtqTmUVjsuY", 
       "credit":"DJ Noumenon"}
-combos["uzi"]["Tutorial"] = {
+COMBOS["uzi"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=YjtVcQ39QrU", 
       "credit":"DJ Phillee Blunt"}
-combos["ta1"]["Tutorial"] = {
+COMBOS["ta1"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=kuVk_wyNAg", 
       "credit":"DJ Rafik"}
-combos["ta2"]["Tutorial"] = {
+COMBOS["ta2"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=JRaUuXhw6Qk", 
       "credit":"DJ ND"}
-combos["mt"]["Tutorial"] = {
+COMBOS["mt"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=GpT1Y1aMlWw", 
       "credit":"DJ Trife"}
-combos["k"]["Tutorial"] = {
+COMBOS["k"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=rQnMymtQ9sg", 
       "credit":"DJ Raedawn"}
-combos["sf"]["Tutorial"] = {
+COMBOS["sf"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=h3o5OTIy", 
       "credit":"DJ Shiftee"}
-combos["cf1"]["Tutorial"] = {
+COMBOS["cf1"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=DUaY6gMONmA", 
       "credit":"DJ Excess"}
-combos["pr"]["Tutorial"] = {
+COMBOS["pr"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=B32m9Jqqrpo", 
       "credit":"DJ Fast-M"}
-combos["pr_roll"]["Tutorial"] = {
+COMBOS["pr_roll"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=B32m9Jqqrpo", 
       "credit":"DJ Fast-M"}
-combos["boom"]["Tutorial"] = {
+COMBOS["boom"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=c2IrbYGs0eU", 
       "credit":"DJ Dirty Digits"}
-combos["boom_roll"]["Tutorial"] = {
+COMBOS["boom_roll"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=c2IrbYGs0eU", 
       "credit":"DJ Dirty Digits"}
-combos["ab"]["Tutorial"] = {
+COMBOS["ab"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=nqzwiWkKV_s", 
       "credit":"DJ Dirty Digits"}
-combos["ss"]["Tutorial"] = {
+COMBOS["ss"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=6ZHYnUdPw3g", 
       "credit":"DJ DJ Raedawn"}
-combos["slico1"]["Tutorial"] = {
+COMBOS["slico1"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=B_iOaAguNuo", 
       "credit":"DJ Short-E"}
-combos["slico2"]["Tutorial"] = {
+COMBOS["slico2"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=B_iOaAguNuo", 
       "credit":"DJ Short-E"}
-combos["rl"]["Tutorial"] = {
+COMBOS["rl"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=iMHKliaY7BU", 
       "credit":"DJ chile"}
-combos["eg"]["Tutorial"] = {
+COMBOS["eg"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=fPOTkGvLtL0", 
       "credit":"DJ chile"}
-combos["eg_roll"]["Tutorial"] = {
+COMBOS["eg_roll"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=fPOTkGvLtL0", 
       "credit":"DJ chile"}
-combos["hg"]["Tutorial"] = {
+COMBOS["hg"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=OVZxorYLHj8", 
       "credit":"DJ chile"}
-combos["hg_roll"]["Tutorial"] = {
+COMBOS["hg_roll"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=OVZxorYLHj8", 
       "credit":"DJ chile"}
-combos["cogf"]["Tutorial"] = {
+COMBOS["cogf"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=DPC6LJar6DY", 
       "credit":"DJ chile"}
-combos["cogf_roll"]["Tutorial"] = {
+COMBOS["cogf_roll"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=DPC6LJar6DY", 
       "credit":"DJ chile"}
-combos["tt"]["Tutorial"] = {
+COMBOS["tt"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=7I8ezdTaq88", 
       "credit":"DJ chile"}
-combos["hp_roll"]["Tutorial"] = {
+COMBOS["hp_roll"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=wmiTMz8XViE", 
       "credit":"DJ chile"}
-combos["cboom"]["Tutorial"] = {
+COMBOS["cboom"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=5mB80n1sZmo", 
       "credit":"DJ chile"}
-combos["int"]["Tutorial"] = {
+COMBOS["int"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=_mxSbVy6y8Y", 
       "credit":"DJ chile"}
-combos["brbhp"]["Tutorial"] = {
+COMBOS["brbhp"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=REVf6rnZPBc", 
       "credit":"DJ chile"}
 
 
+### CORE
+
+CORE = {
+    k:dict(v)
+    for k, v in COMBOS.items()
+}
+
+CORE.update({
+    k:dict(v)
+    for k, v in ORBITS.items()
+    if k in [
+        "b_b", # baby-orbit
+        "d_g", # stabs
+        "d_d", # dice-orbit
+        "i_o", # slice
+        "o_i", # chirp
+        "f1_f1", # ocf
+        "f2_f2", # tcf
+        "f3_f3", # 3 click flare
+        "f1_f2_23", # hippo
+        "f1_f2", # rawhippo
+        "of1_i", # rawogf
+        "of1_i_21", # ogflare
+    ]
+})
+
+
 ### EXPORT JSONS
 
-exportJSON(elements, "elements")
-exportJSON(tears, "tears")
-exportJSON(orbits, "orbits")
-exportJSON(combos, "combos")
+
+libraries = [
+  [CORE, "CORE"],
+  [ELEMENTS, "ELEMENTS"],
+  [TEARS, "TEARS"],
+  [ORBITS, "ORBITS"],
+  [COMBOS, "COMBOS"],
+]
+for lib, libname in libraries:
+  for k, v in lib.items():
+      v["Tutorial"] = f"""<a href='{v["Tutorial"]["url"]}' target='_blank'>{v["Tutorial"]["credit"]} &#128279;</a>""" if "Tutorial" in v else ""
+      for l, ln in libraries:
+          v[ln] = 1 if k in l else 0
+
+  # lib = list(lib.values())
+  d = {"data":list(lib.values())}
+  print(f'Exporting "{libname}" lib with {len(lib)} rows')
+  with open(f'{libname}.json', 'w') as f:
+      json.dump(d, f)
+
+pprint(ORBITS["f3_f3"])
 
 
-
+### TESTS #####################
 
 # myscratch = makeScratch(
 #   "stab + i + (f2Ex//1)**.2 + ~(f2Log//1)**.2 + tazer1 + tazer2 + tcf", 
