@@ -182,7 +182,7 @@ codebook = {
     "dr":"bo * 4 / 1 // 0.5",
     "drill":"dr",
 
-    "uzi":"bo * 8 / 1 // 0.5",
+    "uzi":"bo * 8 / 1 // 0.25",
     
     "mt":"st/.25 + (i + ~b + o + ~g)/.5//.5 + st/.25 + (i + ~b + o + ~g)/.5//.5 + st/.25 + gh/.25",
     "military":"mt",
@@ -193,7 +193,7 @@ codebook = {
     "sf":"(s + do) / 1",
     "swingflare":"sw",
     
-    "pr":"(oft + ~(s//1) + ~ift) / 1",
+    "pr":"(oft + ~(s//1) + ~ift) / 1 // .75",
     "prizm":"pr",
     "pr_roll":"(pr / 1.5) * 4",
     "prizm_roll":"pr_roll",
@@ -441,7 +441,7 @@ with open(f'codebook_new.json', 'w') as f:
 
 ### TESTS #####################
 
-pprint(COMBOS["cf2"])
+pprint(ELEMENTS["i"])
 
 
 # myscratch = makeScratch(
