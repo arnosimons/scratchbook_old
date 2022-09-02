@@ -406,30 +406,32 @@ CORE.update({
 
 ### EXPORT JSONS
 
-
 libraries = [
-  [CORE, "CORE"],
-  [ELEMENTS, "ELEMENTS"],
-  [TEARS, "TEARS"],
-  [ORBITS, "ORBITS"],
-  [COMBOS, "COMBOS"],
+    [CORE, "CORE"],
+    [ELEMENTS, "ELEMENTS"],
+    [TEARS, "TEARS"],
+    [ORBITS, "ORBITS"],
+    [COMBOS, "COMBOS"],
 ]
 for lib, libname in libraries:
-  for k, v in lib.items():
-      v["Tutorial"] = f"""<a href='{v["Tutorial"]["url"]}' target='_blank'>{v["Tutorial"]["credit"]} &#128279;</a>""" if "Tutorial" in v else ""
-      for l, ln in libraries:
-          v[ln] = 1 if k in l else 0
+    for k, v in lib.items():
+        v["Tutorial"] = f"""<a href='{v["Tutorial"]["url"]}' target='_blank'>{v["Tutorial"]["credit"]} &#128279;</a>""" if "Tutorial" in v else ""
+        for l, ln in libraries:
+            v[ln] = 1 if k in l else 0
 
-  # lib = list(lib.values())
-  d = {"data":list(lib.values())}
-  print(f'Exporting "{libname}" lib with {len(lib)} rows')
-  with open(f'{libname}.json', 'w') as f:
-      json.dump(d, f)
+    # lib = list(lib.values())
+    d = {"data":list(lib.values())}
+    print(f'Exporting "{libname}" lib with {len(lib)} rows')
+    with open(f'{libname}.json', 'w') as f:
+        json.dump(d, f)
+
+with open(f'codebook_new.json', 'w') as f:
+    json.dump(codebook, f)
+
+### TESTS #####################
 
 pprint(ORBITS["f3_f3"])
 
-
-### TESTS #####################
 
 # myscratch = makeScratch(
 #   "stab + i + (f2Ex//1)**.2 + ~(f2Log//1)**.2 + tazer1 + tazer2 + tcf", 
