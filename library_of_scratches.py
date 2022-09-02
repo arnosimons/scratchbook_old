@@ -115,29 +115,36 @@ codebook = {
     "st":"d_g",
     "stab":"d_g",
     
-    "ocf":"f1_f1",
     "f1o":"f1_f1",
-    "flare1orbit":"f1_f1",
-    "cf1":"(c / (1/3) + ocf / (2/3)) / 2",
+    "ocf":"f1_f1",
+    "_1cf":"f1_f1",
 
-    "cocf":"cf1",
-    "chirpflare1":"cf1",
-    
-    "tcf":"f2_f2",
     "f2o":"f2_f2",
-    "flare2orbit":"f2_f2",
-    "cf2":"c / (1/2) + tcf / (3/2)",
+    "tcf":"f2_f2",
+    "_2cf":"f2_f2",
 
-    "ctcf":"cf2",
-    "chirpflare2":"cf2",
-
-    "3cf":"f3_f3",
     "f3o":"f3_f3",
-    "flare3orbit":"f3_f3",
-    
+    "thcf":"f3_f3",
+    "_3cf":"f3_f3",
+
     "ogflare":"of1_i_21",
     "ogf":"of1_i_21",
     "cogf":"(c/.5 + ogf/(3/4)) / 1",
+
+    "cf1":"(c / (1/3) + ocf / (2/3)) / 2",
+    "cocf":"cf1",
+    "c1cf":"cf1",
+    "chirpflare1":"cf1",
+    
+    "cf2":"c / (1/2) + tcf / (3/2)",
+    "ctcf":"cf2",
+    "c2cf":"cf2",
+    "chirpflare2":"cf2",
+
+    "cf3":"(c/(2/5) + f3_f3/(8/5)) / 2",
+    "cthcf":"cf3",
+    "c3cf":"cf3",
+    "chirpflare3":"cf3",
 
     "chirpogflare":"cogf",
     "cogf_roll":"(cogf/1.25) * 4",
@@ -192,6 +199,7 @@ codebook = {
     "boomerang":"boom",
     "boom_roll":"(boom/(1.5)) * 2",
     "boomerang_roll":"boom_roll",
+    
     "cboom":"c/.5 + (boom%4)/1.5",
     "chirpboom":"cboom",
     "chirpboomerang":"cboom",
