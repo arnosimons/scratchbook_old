@@ -180,7 +180,7 @@ codebook = {
     "scribble":"sc",
 
     "dr":"bo * 4 / 1 // 0.5",
-    "drill":"dr",
+    "drills":"dr",
 
     "uzi":"bo * 8 / 1 // 0.25",
     
@@ -191,7 +191,7 @@ codebook = {
     "kermit":"k",
     
     "sf":"(s + do) / 1",
-    "swingflare":"sw",
+    "swingflare":"sf",
     
     "pr":"(oft + ~(s//1) + ~ift) / 1 // .75",
     "prizm":"pr",
