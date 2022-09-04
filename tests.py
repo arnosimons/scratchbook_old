@@ -1,31 +1,21 @@
 #%%
 from scratchbook import *
-from library_of_scratches import *
+# from library_of_scratches import *
 from pprint import pprint
 
 codebook = {
     "stab":"d + ~g",
     "tazer1":"~bLog_f1Log_12",
 }
+formula = 'stab*3 + g_d + ~g_d'
 myscratch = makeScratch(
-  "f2 + tazer1",
+  formula,
   codebook
 )
 info = getInfo(myscratch)
+# for k in ["Tears", "Orbits""]:
+#   print(k, info[k])
+pprint(info)
 fig = Session(myscratch, fontsize=11, w_pad=2).fig
-# fig.show()
-# # pprint(info)
-# assert info["#Sounds"] == 11
-# assert info["Orbit"] == 4
-# assert info["Ex-Phantazm"] == 1
-# assert info["Tazer"] == 1
-
-# print(len(ELEMENTS), "ELEMENTS")
-# # pprint(ELEMENTS[45])
-
-# print(len(TEARS), "TEARS")
-# # pprint(TEARS[23])
-
-# print(len(ORBITS), "ORBITS")
-# # pprint(ORBITS[34:])
+fig.show()
 # %%
