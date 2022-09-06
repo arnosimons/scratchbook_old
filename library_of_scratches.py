@@ -429,7 +429,7 @@ with open(f'codebook_new.json', 'w') as f:
 print()
 print("HTML Columns")
 print("*" * 80)
-INFOKEYS = ["Name(s)", "Tutorial"] + INFOKEYS + [i[1] for i in libraries]
+INFOKEYS = ["Name(s)", "Tutorial"] + INFOKEYS + ["Formula"] + [i[1] for i in libraries]
 for indx, col in enumerate(INFOKEYS):
     print("{data:" + f'"{col}", title: "{col}"' + "}," + f" // {indx}")
 
