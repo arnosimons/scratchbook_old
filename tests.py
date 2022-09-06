@@ -6,8 +6,10 @@ from pprint import pprint
 codebook = {
     "stab":"d + ~g",
     "tazer1":"~bLog_f1Log_12",
+    "s":"i_o",
+    "boom":"(s + d/0.5//0.5 + ~s + ~d/0.5//0.5) / 2",
 }
-formula = 'ft1 + stab*3 + g_d + ~g_d'
+formula = '~boom + tazer1 + f3_f6'
 myscratch = makeScratch(
   formula,
   codebook

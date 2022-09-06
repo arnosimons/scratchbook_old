@@ -247,7 +247,7 @@ for k, v in codebook.items():
             lib[v]["Name(s)"] = f"{k}, " + lib[v]["Name(s)"]
 
 
-### GENERIC TUTORIALS
+### GENERIC TUTORIALS & SCRATCH SEARCHABILITY
 
 def base(name):
     return re.sub(r"Log|Ex|[DASQ\d]", "", name)
@@ -278,11 +278,50 @@ def addTutorials(lib):
         elif basek == "t" or basek == "t_t":
             v["Tutorial"] = {"url":"https://www.youtube.com/watch?v=WN8ity9B35U", "credit":"DJ Angelo"} # Faderless Tears
 
-for lib in [ELEMENTS, TEARS, ORBITS]:
+for lib in [ELEMENTS, TEARS, ORBITS, COMBOS]:
     addTutorials(lib)
+    for k, v in lib.items():
+        v["search"] = ""
+        for scratch in [ # copy/paste from scratchbook.INFOKEYS
+            "Babies", # b
+            "Ins", # i
+            "Outs", # o
+            "Dices", # d
+            "Flares", # f
+            "iFlares", # if
+            "oFlares", # of
+            "Transformers", # tr
+            "Ghosts", # g
+            "Holds", # h
+            "G-Holds", # gh
+            ### Individual Orbits
+            "Chirps", # c
+            "Slices", # s
+            "Stabs", # st
+            "Flare-Orbits", # f_f
+            # "1C-Flobs", # _1cfo
+            # "2C-Flobs", # _2cfo
+            # "3C-Flobs", # _3cfo
+            # "Hippos", # hp
+            "OG-Flares", # ogf
+            "Baby-Orbits", # bo
+            "Dice-Orbits", # do
+            "Off-Stabs", # ost
+            ### Orbit types
+            "S-Curved",
+            "Tazers",
+            "Phantazms",
+            "Ex-Tazers",
+            "Ex-Phantazms",
+        ]:
+            if v[scratch]:
+                if scratch == "Babies":
+                    scratch = "Babies Baby"
+                v["search"] += f" {scratch}"
 
 
 ### SPECIFIC TUTORIALS
+
 COMBOS["sc"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=rtqTmUVjsuY", 
       "credit":"DJ Noumenon"}
