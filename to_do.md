@@ -1,8 +1,10 @@
 # To Do
-- $('#scratch_table thead th').each(function () {
-    - update col order and titles
+- boom has two not 5 orbits. Refine orbit def!!! Loopability is key!
+- too many orbit scratches in info???
 - count orbits and reverse orbits individually?
     - also for orb types (s-o, tazers, usw)?
+- automate button, switch and table construction (to avoid hassle when I change scratchbook.py/library.py)
+- load python files internally instead through webaddress?
 - self-building table in js (instead of json imports?)
     - but what about library idea?
 - option to append current scratch in session to library? 

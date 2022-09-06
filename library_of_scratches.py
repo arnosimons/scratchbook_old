@@ -423,9 +423,22 @@ for lib, libname in libraries:
 with open(f'codebook_new.json', 'w') as f:
     json.dump(codebook, f)
 
-### TESTS #####################
 
-pprint(ELEMENTS["i"])
+### COLUMS HTML
+
+print()
+print("HTML Columns")
+print("*" * 80)
+INFOKEYS = ["Name(s)", "Tutorial"] + INFOKEYS + [i[1] for i in libraries]
+for indx, col in enumerate(INFOKEYS):
+    print("{data:" + f'"{col}", title: "{col}"' + "}," + f" // {indx}")
+
+
+### TESTS #####################
+print()
+print("TESTS")
+print("*" * 80)
+pprint(ELEMENTS["b"])
 
 
 # myscratch = makeScratch(

@@ -7,7 +7,7 @@ codebook = {
     "stab":"d + ~g",
     "tazer1":"~bLog_f1Log_12",
 }
-formula = 'stab*3 + g_d + ~g_d'
+formula = 'ft1 + stab*3 + g_d + ~g_d'
 myscratch = makeScratch(
   formula,
   codebook

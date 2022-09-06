@@ -89,72 +89,88 @@ def makeFclicks(n, dasq):
             return  left + middle + right
     if dasq == "Q":
         return  [(i+1) / (n+3) for i in range(1, n+1)]
-INFOKEYS = [
-    ### Sounds
-    "Sounds",
-    ### Number of Elements
-    "Elements",
-    ### Number of Tears
-    "Tears", 
-    ### Number of Orbits
-    "Orbits",
-    ### Clicks
-    "FO",
-    "FC",
-    "PO",
-    "PC",
-    ### Click patterns
-    "D",
-    "A",
-    "S",
-    "Q",
-    ### Curves
-    "Ex",
-    "Log",
     
-    ### Individual Elements
-    "Babies", # b
-    "Ins", # i
-    "Outs", # o
-    "Dices", # d
-    "Flares", # f
-    "iFlares", # if
-    "oFlares", # of
-    "Transformers", # tr
-    "Ghosts", # g
-    "Holds", # h
-    "G-Holds", # gh
-    ### Individual Orbits
-    "Chirps", # c
-    "Slices", # s
-    "Stabs", # st
-    "Flare-Orbits", # f_f
-    # "1C-Flobs", # _1cfo
-    # "2C-Flobs", # _2cfo
-    # "3C-Flobs", # _3cfo
-    # "Hippos", # hp
-    "OG-Flares", # ogf
-    "Baby-Orbits", # bo
-    "Dice-Orbits", # do
-    "Off-Stabs", # ost
-    ### Orbit types
-    "S-Curved",
-    "Tazers",
-    "Phantazms",
-    "Ex-Tazers",
-    "Ex-Phantazms",
-        ]  
 def getInfo(scratch):
     # initialize dic
-    info = {k:0 for k in INFOKEYS}
+    info = {
+        k:0
+        for k in [
+            ### Sounds
+            "Sounds",
+            ### Clicks
+            "FO",
+            "FC",
+            "PO",
+            "PC",
+            ### Click patterns
+            "D",
+            "A",
+            "S",
+            "Q",
+            ### Curves
+            "Ex",
+            "Log",
+            ### Number of Elements
+            "Elements",
+            ### Individual Elements
+            "Babies", # b
+            "Ins", # i
+            "Outs", # o
+            "Dices", # d
+            "Flares", # f
+            "iFlares", # if
+            "oFlares", # of
+            "Transformers", # tr
+            "Ghosts", # g
+            "Holds", # h
+            "G-Holds", # gh
+            ### Number of Tears
+            "Tears", 
+            ### Number of Orbits
+            "Orbits",
+            ### Individual Orbits
+            "Chirps", # c
+            "Slices", # s
+            "Stabs", # st
+            "1C-Flobs", # _1cfo
+            "2C-Flobs", # _2cfo
+            "3C-Flobs", # _3cfo
+            "OG-Flares", # ogf
+            "Hippos", # hp
+            "Baby-Os", # bo
+            "Dice-Os", # do
+            "Off-Stabs", # ost
+            ### Individual R-Orbit
+            "R-Chirps", # ~c
+            "R-Slices", # ~s 
+            "R-Stabs", # ~st
+            "R-1C-Flobs", # ~_1cfo
+            "R-2C-Flobs", # ~_2cfo
+            "R-3C-Flobs", # ~_3cfo
+            "R-OG-Flares", # ~ogf
+            "R-Hippos", # ~hp
+            "R-Baby-Os", # ~bo
+            "R-Dice-Os", # ~do
+            "R-Off-Stabs", # ~ost
+            ### Orbit types
+            "S-Curved",
+            "R-S-Curved",
+            "Tazers",
+            "R-Tazers",
+            "Phantazms",
+            "R-Phantazms",
+            "Ex-Tazers",
+            "R-Ex-Tazers",
+            "Ex-Phantazms",
+            "R-Ex-Phantazms",
+        ]
+    }
     lastel = None
     lastcrv = None
-    # lastfclicks = None
+    lastfclicks = None
     lastscale = None
     lastyshift = None
     lastabsheight = None
-    lasticlick = None
-    lastoclick = None
     decplaces, margin = 5, 0.00002
     # fill dic with data
     for indx, s in enumerate(scratch.slices):
@@ -162,35 +178,45 @@ def getInfo(scratch):
         crv = s[1]
         crvcol = s[2]
         clicks = s[3]
-        iclick = 1 if 0 in clicks else 0 
-        oclick = 1 if 1 in clicks else 0
-        fclicks_list = [i for i in clicks if not i in [0, 1]]
-        fclicks = len(fclicks_list)
         height = round(scale[1], decplaces)
         yshift = round(scale[2], decplaces)
         absheight = height + yshift
         nohold = crv != _L
         reverse = True if nohold and lastcrv and (lastcrv in ocrvs[crv]) else False
         forward = True if crv in fowardcrvs else False
-        isorbit = nohold and reverse and scale[1:] == lastscale[1:] and iclick==lastoclick and oclick==lasticlick
+        isorbit = nohold and reverse and scale[1:] == lastscale[1:]
         istear = nohold and not reverse and lastabsheight and (
             (forward and lastabsheight - yshift < margin) 
             or (not forward and lastyshift - absheight < margin))
-        info["Elements"] += 1
-        if istear:
-            info["Tears"] += 1
         if isorbit:
             info["Orbits"] += 1
-            if (lastcrv == _N and crv == _NR) or (lastcrv == _NR and crv == _N):
+            if (lastcrv == _N and crv == _NR):
                 info["S-Curved"] += 1
-            elif (lastcrv == _Log and crv == _LogR) or (lastcrv == _LogR and crv == _Log):
+            elif (lastcrv == _NR and crv == _N):
+                info["R-S-Curved"] += 1
+            elif (lastcrv == _Log and crv == _LogR):
                 info["Tazers"] += 1
-            elif (lastcrv == _ExR and crv == _Log) or (lastcrv == _Log and crv == _ExR):
+            elif (lastcrv == _LogR and crv == _Log):
+                info["R-Tazers"] += 1
+            elif (lastcrv == _ExR and crv == _Log):
                 info["Phantazms"] += 1
-            elif (lastcrv == _Ex and crv == _ExR) or (lastcrv == _ExR and crv == _Ex):
+            elif (lastcrv == _Log and crv == _ExR):
+                info["R-Phantazms"] += 1
+            elif (lastcrv == _Ex and crv == _ExR):
                 info["Ex-Tazers"] += 1
-            elif (lastcrv == _Ex and crv == _LogR) or (lastcrv == _LogR and crv == _Ex):
+            elif (lastcrv == _ExR and crv == _Ex):
+                info["R-Ex-Tazers"] += 1
+            elif (lastcrv == _Ex and crv == _LogR):
                 info["Ex-Phantazms"] += 1
+            elif (lastcrv == _LogR and crv == _Ex):
+                info["R-Ex-Phantazms"] += 1
+        if istear:
+            info["Tears"] += 1
+        iclick = 1 if 0 in clicks else 0 
+        oclick = 1 if 1 in clicks else 0 
+        fclicks_list = [i for i in clicks if not i in [0, 1]]
+        fclicks = len(fclicks_list)
+        info["Elements"] += 1
         info["FO"] += iclick + fclicks
         info["FC"] += oclick + fclicks
         info["PO"] += int(bool(not iclick))
@@ -222,7 +248,10 @@ def getInfo(scratch):
                 info["Sounds"] += 1
                 info["Babies"] += 1
                 if lastel == "Babies" and isorbit:
-                    info["Baby-Orbits"] += 1
+                    if not forward:
+                        info["Baby-Os"] += 1
+                    else:
+                        info["R-Baby-Os"] += 1
                 lastel = "Babies"  
         # All other scratches now. They all make Sounds
         else:
@@ -230,34 +259,60 @@ def getInfo(scratch):
             if iclick and not any([oclick, fclicks]): # In
                 info["Ins"] += 1
                 if lastel == "Outs" and isorbit:
-                    info["Chirps"] += 1
+                    if not forward:
+                        info["Chirps"] += 1
+                    else:
+                        info["R-Chirps"] += 1
                 elif lastel == "oFlares":  # OGF
-                    info["OG-Flares"] += 1
+                    if not forward:
+                        info["OG-Flares"] += 1
+                    else:
+                        info["R-OG-Flares"] += 1
                 lastel = "Ins"
             elif oclick and not any([iclick, fclicks]): # Out
                 info["Outs"] += 1
                 if lastel == "Ins" and  isorbit:
-                    info["Slices"] += 1
+                    if not forward:
+                        info["Slices"] += 1
+                    else:
+                        info["R-Slices"] += 1
                 lastel = "Outs"
             elif all([iclick, oclick]) and not fclicks: # Dice
                 info["Dices"] += 1
                 if lastel == "Ghosts" and isorbit:
-                    info["Off-Stabs"] += 1
+                    if not forward:
+                        info["Off-Stabs"] += 1
+                    else:
+                        info["R-Off-Stabs"] += 1
                 elif lastel == "Dices" and isorbit:
-                    info["Dice-Orbits"] += 1
+                    if not forward:
+                        info["Dice-Os"] += 1
+                    else:
+                        info["R-Dice-Os"] += 1
                 lastel = "Dices"
             elif fclicks and not any([iclick, oclick]): # Flare
                 info["Flares"] += 1
                 if lastel == "Flares" and isorbit:
-                    info["Flare-Orbits"] += 1
-                    # if lastfclicks == fclicks == 1:  # 1C-Flobs
-                    #     info["1C-Flobs"] += 1
-                    # elif lastfclicks == fclicks == 2: # 2C-Flobs
-                    #     info["2C-Flobs"] += 1
-                    # elif lastfclicks == fclicks == 3: # 3C-Flobs
-                    #     info["3C-Flobs"] += 1
-                    # elif lastfclicks == 1 and fclicks == 2: # Hippo
-                    #     info["Hippos"] += 1
+                    if lastfclicks == fclicks == 1:  # 1C-Flobs
+                        if not forward:
+                            info["1C-Flobs"] += 1
+                        else:
+                            info["R-1C-Flobs"] += 1
+                    elif lastfclicks == fclicks == 2: # 2C-Flobs
+                        if not forward:
+                            info["2C-Flobs"] += 1
+                        else:
+                            info["R-2C-Flobs"] += 1
+                    elif lastfclicks == fclicks == 3: # 3C-Flobs
+                        if not forward:
+                            info["3C-Flobs"] += 1
+                        else:
+                            info["R-3C-Flobs"] += 1
+                    elif lastfclicks == 1 and fclicks == 2: # Hippo
+                        if not forward:
+                            info["Hippos"] += 1
+                        else:
+                            info["R-Hippos"] += 1
                 lastel = "Flares"
             elif all([fclicks, iclick]) and not oclick: # iFlare
                 info["iFlares"] += 1
@@ -269,12 +324,10 @@ def getInfo(scratch):
                 info["Transformers"] += 1
                 lastel = "Transformers"
         lastcrv = crv
-        # lastfclicks = fclicks
+        lastfclicks = fclicks
         lastscale = scale
         lastyshift = yshift
         lastabsheight = absheight
-        lasticlick = iclick
-        lastoclick = oclick
     return info
 
 
