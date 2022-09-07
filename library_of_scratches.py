@@ -174,7 +174,7 @@ codebook = {
     "pr":"(oft1 + ~(s//1) + ~ift1) / 1 // .75",
     "prizm":"pr",
 
-    "pr_roll":"(pr / 1.5) * 4",
+    "pr_roll":"(pr / 1.5) * 2",
     "prizm_roll":"pr_roll",
     
     "boom":"(s + d/0.5//0.5 + ~s + ~d/0.5//0.5) / 2",
