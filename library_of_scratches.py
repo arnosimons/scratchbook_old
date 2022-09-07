@@ -17,7 +17,7 @@ def makeLib(f, names):
 
 ### ELEMENTS
 
-fN, trN = 3, 3
+fN, trN = 3, 4
 fs = [f"{io}f{n}{dasq}" for n in range(1, fN + 1) for io in ["", "i", "o"] 
     for dasq in ["", "D", "A", "S", "Q"] if not f"{io}f{n}{dasq}" in [
      "f1S", "f1Q", "if1S", "if1Q", "of1S", "of1Q",]]
@@ -281,7 +281,7 @@ def addTutorials(lib):
 for lib in [ELEMENTS, TEARS, ORBITS, COMBOS]:
     addTutorials(lib)
     for k, v in lib.items():
-        v["search"] = ""
+        v["Search"] = ""
         for scratch in [ # copy/paste from scratchbook.INFOKEYS
             "Babies", # b
             "Ins", # i
@@ -317,7 +317,7 @@ for lib in [ELEMENTS, TEARS, ORBITS, COMBOS]:
             if v[scratch]:
                 if scratch == "Babies":
                     scratch = "Babies Baby"
-                v["search"] += f" {scratch}"
+                v["Search"] += f" {scratch}"
 
 
 ### SPECIFIC TUTORIALS
@@ -468,7 +468,7 @@ with open(f'codebook_new.json', 'w') as f:
 print()
 print("HTML Columns")
 print("*" * 80)
-INFOKEYS = ["Name(s)", "Tutorial"] + INFOKEYS + ["Formula"] + [i[1] for i in libraries]
+INFOKEYS = ["Name(s)", "Tutorial"] + INFOKEYS + ["Formula", "Search"] + [i[1] for i in libraries]
 for indx, col in enumerate(INFOKEYS):
     print("{data:" + f'"{col}", title: "{col}"' + "}," + f" // {indx}")
 
