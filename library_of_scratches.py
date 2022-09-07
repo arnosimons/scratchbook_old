@@ -197,7 +197,7 @@ codebook = {
     "stabcrab":"stcr",
 
     "stcr_roll":"stcr / (9/12) * 16",
-    "stabcrab_roll":"stcrm",
+    "stabcrab_roll":"stcr_roll",
 
     "slico1":"(h/(1/8))**(1/3) + ~s/(1/4)//(1/3) + (d/(1/8)//(1/3))**(1/3) + (s/(1/4)//(1/3))**(2/3) + (~ift1/(1/4)//(1/3))**(1/3)",
     "slicecombo1":"slico1",
