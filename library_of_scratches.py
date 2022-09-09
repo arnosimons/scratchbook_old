@@ -211,6 +211,9 @@ codebook = {
     "ta2":"~iLog_of2Log_13",
     "tazer2":"ta2",
 
+    "ta2_roll":"(ta2 * 3) / 4",
+    "tazer2_roll":"ta2_roll",
+
     "sc":"bo * 2 / 1",
     "scribble":"sc",
 
@@ -283,11 +286,40 @@ codebook = {
     
     "internet":"~b/.25 + bo/.5 + f1/.5 + ~b/.25 + bo/.5 + b/.5 + ~b/.25 + bo/.5 + f2/(3/4)",
 
-    "xenon":"(f1//.5 + (f2//.5)**.5)/1 + ~f3",
+    "x":"(f1//.5 + (f2//.5)**.5)/1 + ~f3",
+    "xenon":"x",
 
-    "joecooley":"c*3/1.5 + bo*3/.5",
+    "cts":"(t1 + ~t1) / 1",
+    "clovertears":"cts",
 
-    "clovertears":"(t1 + ~t1) / 1",
+    'aqua':'boom % 4',
+    'aquaman':'aqua',
+
+    'sw':'(b + ~t1) / 1',
+    'swirl':'sw',
+
+    "jc":"(c + sw + c) / 1",
+    "joecooley":"jc",
+
+    "delete":"(bo + f1 + ~bo**.5 + ~f1) / 2",
+
+    "square":"((d//(1/3))**(1/3) + (s//(1/3))**(2/3) + ~(d//(1/3))**(1/3) + ~s//(1/3)) / 1",
+    "squareflare":"square",
+
+    "spair": "(bo + flob1) / 1",
+    "spairflare": "spair",
+
+    "mf1":"(f1 + ~bo**.5 + ~f1) / 1",
+    "mflare1":"mf1",
+
+    "mf2":"(f2 + ~bo**.5 + ~f2) / 1",
+    "mflare2":"mf2",
+
+    "scf1":"sc + flob1",
+    "scribbleflare1":"scf1",
+
+    "scf2":"sc + flob2",
+    "scribbleflare2":"scf2",
 }
 
 
@@ -295,7 +327,7 @@ codebook = {
 
 COMBOS = {}
 for k, v in codebook.items():
-  if any(i in v for i in "+*~"):
+  if any(i in v for i in "+*~%"):
     row = getInfo(makeScratch(v, codebook))
     row["Name(s)"] = k
     row["Formula"] = v
@@ -475,15 +507,40 @@ COMBOS["internet"]["Tutorial"] = {
 COMBOS["brbhp"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=REVf6rnZPBc", 
       "credit":"DJ chile"}
-COMBOS["xenon"]["Tutorial"] = {
+COMBOS["x"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=aVgurUuDDSw&t=369s", 
       "credit":"DJ Qbert"}
-COMBOS["joecooley"]["Tutorial"] = {
-      "url":"https://www.youtube.com/watch?v=nI-CnlGfsVk", 
-      "credit":"DJ Qbert"}
-COMBOS["clovertears"]["Tutorial"] = {
+COMBOS["jc"]["Tutorial"] = {
+      "url":"https://www.youtube.com/watch?v=lV5SPCaAnMM", 
+      "credit":"DJ Raedawn"}
+COMBOS["cts"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=FllVjK2nv3c", 
       "credit":"DJ Qbert"}
+COMBOS["aqua"]["Tutorial"] = {
+      "url":"https://www.youtube.com/watch?v=7GXOhZbuvIg", 
+      "credit":"DJ Dirty Digits"}
+COMBOS["delete"]["Tutorial"] = {
+      "url":"https://www.youtube.com/watch?v=Hpzb9wALU04", 
+      "credit":"DJ Raedawn"}
+COMBOS["square"]["Tutorial"] = {
+      "url":"https://www.youtube.com/watch?v=qkh_EgsZt3M", 
+      "credit":"Alex Sonnenfeld"}
+COMBOS["spair"]["Tutorial"] = {
+      "url":"https://www.youtube.com/watch?v=xxhZ45KcMCY", 
+      "credit":"DJ Kanga"}
+COMBOS["mf1"]["Tutorial"] = {
+      "url":"https://www.youtube.com/watch?v=XbU7whSfp-c", 
+      "credit":"DJ Raedawn"}
+COMBOS["mf2"]["Tutorial"] = {
+      "url":"https://www.youtube.com/watch?v=XbU7whSfp-c", 
+      "credit":"DJ Raedawn"}
+COMBOS["scf1"]["Tutorial"] = {
+      "url":"https://www.youtube.com/watch?v=7zHJShFI7uM", 
+      "credit":"DJ Raedawn"}
+COMBOS["scf2"]["Tutorial"] = {
+      "url":"https://www.youtube.com/watch?v=7zHJShFI7uM", 
+      "credit":"DJ Raedawn"}
+
 
 ### CORE
 
