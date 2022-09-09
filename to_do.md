@@ -1,8 +1,6 @@
 # To Do
-- boom has two not 5 orbits. Refine orbit def!!! Loopability is key!
-- too many orbit scratches in info???
-- count orbits and reverse orbits individually?
-    - also for orb types (s-o, tazers, usw)?
+
+- prohibit itrt3 and otrt3 tears...
 - automate button, switch and table construction (to avoid hassle when I change scratchbook.py/library.py)
 - load python files internally instead through webaddress?
 - self-building table in js (instead of json imports?)

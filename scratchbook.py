@@ -378,7 +378,7 @@ class Session:
         linewidth = linewidth / beatsfactor
         markersize = markersize / beatsfactor
         fontsize = fontsize / beatsfactor
-        markeredgecolor="black", 
+        markeredgecolor="black"
         markerfacecolor="white"
         height = 2 / beatsfactor
         width = 15
@@ -443,8 +443,8 @@ class Session:
         for fader, markersize in fader_track:
             for click in fader:
                 self.ax.plot(*click, marker="o", markersize=markersize, 
-                    markeredgecolor="black", markeredgewidth=.5, 
-                    markerfacecolor="white")
+                    markeredgecolor=markeredgecolor, markeredgewidth=.5, 
+                    markerfacecolor=markerfacecolor)
         self.fig.tight_layout(pad=pad, h_pad=h_pad, w_pad=w_pad, rect=rect)
         
 ### ELEMENTS #################################################################
