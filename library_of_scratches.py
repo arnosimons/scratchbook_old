@@ -506,8 +506,8 @@ for lib, libname in libraries:
         # myscratch = makeScratch(v["Formula"], codebook)
         # fig = Preview(myscratch).fig
         # fig.savefig(f"previews/{k}.png", format="png")
-        # v["Preview"] = f"""<img class='center' src='previews/{k}.png'>"""
-        v["Preview"] = "TEST"
+        v["Preview"] = f"""<img class='center' src='previews/{k}.png'>"""
+        # v["Preview"] = "TEST"
         v["Tutorial"] = f"""<a href='{v["Tutorial"]["url"]}' target='_blank'>{v["Tutorial"]["credit"]} &#128279;</a>""" if "Tutorial" in v else ""
         for l, ln in libraries:
             v[ln] = 1 if k in l else 0
