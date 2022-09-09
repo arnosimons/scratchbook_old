@@ -503,10 +503,10 @@ libraries = [
 ]
 for lib, libname in libraries:
     for k, v in lib.items():
-        myscratch = makeScratch(v["Formula"], codebook)
-        fig = Preview(myscratch).fig
-        fig.savefig(f"../previews/{k}.png", format="png")
-        v["Preview"] = f"""<img class='center' src='/previews/{k}.png'>"""
+        # myscratch = makeScratch(v["Formula"], codebook)
+        # fig = Preview(myscratch).fig
+        # fig.savefig(f"../previews/{k}.png", format="png")
+        v["Preview"] = f"""<img class='center' src='/projects/scratchbook/previews/{k}.png'>"""
         v["Tutorial"] = f"""<a href='{v["Tutorial"]["url"]}' target='_blank'>{v["Tutorial"]["credit"]} &#128279;</a>""" if "Tutorial" in v else ""
         for l, ln in libraries:
             v[ln] = 1 if k in l else 0
@@ -514,10 +514,10 @@ for lib, libname in libraries:
     # lib = list(lib.values())
     d = {"data":list(lib.values())}
     print(f'Exporting "{libname}" lib with {len(lib)} rows')
-    with open(f'test/{libname}.json', 'w') as f:
+    with open(f'{libname}.json', 'w') as f:
         json.dump(d, f)
 
-with open(f'test/codebook.json', 'w') as f:
+with open(f'codebook.json', 'w') as f:
     json.dump(codebook, f)
 
 
