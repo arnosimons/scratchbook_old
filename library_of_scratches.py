@@ -503,10 +503,11 @@ libraries = [
 ]
 for lib, libname in libraries:
     for k, v in lib.items():
-        myscratch = makeScratch(v["Formula"], codebook)
-        fig = Preview(myscratch).fig
-        fig.savefig(f"previews/{k}.png", format="png")
-        v["Preview"] = f"""<img class='center' src='{k}.png'>"""
+        # myscratch = makeScratch(v["Formula"], codebook)
+        # fig = Preview(myscratch).fig
+        # fig.savefig(f"previews/{k}.png", format="png")
+        # v["Preview"] = f"""<img class='center' src='previews/{k}.png'>"""
+        v["Preview"] = "TEST"
         v["Tutorial"] = f"""<a href='{v["Tutorial"]["url"]}' target='_blank'>{v["Tutorial"]["credit"]} &#128279;</a>""" if "Tutorial" in v else ""
         for l, ln in libraries:
             v[ln] = 1 if k in l else 0
@@ -526,7 +527,7 @@ with open(f'test/codebook.json', 'w') as f:
 print()
 print("HTML Columns")
 print("*" * 80)
-INFOKEYS = ["Name(s)", "Tutorial"] + INFOKEYS + ["Formula", "Search"] + [i[1] for i in libraries]
+INFOKEYS = ["Preview", "Name(s)", "Tutorial"] + INFOKEYS + ["Formula", "Search"] + [i[1] for i in libraries]
 for indx, col in enumerate(INFOKEYS):
     print("{data:" + f'"{col}", title: "{col}"' + "}," + f" // {indx}")
 
