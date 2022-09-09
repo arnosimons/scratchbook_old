@@ -205,6 +205,9 @@ codebook = {
     "ta1":"~iLog_of1Log_12",  
     "tazer1":"ta1",
 
+    "ta1_roll":"(ta1 //.5 / .75) * 4",
+    "tazer1_roll":"ta1_roll",
+
     "ta2":"~iLog_of2Log_13",
     "tazer2":"ta2",
 
@@ -279,6 +282,12 @@ codebook = {
     "turnaroundtransform":"tt",
     
     "internet":"~b/.25 + bo/.5 + f1/.5 + ~b/.25 + bo/.5 + b/.5 + ~b/.25 + bo/.5 + f2/(3/4)",
+
+    "xenon":"(f1//.5 + (f2//.5)**.5)/1 + ~f3",
+
+    "joecooley":"c*3/1.5 + bo*3/.5",
+
+    "clovertears":"(t1 + ~t1) / 1",
 }
 
 
@@ -388,6 +397,9 @@ COMBOS["uzi"]["Tutorial"] = {
 COMBOS["ta1"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=kuVk_wyNAg", 
       "credit":"DJ Rafik"}
+COMBOS["ta1_roll"]["Tutorial"] = {
+      "url":"https://www.youtube.com/watch?v=kuVk_wyNAg?t=17", 
+      "credit":"DJ Rafik"}
 COMBOS["ta2"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=JRaUuXhw6Qk", 
       "credit":"DJ ND"}
@@ -463,7 +475,15 @@ COMBOS["internet"]["Tutorial"] = {
 COMBOS["brbhp"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=REVf6rnZPBc", 
       "credit":"DJ chile"}
-
+COMBOS["xenon"]["Tutorial"] = {
+      "url":"https://www.youtube.com/watch?v=aVgurUuDDSw&t=369s", 
+      "credit":"DJ Qbert"}
+COMBOS["joecooley"]["Tutorial"] = {
+      "url":"https://www.youtube.com/watch?v=nI-CnlGfsVk", 
+      "credit":"DJ Qbert"}
+COMBOS["clovertears"]["Tutorial"] = {
+      "url":"https://www.youtube.com/watch?v=FllVjK2nv3c", 
+      "credit":"DJ Qbert"}
 
 ### CORE
 
@@ -503,9 +523,9 @@ libraries = [
 ]
 for lib, libname in libraries:
     for k, v in lib.items():
-        # myscratch = makeScratch(v["Formula"], codebook)
-        # fig = Preview(myscratch).fig
-        # fig.savefig(f"../previews/{k}.png", format="png")
+        myscratch = makeScratch(v["Formula"], codebook)
+        fig = Preview(myscratch).fig
+        fig.savefig(f"../projects/scratchbook/previews/{k}.png", format="png")
         v["Preview"] = f"""<img class='center' src='/projects/scratchbook/previews/{k}.png'>"""
         v["Tutorial"] = f"""<a href='{v["Tutorial"]["url"]}' target='_blank'>{v["Tutorial"]["credit"]} &#128279;</a>""" if "Tutorial" in v else ""
         for l, ln in libraries:
