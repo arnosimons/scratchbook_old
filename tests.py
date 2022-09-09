@@ -51,7 +51,7 @@ class Preview:
                     markeredgecolor=markeredgecolor, markeredgewidth=.5, 
                     markerfacecolor=markerfacecolor)
         plt.axis("off")
-        self.fig.patch.set_facecolor('#cccccc')
+        self.fig.patch.set_facecolor((0, 0, 0, 0.125))
         self.fig.tight_layout()
 
 

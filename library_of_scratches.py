@@ -53,7 +53,7 @@ class Preview:
                     markeredgecolor=markeredgecolor, markeredgewidth=.5, 
                     markerfacecolor=markerfacecolor)
         plt.axis("off")
-        self.fig.patch.set_facecolor('#cccccc')
+        self.fig.patch.set_facecolor((0, 0, 0, 0.125))
         self.fig.tight_layout()
 
 ### makeLib
@@ -503,11 +503,10 @@ libraries = [
 ]
 for lib, libname in libraries:
     for k, v in lib.items():
-        # myscratch = makeScratch(v["Formula"], codebook)
-        # fig = Preview(myscratch).fig
-        # fig.savefig(f"previews/{k}.png", format="png")
-        v["Preview"] = f"""<img class='center' src='previews/{k}.png'>"""
-        # v["Preview"] = "TEST"
+        myscratch = makeScratch(v["Formula"], codebook)
+        fig = Preview(myscratch).fig
+        fig.savefig(f"../previews/{k}.png", format="png")
+        v["Preview"] = f"""<img class='center' src='/previews/{k}.png'>"""
         v["Tutorial"] = f"""<a href='{v["Tutorial"]["url"]}' target='_blank'>{v["Tutorial"]["credit"]} &#128279;</a>""" if "Tutorial" in v else ""
         for l, ln in libraries:
             v[ln] = 1 if k in l else 0
