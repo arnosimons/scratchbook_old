@@ -64,7 +64,7 @@ codebook = {
     "s":"i_o",
     "boom":"(s + d/0.5//0.5 + ~s + ~d/0.5//0.5) / 2",
 }
-formula = 'f2S_g'
+formula = 'tr2 + transformer2 + df1 + dflare1 + (out)//.3 + ghold'
 myscratch = makeScratch(
   formula,
   codebook
@@ -72,7 +72,7 @@ myscratch = makeScratch(
 info = getInfo(myscratch)
 # for k in ["Tears", "Orbits""]:
 #   print(k, info[k])
-pprint(info)
+# pprint(info)
 fig = Preview(myscratch).fig
 fig.show()
 # %%

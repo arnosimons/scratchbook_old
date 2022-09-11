@@ -470,26 +470,29 @@ def fcl(n, dasq):
         return  [f'{i+1}/{n+3}' for i in range(1, n+1)]
     
 def element(name):
-    _h = "(?P<h>h)"
-    _gh = "(?P<gh>gh)"
-    _g = "(?P<g>g)"
-    _b = "(?P<b>b)"
-    _i = "(?P<i>i)"
-    _o = "(?P<o>o)"
-    _d = "(?P<d>d)"
-    _f = "(?P<f>f(?:lare)*\d)"
-    _if = "(?P<if>if\d)"
-    _of = "(?P<of>of\d)"
-    _tr = "(?P<tr>tr\d)"
+    print("Yes:", name)
+    _h = "(?P<h>h(?:old)?)"
+    _gh = "(?P<gh>g(?:host)?h(?:old)?)"
+    _g = "(?P<g>g(?:host)?)"
+    _b = "(?P<b>b(?:aby)?)"
+    _i = "(?P<i>i(?:n)?)"
+    _o = "(?P<o>o(?:ut)?)"
+    _d = "(?P<d>d(?:ice)?)"
+    _f = "(?P<f>f(?:lare)?\d)"
+    _if = "(?P<if>if(?:lare)?\d)"
+    _of = "(?P<of>of(?:lare)?\d)"
+    _df = "(?P<df>df(?:lare)?\d)" # allow as well...?
+    _tr = "(?P<tr>tr(?:ansformer)?\d)"
     _D = "(?P<D>D)"
     _A = "(?P<A>A)"
     _S = "(?P<S>S)"
     _Q = "(?P<Q>Q)"
     _Ex = "(?P<Ex>Ex)"
     _Log = "(?P<Log>Log)"
-    ELS = re.compile(fr"(?:{_h}|{_gh})$|(?:{_g}|{_b}|{_i}|{_o}|{_d}|(?:{_f}|{_if}|{_of}|{_tr})(?:{_D}|{_A}|{_S}|{_Q})?)(?:{_Ex}|{_Log})?$")
+    ELS = re.compile(fr"(?:{_h}|{_gh})$|(?:{_g}|{_b}|{_i}|{_o}|{_d}|(?:{_f}|{_if}|{_of}|{_df}|{_tr})(?:{_D}|{_A}|{_S}|{_Q})?)(?:{_Ex}|{_Log})?$")
     m = ELS.match(name)
-    if not m or name.startswith("df"):
+    # if not m or name.startswith("df"):
+    if not m:
         raise ValueError(f'unintelligible name: "{name}"')
     dic = m.groupdict()
     dic = {k:True if v else False for k,v in dic.items()}
@@ -508,14 +511,15 @@ def element(name):
             crv = "Log"
         elif dic["Ex"]:
             crv = "Ex"
-        if dic["i"] or dic["d"] or dic["if"] or dic["tr"]:
+        if dic["i"] or dic["d"] or dic["if"] or dic["tr"] or dic["df"]:
             cl.append("0")
-        m = re.match(r"(?:[io]?f(?P<fN>\d)|tr(?P<trN>\d))(?P<DASQ>[DASQ])?", name)
+        m = re.match(r"(?:[iod]?f(?:lare)?(?P<fN>\d)|tr(?:ansformer)?(?P<trN>\d))(?P<DASQ>[DASQ])?", name)
         if m:
+            print("Yes:", name)
             md = m.groupdict()
             n = int(md["fN"]) if md["fN"] else int(md["trN"]) - 1
             cl += fcl(int(n), md['DASQ'])
-        if dic["o"] or dic["d"] or dic["of"] or dic["tr"]:
+        if dic["o"] or dic["d"] or dic["of"] or dic["tr"] or dic["df"]:
             cl.append("1")
         cl = f'[{", ".join(cl)}]'
     scratch = f"Scratch([[[1,1,0], _{crv}, '{crvc}', np.array({cl})]])"
@@ -644,8 +648,13 @@ def new(formula, codebook=codebook):
                     except:
                         for name in new(codebook[name], codebook):
                             yield name
-                            
+
+SLICE = re.compile(r"\bslice\b")            
+IN = re.compile(r"\bin\b")        
+
 def makeScratch(formula, codebook=codebook):
+    formula = SLICE.sub("s", formula)
+    formula = IN.sub("i", formula)
     just_defined = set()
     for n in list(new(formula, codebook))[::-1]:
         if n in just_defined:
