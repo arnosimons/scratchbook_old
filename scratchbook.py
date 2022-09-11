@@ -541,9 +541,10 @@ def tear(name):
     _d = "(?P<d>d)"
     _iod = f"(?:{_i}|{_o}|{_d})"
     _crv = "(?P<crv>Ex|Log)"
-    TRS = re.compile(fr"{_iod}?{_t}{_crv}?(?:__(?P<el>[bd]|(?:f\d|tr\d)[DASQ]?))?$")
+    TRS = re.compile(fr"{_iod}?{_t}{_crv}?(?:__(?P<el>[bd]|(?:d?f\d|tr\d)[DASQ]?))?$")
     m = TRS.match(name)
-    if not m or name.startswith("dft"):
+    # if not m or name.startswith("dft"):
+    if not m:
         raise ValueError(f'unintelligible name: "{name}"')
     dic = m.groupdict()
     if dic["el"]:

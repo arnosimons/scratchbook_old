@@ -64,7 +64,7 @@ codebook = {
     "s":"i_o",
     "boom":"(s + d/0.5//0.5 + ~s + ~d/0.5//0.5) / 2",
 }
-formula = 'tr2 + transformer2 + df1 + dflare1 + (out)//.3 + ghold'
+formula = 'ft2__tr2 + ft2__df1'
 myscratch = makeScratch(
   formula,
   codebook
