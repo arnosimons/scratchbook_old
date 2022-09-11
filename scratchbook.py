@@ -470,7 +470,6 @@ def fcl(n, dasq):
         return  [f'{i+1}/{n+3}' for i in range(1, n+1)]
     
 def element(name):
-    print("Yes:", name)
     _h = "(?P<h>h(?:old)?)"
     _gh = "(?P<gh>g(?:host)?h(?:old)?)"
     _g = "(?P<g>g(?:host)?)"
@@ -515,7 +514,6 @@ def element(name):
             cl.append("0")
         m = re.match(r"(?:[iod]?f(?:lare)?(?P<fN>\d)|tr(?:ansformer)?(?P<trN>\d))(?P<DASQ>[DASQ])?", name)
         if m:
-            print("Yes:", name)
             md = m.groupdict()
             n = int(md["fN"]) if md["fN"] else int(md["trN"]) - 1
             cl += fcl(int(n), md['DASQ'])

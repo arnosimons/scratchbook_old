@@ -580,10 +580,10 @@ libraries = [
 ]
 for lib, libname in libraries:
     for k, v in lib.items():
-        myscratch = makeScratch(v["Formula"], codebook)
-        fig = Preview(myscratch).fig
-        fig.savefig(f"../projects/scratchbook/previews/{k}.png", format="png")
-        v["Preview"] = f"""<img class='center' src='/projects/scratchbook/previews/{k}.png'>"""
+        # myscratch = makeScratch(v["Formula"], codebook)
+        # fig = Preview(myscratch).fig
+        # fig.savefig(f"../projects/scratchbook/previews/{k}.png", format="png")
+        v["Preview"] = f"""<img class='preview' src='/projects/scratchbook/previews/{k}.png'>"""
         v["Tutorial"] = f"""<a href='{v["Tutorial"]["url"]}' target='_blank'>{v["Tutorial"]["credit"]} &#128279;</a>""" if "Tutorial" in v else ""
         for l, ln in libraries:
             v[ln] = 1 if k in l else 0
