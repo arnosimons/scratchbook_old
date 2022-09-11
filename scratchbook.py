@@ -477,7 +477,7 @@ def element(name):
     _i = "(?P<i>i)"
     _o = "(?P<o>o)"
     _d = "(?P<d>d)"
-    _f = "(?P<f>f\d)"
+    _f = "(?P<f>f(?:lare)*\d)"
     _if = "(?P<if>if\d)"
     _of = "(?P<of>of\d)"
     _tr = "(?P<tr>tr\d)"
