@@ -533,13 +533,13 @@ def tearParts(steps, el):
         for i in range(steps)]
 
 def tear(name):
-    _t = "(?P<t>((?P<ft>f)|(?P<trt>tr))?t(?P<tN>\d))"
+    _t = "(?P<t>((?P<ft>f)|(?P<trt>tr))?t(?:ear)?(?P<tN>\d))"
     _i = "(?P<i>i)"
     _o = "(?P<o>o)"
     _d = "(?P<d>d)"
     _iod = f"(?:{_i}|{_o}|{_d})"
     _crv = "(?P<crv>Ex|Log)"
-    TRS = re.compile(fr"{_iod}?{_t}{_crv}?(?:__(?P<el>[bd]|(?:d?f\d|tr\d)[DASQ]?))?$")
+    TRS = re.compile(fr"{_iod}?{_t}{_crv}?(?:__(?P<el>(?:d?f(?:lare)?\d|tr(?:ansformer)?\d)[DASQ]?))?$")
     m = TRS.match(name)
     if not m or name.startswith("otr") or name.startswith("itr"):
         raise ValueError(f'unintelligible name: "{name}"')
@@ -601,13 +601,15 @@ def tear(name):
         
 ### ORBITS ###################################################################
 
-_s = "gbiodftrxDASQEL"
-
+# _s = "gbiodftrxDASQEL"
+_s = "(?:b(?:aby)?|i(?:n)?|o(?:ut)?|d(?:ice)?|(?:[iod]?f(?:lare)?\d|tr(?:ansformer)?\d)[DASQ]?|(?:[iod]f?|tr)t(?:ear)?\d(?:Ex|Log)?(?:__(?:(?:d?f(?:lare)?\d|tr(?:ansformer)?\d)[DASQ]?))?)"
+_c = "(?:Ex|Log)"
 _tEl = "(?:__(?:[bd]|(?:f\d|tr\d)[DASQ]?))"
 
 ORB = re.compile(
     # fr"(?P<L>[{_s}][{_s}\d]*?{_tEl}?)_(?P<R>[{_s}][{_s}\d]*{_tEl}?)(?:_(?P<S>\d\d))?$")
-    fr"(?P<L>[\w\d]*?{_tEl}?)_(?P<R>[\w\d]*?{_tEl}?)(?:_(?P<S>\d\d))?$")
+    # fr"(?P<L>[\w\d]*?{_tEl}?)_(?P<R>[\w\d]*?{_tEl}?)(?:_(?P<S>\d\d))?$")
+    fr"(?P<L>{_s}{_c}?{_tEl}?)_(?P<R>{_s}{_c}?{_tEl}?)(?:_(?P<S>\d\d))?$")
 
 def orbit(name):
     m = ORB.match(name)
@@ -649,11 +651,15 @@ def new(formula, codebook=codebook):
                             yield name
 
 SLICE = re.compile(r"\bslice\b")            
-IN = re.compile(r"\bin\b")        
+IN = re.compile(r"\bin\b")
+IN_ = re.compile(r"\bin_(?=\w)")
+_IN = re.compile(r"(?<=\w)_in\b")        
 
 def makeScratch(formula, codebook=codebook):
     formula = SLICE.sub("s", formula)
     formula = IN.sub("i", formula)
+    formula = IN_.sub("i_", formula)
+    formula = _IN.sub("_i", formula)
     just_defined = set()
     for n in list(new(formula, codebook))[::-1]:
         if n in just_defined:
