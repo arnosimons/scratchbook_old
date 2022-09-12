@@ -606,7 +606,8 @@ _s = "gbiodftrxDASQEL"
 _tEl = "(?:__(?:[bd]|(?:f\d|tr\d)[DASQ]?))"
 
 ORB = re.compile(
-    fr"(?P<L>[{_s}][{_s}\d]*?{_tEl}?)_(?P<R>[{_s}][{_s}\d]*{_tEl}?)(?:_(?P<S>\d\d))?$")
+    # fr"(?P<L>[{_s}][{_s}\d]*?{_tEl}?)_(?P<R>[{_s}][{_s}\d]*{_tEl}?)(?:_(?P<S>\d\d))?$")
+    fr"(?P<L>[\w\d]*?{_tEl}?)_(?P<R>[\w\d]*?{_tEl}?)(?:_(?P<S>\d\d))?$")
 
 def orbit(name):
     m = ORB.match(name)
