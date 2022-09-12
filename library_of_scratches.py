@@ -83,6 +83,29 @@ names = ["h", "gh", "g"] + [f"{base}{crv}"
     "", "Ex", "Log"]]
 ELEMENTS = makeLib(element, names)
 
+for v in ELEMENTS.values():
+      if v["Name(s)"].startswith("b"):
+            v["Name(s)"] = "baby" + v["Name(s)"][1:] + ", " + v["Name(s)"]
+      elif v["Name(s)"].startswith("f"):
+            v["Name(s)"] = "flare" + v["Name(s)"][1:] + ", " + v["Name(s)"]
+      elif v["Name(s)"].startswith("if"):
+            v["Name(s)"] = "iflare" + v["Name(s)"][2:] + ", " + v["Name(s)"]
+      elif v["Name(s)"].startswith("of"):
+            v["Name(s)"] = "oflare" + v["Name(s)"][2:] + ", " + v["Name(s)"]
+      elif v["Name(s)"].startswith("i"):
+            v["Name(s)"] = "in" + v["Name(s)"][1:] + ", " + v["Name(s)"]
+      elif v["Name(s)"].startswith("o"):
+            v["Name(s)"] = "out" + v["Name(s)"][1:] + ", " + v["Name(s)"]
+      elif v["Name(s)"].startswith("d"):
+            v["Name(s)"] = "dice" + v["Name(s)"][1:] + ", " + v["Name(s)"]
+      elif v["Name(s)"].startswith("tr"):
+            v["Name(s)"] = "transformer" + v["Name(s)"][2:] + ", " + v["Name(s)"]
+      elif v["Name(s)"].startswith("gh"):
+            v["Name(s)"] = "ghosthold, ghold, " + v["Name(s)"]
+      elif v["Name(s)"].startswith("h"):
+            v["Name(s)"] = "hold, " + v["Name(s)"]
+      elif v["Name(s)"].startswith("g"):
+            v["Name(s)"] = "ghost, " + v["Name(s)"]
 
 ### TEARS
 
@@ -413,6 +436,7 @@ for lib in [ELEMENTS, TEARS, ORBITS, COMBOS]:
                 if scratch == "Babies":
                     scratch = "Babies Baby"
                 v["Search"] += f" {scratch}"
+        v["Search"] = v["Search"].strip()
 
 
 ### SPECIFIC TUTORIALS
