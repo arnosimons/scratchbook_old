@@ -466,7 +466,7 @@ COMBOS["k"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=rQnMymtQ9sg", 
       "credit":"DJ Raedawn"}
 COMBOS["sf"]["Tutorial"] = {
-      "url":"https://www.youtube.com/watch?v=h3o5OTIy", 
+      "url":"https://www.youtube.com/watch?v=h3o5OTIy-kQ", 
       "credit":"DJ Shiftee"}
 COMBOS["cf1"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=DUaY6gMONmA", 
