@@ -451,10 +451,10 @@ COMBOS["uzi"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=YjtVcQ39QrU", 
       "credit":"DJ Phillee Blunt"}
 COMBOS["ta1"]["Tutorial"] = {
-      "url":"https://www.youtube.com/watch?v=kuVk_wyNAg", 
+      "url":"https://www.youtube.com/watch?v=-kuVk_wyNAg", 
       "credit":"DJ Rafik"}
 COMBOS["ta1_roll"]["Tutorial"] = {
-      "url":"https://www.youtube.com/watch?v=kuVk_wyNAg?t=17", 
+      "url":"https://www.youtube.com/watch?v=-kuVk_wyNAg?t=17", 
       "credit":"DJ Rafik"}
 COMBOS["ta2"]["Tutorial"] = {
       "url":"https://www.youtube.com/watch?v=JRaUuXhw6Qk", 
