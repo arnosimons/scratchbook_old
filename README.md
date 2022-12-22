@@ -1,4 +1,4 @@
-# ScratchBook OLD (Please check my newer ScratchBook Repro)
+# ScratchBook OLD --> Please check my newer <a href="https://scratchbook.pythonanywhere.com/" target="_blank">ScratchBook Repro</a>
 
 This repro builds on the <a href="https://www.ttm-dj.com/" target="_blank">turntablist transcription methodology (TTM)</a>, developed by John Carluccio, Ethan Imboden, and DJ Raedawn, and it makes two distinct contributions to the turntablism community:
 
